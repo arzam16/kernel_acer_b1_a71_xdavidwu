@@ -1,0 +1,10 @@
+--- arch/arm/mm/mmu.c
++++ arch/arm/mm/mmu.c
+@@ -1137,6 +1210,7 @@
+ 	 */
+ 	if (mdesc->map_io)
+ 		mdesc->map_io();
++	fill_pmd_gaps();
+ 
+ 	/*
+ 	 * Finally flush the caches and tlb to ensure that we're in a

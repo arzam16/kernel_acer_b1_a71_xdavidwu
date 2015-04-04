@@ -1,0 +1,37 @@
+#ifndef TOUCHPANEL_H__
+#define TOUCHPANEL_H__
+
+/* Pre-defined definition */
+#define TPD_TYPE_CAPACITIVE
+#define TPD_TYPE_RESISTIVE
+#define TPD_POWER_SOURCE         MT6573_POWER_VGP2
+#define TPD_I2C_NUMBER           0
+#define TPD_WAKEUP_TRIAL         60
+#define TPD_WAKEUP_DELAY         100
+
+#define TPD_DELAY                (2*HZ/100)
+//#define TPD_RES_X                480
+//#define TPD_RES_Y                800
+#define TPD_CALIBRATION_MATRIX  {0,-6995,4190208,2398,0, 0, 0, 0};
+#define TPD_HAVE_CALIBRATION
+//#define TPD_HAVE_BUTTON
+#define TPD_HAVE_TREMBLE_ELIMINATION
+
+#define TPD_HAVE_POWER_ON_OFF
+
+#define MAX_TRANSACTION_LENGTH 8
+#define I2C_DEVICE_ADDRESS_LEN 1
+#define MAX_I2C_TRANSFER_SIZE (MAX_TRANSACTION_LENGTH - I2C_DEVICE_ADDRESS_LEN)
+
+#define TPD_TOUCH_INFO_REG_BASE 1
+#define TPD_POINT_INFO_REG_BASE 3
+#define TPD_POWER_MODE_REG 80
+#define TPD_VERSION_INFO_REG 240
+#define TPD_CONFIG_REG_BASE 101
+
+#define INT_TRIGGER 0x01
+#define MAX_FINGER_NUM 10
+#define TPD_POINT_INFO_LEN 5
+
+#endif /* TOUCHPANEL_H__ */
+

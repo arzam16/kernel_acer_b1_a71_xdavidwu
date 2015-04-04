@@ -1,0 +1,19 @@
+--- net/core/skbuff.c
++++ net/core/skbuff.c
+@@ -1712,6 +1712,7 @@
+ 	struct splice_pipe_desc spd = {
+ 		.pages = pages,
+ 		.partial = partial,
++		.nr_pages_max = MAX_SKB_FRAGS,
+ 		.flags = flags,
+ 		.ops = &sock_pipe_buf_ops,
+ 		.spd_release = sock_spd_release,
+@@ -1758,7 +1759,7 @@
+ 		lock_sock(sk);
+ 	}
+ 
+-	splice_shrink_spd(pipe, &spd);
++	splice_shrink_spd(&spd);
+ 	return ret;
+ }
+ 
