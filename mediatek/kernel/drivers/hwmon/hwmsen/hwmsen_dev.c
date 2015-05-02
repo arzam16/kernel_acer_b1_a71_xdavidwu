@@ -1324,7 +1324,7 @@ int hwmsen_msensor_add(struct sensor_init_info* obj)
 		     HWM_ERR("kzalloc error");
 		     return -1;
 		  }
-		  obj->platform_driver_addr = &msensor_driver;
+		  obj->platform_diver_addr = &msensor_driver; //changed form platform_driver_addr (compare to B1-A71)
 	      msensor_init_list[i] = obj;
 		  
 		  break;
@@ -1425,7 +1425,7 @@ static struct platform_driver gsensor_driver = {
 		     HWM_ERR("kzalloc error");
 		     return -1;
 		  }
-		  obj->platform_driver_addr = &gsensor_driver;
+		  obj->platform_diver_addr = &gsensor_driver; //changed form platform_driver_addr (compare to B1-A71)
 	      gsensor_init_list[i] = obj;
 		  
 		  break;

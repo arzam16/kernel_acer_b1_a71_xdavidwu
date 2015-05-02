@@ -55,7 +55,7 @@ struct sensor_init_info
     char *name;
 	int (*init)(void);
 	int (*uninit)(void);
-	struct platform_driver* platform_driver_addr;
+	struct platform_driver* platform_diver_addr;//changed form platform_driver_addr (compare to B1-A71)
 };
 
 

@@ -34,14 +34,51 @@
 #include "mc3210.h"
 #include <linux/hwmsen_helper.h>
 
+#ifdef MT6516
+#include <mach/mt6516_devs.h>
+#include <mach/mt6516_typedefs.h>
+#include <mach/mt6516_gpio.h>
+#include <mach/mt6516_pll.h>
+#endif
+
+#ifdef MT6573
+#include <mach/mt6573_devs.h>
+#include <mach/mt6573_typedefs.h>
+#include <mach/mt6573_gpio.h>
+#include <mach/mt6573_pll.h>
+#endif
+
+#ifdef MT6575
+#include <mach/mt6575_devs.h>
+#include <mach/mt6575_typedefs.h>
+#include <mach/mt6575_gpio.h>
+#include <mach/mt6575_pm_ldo.h>
+#endif
+
+#ifdef MT6577
+#include <mach/mt_devs.h>
 #include <mach/mt_typedefs.h>
-#include <mach/mt_gpio.h>
+#include <mach/mt6577_gpio.h>
 #include <mach/mt_pm_ldo.h>
+#endif
 
 
 /*-------------------------MT6516&MT6573 define-------------------------------*/
-#define POWER_NONE_MACRO MT65XX_POWER_NONE
+#ifdef MT6516
+#define POWER_NONE_MACRO MT6516_POWER_NONE
+#endif
 
+#ifdef MT6573
+#define POWER_NONE_MACRO MT65XX_POWER_NONE
+#endif
+
+#ifdef MT6575
+#define POWER_NONE_MACRO MT65XX_POWER_NONE
+#endif
+
+#ifdef MT6577
+#define POWER_NONE_MACRO MT65XX_POWER_NONE
+#endif
 
 
 /*----------------------------------------------------------------------------*/
@@ -1903,10 +1940,8 @@ static struct platform_driver mc3210_gsensor_driver = {
 /*----------------------------------------------------------------------------*/
 static int __init mc3210_init(void)
 {
-	struct acc_hw *hw = get_cust_acc_hw();
 	GSE_FUN();
-	GSE_LOG("%s: i2c_number=%d\n", __func__,hw->i2c_num); 
-	i2c_register_board_info(hw->i2c_num, &i2c_mc3210, 1);
+	i2c_register_board_info(0, &i2c_mc3210, 1);
 	if(platform_driver_register(&mc3210_gsensor_driver))
 	{
 		GSE_ERR("failed to register driver");
