@@ -1,0 +1,17 @@
+--- block/Kconfig.iosched
++++ block/Kconfig.iosched
+@@ -40,14 +40,6 @@ config IOSCHED_CFQ
+ 	  working environment, suitable for desktop systems.
+ 	  This is the default I/O scheduler.
+ 
+-config IOSCHED_VR
+-	tristate "V(R) I/O scheduler"
+-	default y
+-	---help---
+-	  Requests are chosen according to SSTF with a penalty of rev_penalty
+-	  for switching head direction.
+-
+-
+ choice
+ 	prompt "Default I/O scheduler"
+ 	default DEFAULT_CFQ

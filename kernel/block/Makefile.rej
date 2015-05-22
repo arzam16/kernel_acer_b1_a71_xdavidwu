@@ -1,0 +1,10 @@
+--- block/Makefile
++++ block/Makefile
+@@ -11,7 +11,6 @@ obj-$(CONFIG_IOSCHED_NOOP)	+= noop-iosched.o
+ obj-$(CONFIG_IOSCHED_AS)	+= as-iosched.o
+ obj-$(CONFIG_IOSCHED_DEADLINE)	+= deadline-iosched.o
+ obj-$(CONFIG_IOSCHED_CFQ)	+= cfq-iosched.o
+-obj-$(CONFIG_IOSCHED_VR)	+= vr-iosched.o
+ 
+ obj-$(CONFIG_BLK_DEV_IO_TRACE)	+= blktrace.o
+ obj-$(CONFIG_BLOCK_COMPAT)	+= compat_ioctl.o

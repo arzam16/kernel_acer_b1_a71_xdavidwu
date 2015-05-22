@@ -24,13 +24,14 @@ modules.builtin
 
 /tags
 /TAGS
-/linux
-/vmlinux
-/vmlinuz
-/System.map
-/Module.markers
+/kernel/linux
+/kernel/vmlinux
+/kernel/vmlinuz
+/kernel/System.map
+/kernel/Module.markers
 /Module.symvers
 /toolchain
+/build_result
 kernelFile
 
 !.gitignore
