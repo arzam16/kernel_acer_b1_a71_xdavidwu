@@ -368,6 +368,11 @@ static inline void reset_page_mapcount(struct page *page)
 	atomic_set(&(page)->_mapcount, -1);
 }
 
+static inline void page_mapcount_reset(struct page *page)
+{
+	atomic_set(&(page)->_mapcount, -1);
+}
+
 static inline int page_mapcount(struct page *page)
 {
 	return atomic_read(&(page)->_mapcount) + 1;

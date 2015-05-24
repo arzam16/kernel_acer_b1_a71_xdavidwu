@@ -103,7 +103,6 @@ deps_config := \
 	drivers/platform/x86/Kconfig \
 	drivers/platform/Kconfig \
 	drivers/staging/ozwpan/Kconfig \
-	drivers/staging/ramster/Kconfig \
 	drivers/staging/telephony/Kconfig \
 	drivers/staging/android/switch/Kconfig \
 	drivers/staging/android/Kconfig \
