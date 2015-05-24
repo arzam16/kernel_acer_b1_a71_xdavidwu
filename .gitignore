@@ -29,10 +29,14 @@ modules.builtin
 /kernel/vmlinuz
 /kernel/System.map
 /kernel/Module.markers
-/Module.symvers
+/kernel/Module.symvers
 /toolchain
 /build_result
 kernelFile
+/kernel/arch/arm/boot/Image
+/kernel/arch/arm/boot/compressed/vmlinux
+/kernel/arch/arm/boot/zImage
+
 
 !.gitignore
 !.mailmap
