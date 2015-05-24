@@ -14,7 +14,7 @@ int cust_acc_power(struct acc_hw *hw, unsigned int on, char* devname)
 }
 /*---------------------------------------------------------------------------*/
 static struct acc_hw cust_acc_hw = {
-    .i2c_num = 2,
+    .i2c_num = 0,
     .direction = 5,
     .power_id = MT65XX_POWER_NONE,  /*!< LDO is not used */
     .power_vol= VOL_DEFAULT,        /*!< LDO is not used */
