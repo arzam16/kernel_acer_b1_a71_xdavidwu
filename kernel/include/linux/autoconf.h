@@ -1,7 +1,7 @@
 /*
  *
  * Automatically generated file; DO NOT EDIT.
- * Linux/arm 3.4.11 Kernel Configuration
+ * Linux/arm 3.4.12 Kernel Configuration
  *
  */
 #define CONFIG_MTK_USB_GADGET 1
@@ -340,7 +340,7 @@
 #define CONFIG_NF_NAT 1
 #define CONFIG_FAIR_GROUP_SCHED 1
 #define CONFIG_CRYPTO_HASH 1
-#define CONFIG_LOG_BUF_SHIFT 17
+#define CONFIG_LOG_BUF_SHIFT 16
 #define CONFIG_SOUND_OSS_CORE_PRECLAIM 1
 #define CONFIG_EXTRA_FIRMWARE ""
 #define CONFIG_NET_VENDOR_8390 1

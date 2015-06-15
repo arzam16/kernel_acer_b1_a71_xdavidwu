@@ -1,6 +1,6 @@
 --- arch/arm/kernel/traps.c
 +++ arch/arm/kernel/traps.c
-@@ -388,23 +388,20 @@
+@@ -388,23 +388,20 @@ asmlinkage void __exception do_undefinstr(struct pt_regs *regs)
  #endif
  			instr = *(u32 *) pc;
  	} else if (thumb_mode(regs)) {
