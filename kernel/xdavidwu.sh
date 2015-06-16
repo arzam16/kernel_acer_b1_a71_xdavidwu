@@ -36,3 +36,25 @@ echo "####       Repack the zImage with the stock RamDisk, and your done        
 cp build_result/kernel/kernel /home/xdavidwu/桌面/boot4pda.img-kernel.img
 datenow=$(date +%Y%m%d%H%M)
 perl /home/xdavidwu/桌面/repack-MTK.pl -boot /home/xdavidwu/桌面/boot4pda.img-kernel.img /home/xdavidwu/桌面/boot4pda.img-ramdisk /home/xdavidwu/桌面/boot${datenow}.img
+if [ "$1" == "test" ]; then
+	echo "testing on real device selected";
+	cd /home/xdavidwu/桌面/;
+	echo "make zip...";
+	cp boot${datenow}.img zip/boot.img;
+	cd zip;
+	zip -r ../test${datenow} * ;
+	rm /home/xdavidwu/桌面/zip/boot.img;
+	echo "reboot into recovery...";
+	adb reboot recovery;
+	echo "Go to sideload and press enter!";
+	read thisisenter;
+	adb sideload /home/xdavidwu/桌面/test${datenow}.zip;
+	echo "Now installing your new kernel!";
+	echo "After installing, press enter again! I'll reboot it!";
+	read anotherenter;
+	adb reboot;
+	if [ "$2" == "clean" ]; then
+		rm ../test${datenow}.zip;
+		rm ../boot${datenow}.img;
+	fi
+fi
