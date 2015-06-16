@@ -1,7 +1,7 @@
 /*
  *
  * Automatically generated file; DO NOT EDIT.
- * Linux/arm 3.4.60 Kernel Configuration
+ * Linux/arm 3.4.67 Kernel Configuration
  *
  */
 #define CONFIG_MTK_USB_GADGET 1
