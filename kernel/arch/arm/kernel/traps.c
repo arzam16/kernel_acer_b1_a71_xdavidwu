@@ -37,7 +37,13 @@
 #include <linux/aee.h>
 #include "signal.h"
 
-static const char *handler[]= { "prefetch abort", "data abort", "address exception", "interrupt" };
+static const char *handler[]= {
+	"prefetch abort",
+	"data abort",
+	"address exception",
+	"interrupt",
+	"undefined instruction",
+};
 
 void *vectors_page;
 extern void aee_stop_nested_panic(struct pt_regs *regs);
