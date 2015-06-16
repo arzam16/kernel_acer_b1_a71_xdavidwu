@@ -18,7 +18,7 @@ cp kernelFile ../build_result/kernel/kernel
 
 echo "**** Copying all built modules (.ko) to /build_result/modules/ ****"
 mkdir -p ../build_result/modules/
-for file in $(find ../ -name *.ko); do
+for file in $(find . -name *.ko); do
  cp $file ../build_result/modules/
 done
 
@@ -55,6 +55,18 @@ if [ "$1" == "test" ]; then
 	adb reboot;
 	if [ "$2" == "clean" ]; then
 		rm ../test${datenow}.zip;
+		rm ../boot${datenow}.img;
+	fi
+elif [ "$1" == "release" ]; then
+	echo "release the builded kernel";
+	cd /home/xdavidwu/桌面/;
+	echo "make zip...";
+	cp boot${datenow}.img zip/boot.img;
+	cd zip;
+	zip -r ../B1-A71_kernel_${datenow} * ;
+	rm /home/xdavidwu/桌面/zip/boot.img;
+	echo "Flashable zip created: B1-A71_kernel_${datenow}.zip"
+	if [ "$2" == "clean" ]; then
 		rm ../boot${datenow}.img;
 	fi
 fi
