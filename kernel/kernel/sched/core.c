@@ -5438,7 +5438,7 @@ static void migrate_tasks(unsigned int dead_cpu)
 	  * pick_next_task_rt
 	  */
 	rq->rt.rt_throttled = 0;
-	
+
 	/* Ensure any throttled groups are reachable by pick_next_task */
 	unthrottle_offline_cfs_rqs(rq);
 
