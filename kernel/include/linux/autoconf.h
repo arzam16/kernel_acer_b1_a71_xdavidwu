@@ -1,7 +1,7 @@
 /*
  *
  * Automatically generated file; DO NOT EDIT.
- * Linux/arm 3.4.80 Kernel Configuration
+ * Linux/arm 3.4.84 Kernel Configuration
  *
  */
 #define CONFIG_MTK_USB_GADGET 1
@@ -186,6 +186,7 @@
 #define CONFIG_IP6_NF_IPTABLES 1
 #define CONFIG_NL80211_TESTMODE 1
 #define CONFIG_CPU_FREQ_GOV_USERSPACE 1
+#define CONFIG_BLK_DEV_DM_BUILTIN 1
 #define CONFIG_INET_IPCOMP 1
 #define CONFIG_KERNEL_LZMA 1
 #define CONFIG_HID_CYPRESS 1
