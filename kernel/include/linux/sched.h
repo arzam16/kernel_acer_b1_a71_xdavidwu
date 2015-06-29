@@ -146,6 +146,7 @@ extern unsigned long get_cpu_load(int cpu);
 
 
 extern void calc_global_load(unsigned long ticks);
+extern void update_cpu_load_nohz(void);
 
 extern unsigned long get_parent_ip(unsigned long addr);
 
