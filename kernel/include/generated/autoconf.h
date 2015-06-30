@@ -1,7 +1,7 @@
 /*
  *
  * Automatically generated file; DO NOT EDIT.
- * Linux/arm 3.4.84 Kernel Configuration
+ * Linux/arm 3.4.90 Kernel Configuration
  *
  */
 #define CONFIG_MTK_USB_GADGET 1
@@ -11,7 +11,6 @@
 #define CONFIG_IP_NF_TARGET_REDIRECT 1
 #define CONFIG_CRC32 1
 #define CONFIG_I2C_BOARDINFO 1
-#define CONFIG_HAVE_AOUT 1
 #define CONFIG_VFP 1
 #define CONFIG_EXT3_FS_XATTR 1
 #define CONFIG_AEABI 1
