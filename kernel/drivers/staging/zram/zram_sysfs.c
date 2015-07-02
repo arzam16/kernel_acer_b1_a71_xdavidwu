@@ -79,6 +79,7 @@ static ssize_t disksize_store(struct device *dev,
 	up_write(&zram->init_lock);
 
 	return len;
+
 }
 
 static ssize_t initstate_show(struct device *dev,
