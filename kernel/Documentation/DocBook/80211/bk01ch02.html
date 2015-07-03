@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Chapter 2. Actions and configuration</title><meta name="generator" content="DocBook XSL Stylesheets V1.78.1" /><link rel="home" href="index.html" title="The 802.11 subsystems – for kernel developers" /><link rel="up" href="cfg80211-developers-guide.html" title="The cfg80211 subsystem" /><link rel="prev" href="API-wdev-priv.html" title="wdev_priv" /><link rel="next" href="API-struct-cfg80211-ops.html" title="struct cfg80211_ops" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Chapter 2. Actions and configuration</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="API-wdev-priv.html">Prev</a> </td><th width="60%" align="center">The cfg80211 subsystem</th><td width="20%" align="right"> <a accesskey="n" href="API-struct-cfg80211-ops.html">Next</a></td></tr></table><hr /></div><div class="chapter"><div class="titlepage"><div><div><h1 class="title"><a id="idp50464096"></a>Chapter 2. Actions and configuration</h1></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="refentrytitle"><a href="API-struct-cfg80211-ops.html"><span class="phrase">struct cfg80211_ops</span></a></span><span class="refpurpose"> — 
+  backend description for wireless configuration
+ </span></dt><dt><span class="refentrytitle"><a href="API-struct-vif-params.html"><span class="phrase">struct vif_params</span></a></span><span class="refpurpose"> — 
+  describes virtual interface parameters
+ </span></dt><dt><span class="refentrytitle"><a href="API-struct-key-params.html"><span class="phrase">struct key_params</span></a></span><span class="refpurpose"> — 
+  key information
+ </span></dt><dt><span class="refentrytitle"><a href="API-enum-survey-info-flags.html"><span class="phrase">enum survey_info_flags</span></a></span><span class="refpurpose"> — 
+  survey information flags
+ </span></dt><dt><span class="refentrytitle"><a href="API-struct-survey-info.html"><span class="phrase">struct survey_info</span></a></span><span class="refpurpose"> — 
+  channel survey response
+ </span></dt><dt><span class="refentrytitle"><a href="bk01ch02re28.html">
+   /home/xdavidwu/android/kernel/b1-710/Kernel_Acer_B1-A71_xdavidwu/kernel//include/net/cfg80211.h
+  </a></span><span class="refpurpose"> — 
+   Document generation inconsistency
+  </span></dt><dt><span class="refentrytitle"><a href="API-enum-plink-actions.html"><span class="phrase">enum plink_actions</span></a></span><span class="refpurpose"> — 
+  actions to perform in mesh peers
+ </span></dt><dt><span class="refentrytitle"><a href="API-struct-station-parameters.html"><span class="phrase">struct station_parameters</span></a></span><span class="refpurpose"> — 
+  station parameters
+ </span></dt><dt><span class="refentrytitle"><a href="API-enum-station-info-flags.html"><span class="phrase">enum station_info_flags</span></a></span><span class="refpurpose"> — 
+  station information flags
+ </span></dt><dt><span class="refentrytitle"><a href="API-enum-rate-info-flags.html"><span class="phrase">enum rate_info_flags</span></a></span><span class="refpurpose"> — 
+  bitrate info flags
+ </span></dt><dt><span class="refentrytitle"><a href="API-struct-rate-info.html"><span class="phrase">struct rate_info</span></a></span><span class="refpurpose"> — 
+  bitrate information
+ </span></dt><dt><span class="refentrytitle"><a href="API-struct-station-info.html"><span class="phrase">struct station_info</span></a></span><span class="refpurpose"> — 
+  station information
+ </span></dt><dt><span class="refentrytitle"><a href="API-enum-monitor-flags.html"><span class="phrase">enum monitor_flags</span></a></span><span class="refpurpose"> — 
+  monitor flags
+ </span></dt><dt><span class="refentrytitle"><a href="API-enum-mpath-info-flags.html"><span class="phrase">enum mpath_info_flags</span></a></span><span class="refpurpose"> — 
+  mesh path information flags
+ </span></dt><dt><span class="refentrytitle"><a href="API-struct-mpath-info.html"><span class="phrase">struct mpath_info</span></a></span><span class="refpurpose"> — 
+  mesh path information
+ </span></dt><dt><span class="refentrytitle"><a href="API-struct-bss-parameters.html"><span class="phrase">struct bss_parameters</span></a></span><span class="refpurpose"> — 
+  BSS parameters
+ </span></dt><dt><span class="refentrytitle"><a href="API-struct-ieee80211-txq-params.html"><span class="phrase">struct ieee80211_txq_params</span></a></span><span class="refpurpose"> — 
+  TX queue parameters
+ </span></dt><dt><span class="refentrytitle"><a href="API-struct-cfg80211-crypto-settings.html"><span class="phrase">struct cfg80211_crypto_settings</span></a></span><span class="refpurpose"> — 
+  Crypto settings
+ </span></dt><dt><span class="refentrytitle"><a href="API-struct-cfg80211-auth-request.html"><span class="phrase">struct cfg80211_auth_request</span></a></span><span class="refpurpose"> — 
+  Authentication request data
+ </span></dt><dt><span class="refentrytitle"><a href="API-struct-cfg80211-assoc-request.html"><span class="phrase">struct cfg80211_assoc_request</span></a></span><span class="refpurpose"> — 
+  (Re)Association request data
+ </span></dt><dt><span class="refentrytitle"><a href="API-struct-cfg80211-deauth-request.html"><span class="phrase">struct cfg80211_deauth_request</span></a></span><span class="refpurpose"> — 
+  Deauthentication request data
+ </span></dt><dt><span class="refentrytitle"><a href="API-struct-cfg80211-disassoc-request.html"><span class="phrase">struct cfg80211_disassoc_request</span></a></span><span class="refpurpose"> — 
+  Disassociation request data
+ </span></dt><dt><span class="refentrytitle"><a href="API-struct-cfg80211-ibss-params.html"><span class="phrase">struct cfg80211_ibss_params</span></a></span><span class="refpurpose"> — 
+  IBSS parameters
+ </span></dt><dt><span class="refentrytitle"><a href="API-struct-cfg80211-connect-params.html"><span class="phrase">struct cfg80211_connect_params</span></a></span><span class="refpurpose"> — 
+  Connection parameters
+ </span></dt><dt><span class="refentrytitle"><a href="API-struct-cfg80211-pmksa.html"><span class="phrase">struct cfg80211_pmksa</span></a></span><span class="refpurpose"> — 
+  PMK Security Association
+ </span></dt><dt><span class="refentrytitle"><a href="API-cfg80211-send-rx-auth.html"><span class="phrase">cfg80211_send_rx_auth</span></a></span><span class="refpurpose"> — 
+  notification of processed authentication
+ </span></dt><dt><span class="refentrytitle"><a href="API-cfg80211-send-auth-timeout.html"><span class="phrase">cfg80211_send_auth_timeout</span></a></span><span class="refpurpose"> — 
+  notification of timed out authentication
+ </span></dt><dt><span class="refentrytitle"><a href="API-cfg80211-send-rx-assoc.html"><span class="phrase">cfg80211_send_rx_assoc</span></a></span><span class="refpurpose"> — 
+  notification of processed association
+ </span></dt><dt><span class="refentrytitle"><a href="API-cfg80211-send-assoc-timeout.html"><span class="phrase">cfg80211_send_assoc_timeout</span></a></span><span class="refpurpose"> — 
+  notification of timed out association
+ </span></dt><dt><span class="refentrytitle"><a href="API-cfg80211-send-deauth.html"><span class="phrase">cfg80211_send_deauth</span></a></span><span class="refpurpose"> — 
+  notification of processed deauthentication
+ </span></dt><dt><span class="refentrytitle"><a href="API---cfg80211-send-deauth.html"><span class="phrase">__cfg80211_send_deauth</span></a></span><span class="refpurpose"> — 
+  notification of processed deauthentication
+ </span></dt><dt><span class="refentrytitle"><a href="API-cfg80211-send-disassoc.html"><span class="phrase">cfg80211_send_disassoc</span></a></span><span class="refpurpose"> — 
+  notification of processed disassociation
+ </span></dt><dt><span class="refentrytitle"><a href="API---cfg80211-send-disassoc.html"><span class="phrase">__cfg80211_send_disassoc</span></a></span><span class="refpurpose"> — 
+  notification of processed disassociation
+ </span></dt><dt><span class="refentrytitle"><a href="API-cfg80211-ibss-joined.html"><span class="phrase">cfg80211_ibss_joined</span></a></span><span class="refpurpose"> — 
+  notify cfg80211 that device joined an IBSS
+ </span></dt><dt><span class="refentrytitle"><a href="API-cfg80211-connect-result.html"><span class="phrase">cfg80211_connect_result</span></a></span><span class="refpurpose"> — 
+  notify cfg80211 of connection result
+ </span></dt><dt><span class="refentrytitle"><a href="API-cfg80211-roamed.html"><span class="phrase">cfg80211_roamed</span></a></span><span class="refpurpose"> — 
+  notify cfg80211 of roaming
+ </span></dt><dt><span class="refentrytitle"><a href="API-cfg80211-disconnected.html"><span class="phrase">cfg80211_disconnected</span></a></span><span class="refpurpose"> — 
+  notify cfg80211 that connection was dropped
+ </span></dt><dt><span class="refentrytitle"><a href="API-cfg80211-ready-on-channel.html"><span class="phrase">cfg80211_ready_on_channel</span></a></span><span class="refpurpose"> — 
+  notification of remain_on_channel start
+ </span></dt><dt><span class="refentrytitle"><a href="API-cfg80211-remain-on-channel-expired.html"><span class="phrase">cfg80211_remain_on_channel_expired</span></a></span><span class="refpurpose"> — 
+  remain_on_channel duration expired
+ </span></dt><dt><span class="refentrytitle"><a href="API-cfg80211-new-sta.html"><span class="phrase">cfg80211_new_sta</span></a></span><span class="refpurpose"> — 
+  notify userspace about station
+ </span></dt><dt><span class="refentrytitle"><a href="API-cfg80211-rx-mgmt.html"><span class="phrase">cfg80211_rx_mgmt</span></a></span><span class="refpurpose"> — 
+  notification of received, unprocessed management frame
+ </span></dt><dt><span class="refentrytitle"><a href="API-cfg80211-mgmt-tx-status.html"><span class="phrase">cfg80211_mgmt_tx_status</span></a></span><span class="refpurpose"> — 
+  notification of TX status for management frame
+ </span></dt><dt><span class="refentrytitle"><a href="API-cfg80211-cqm-rssi-notify.html"><span class="phrase">cfg80211_cqm_rssi_notify</span></a></span><span class="refpurpose"> — 
+  connection quality monitoring rssi event
+ </span></dt><dt><span class="refentrytitle"><a href="API-cfg80211-cqm-pktloss-notify.html"><span class="phrase">cfg80211_cqm_pktloss_notify</span></a></span><span class="refpurpose"> — 
+  notify userspace about packetloss to peer
+ </span></dt><dt><span class="refentrytitle"><a href="API-cfg80211-michael-mic-failure.html"><span class="phrase">cfg80211_michael_mic_failure</span></a></span><span class="refpurpose"> — 
+  notification of Michael MIC failure (TKIP)
+ </span></dt></dl></div><p>
+   </p><p>
+   Each wireless device and each virtual interface offer a set of configuration
+   operations and other actions that are invoked by userspace. Each of these
+   actions is described in the operations structure, and the parameters these
+   operations use are described separately.
+   </p><p>
+   Additionally, some operations are asynchronous and expect to get status
+   information via some functions that drivers need to call.
+   </p><p>
+   Scanning and BSS list handling with its associated functionality is described
+   in a separate chapter.
+</p></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="API-wdev-priv.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="cfg80211-developers-guide.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="API-struct-cfg80211-ops.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top"><span class="phrase">wdev_priv</span> </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> <span class="phrase">struct cfg80211_ops</span></td></tr></table></div></body></html>

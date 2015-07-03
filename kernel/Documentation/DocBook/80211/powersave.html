@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Chapter 9. Powersave support</title><meta name="generator" content="DocBook XSL Stylesheets V1.78.1" /><link rel="home" href="index.html" title="The 802.11 subsystems – for kernel developers" /><link rel="up" href="advanced.html" title="Part II. Advanced driver interface" /><link rel="prev" href="API-ieee80211-key-removed.html" title="ieee80211_key_removed" /><link rel="next" href="beacon-filter.html" title="Chapter 10. Beacon filter support" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Chapter 9. Powersave support</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="API-ieee80211-key-removed.html">Prev</a> </td><th width="60%" align="center">Part II. Advanced driver interface</th><td width="20%" align="right"> <a accesskey="n" href="beacon-filter.html">Next</a></td></tr></table><hr /></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="powersave"></a>Chapter 9. Powersave support</h2></div></div></div><p>
+   </p><p>
+   mac80211 has support for various powersave implementations.
+   </p><p>
+   First, it can support hardware that handles all powersaving by itself,
+   such hardware should simply set the <code class="constant">IEEE80211_HW_SUPPORTS_PS</code> hardware
+   flag. In that case, it will be told about the desired powersave mode
+   with the <code class="constant">IEEE80211_CONF_PS</code> flag depending on the association status.
+   The hardware must take care of sending nullfunc frames when necessary,
+   i.e. when entering and leaving powersave mode. The hardware is required
+   to look at the AID in beacons and signal to the AP that it woke up when
+   it finds traffic directed to it.
+   </p><p>
+   <code class="constant">IEEE80211_CONF_PS</code> flag enabled means that the powersave mode defined in
+   IEEE 802.11-2007 section 11.2 is enabled. This is not to be confused
+   with hardware wakeup and sleep states. Driver is responsible for waking
+   up the hardware before issuing commands to the hardware and putting it
+   back to sleep at appropriate times.
+   </p><p>
+   When PS is enabled, hardware needs to wakeup for beacons and receive the
+   buffered multicast/broadcast frames after the beacon. Also it must be
+   possible to send frames and receive the acknowledment frame.
+   </p><p>
+   Other hardware designs cannot send nullfunc frames by themselves and also
+   need software support for parsing the TIM bitmap. This is also supported
+   by mac80211 by combining the <code class="constant">IEEE80211_HW_SUPPORTS_PS</code> and
+   <code class="constant">IEEE80211_HW_PS_NULLFUNC_STACK</code> flags. The hardware is of course still
+   required to pass up beacons. The hardware is still required to handle
+   waking up for multicast traffic; if it cannot the driver must handle that
+   as best as it can, mac80211 is too slow to do that.
+   </p><p>
+   Dynamic powersave is an extension to normal powersave in which the
+   hardware stays awake for a user-specified period of time after sending a
+   frame so that reply frames need not be buffered and therefore delayed to
+   the next wakeup. It's compromise of getting good enough latency when
+   there's data traffic and still saving significantly power in idle
+   periods.
+   </p><p>
+   Dynamic powersave is simply supported by mac80211 enabling and disabling
+   PS based on traffic. Driver needs to only set <code class="constant">IEEE80211_HW_SUPPORTS_PS</code>
+   flag and mac80211 will handle everything automatically. Additionally,
+   hardware having support for the dynamic PS feature may set the
+   <code class="constant">IEEE80211_HW_SUPPORTS_DYNAMIC_PS</code> flag to indicate that it can support
+   dynamic PS mode itself. The driver needs to look at the
+   <em class="parameter"><code>dynamic_ps_timeout</code></em> hardware configuration value and use it that value
+   whenever <code class="constant">IEEE80211_CONF_PS</code> is set. In this case mac80211 will disable
+   dynamic PS feature in stack and will just keep <code class="constant">IEEE80211_CONF_PS</code>
+   enabled whenever user has enabled powersave.
+   </p><p>
+   Some hardware need to toggle a single shared antenna between WLAN and
+   Bluetooth to facilitate co-existence. These types of hardware set
+   limitations on the use of host controlled dynamic powersave whenever there
+   is simultaneous WLAN and Bluetooth traffic. For these types of hardware, the
+   driver may request temporarily going into full power save, in order to
+   enable toggling the antenna between BT and WLAN. If the driver requests
+   disabling dynamic powersave, the <em class="parameter"><code>dynamic_ps_timeout</code></em> value will be
+   temporarily set to zero until the driver re-enables dynamic powersave.
+   </p><p>
+   Driver informs U-APSD client support by enabling
+   <code class="constant">IEEE80211_HW_SUPPORTS_UAPSD</code> flag. The mode is configured through the
+   uapsd paramater in <code class="function">conf_tx</code> operation. Hardware needs to send the QoS
+   Nullfunc frames and stay awake until the service period has ended. To
+   utilize U-APSD, dynamic powersave is disabled for voip AC and all frames
+   from that AC are transmitted with powersave enabled.
+   </p><p>
+   Note: U-APSD client mode is not yet supported with
+   <code class="constant">IEEE80211_HW_PS_NULLFUNC_STACK</code>.
+</p></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="API-ieee80211-key-removed.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="advanced.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="beacon-filter.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top"><span class="phrase">ieee80211_key_removed</span> </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Chapter 10. Beacon filter support</td></tr></table></div></body></html>

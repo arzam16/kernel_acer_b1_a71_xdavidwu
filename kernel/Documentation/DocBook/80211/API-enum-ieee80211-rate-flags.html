@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>enum ieee80211_rate_flags</title><meta name="generator" content="DocBook XSL Stylesheets V1.78.1" /><link rel="home" href="index.html" title="The 802.11 subsystems – for kernel developers" /><link rel="up" href="bk01ch01.html" title="Chapter 1. Device registration" /><link rel="prev" href="API-struct-ieee80211-channel.html" title="struct ieee80211_channel" /><link rel="next" href="API-struct-ieee80211-rate.html" title="struct ieee80211_rate" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center"><span class="phrase">enum ieee80211_rate_flags</span></th></tr><tr><td width="20%" align="left"><a accesskey="p" href="API-struct-ieee80211-channel.html">Prev</a> </td><th width="60%" align="center">Chapter 1. Device registration</th><td width="20%" align="right"> <a accesskey="n" href="API-struct-ieee80211-rate.html">Next</a></td></tr></table><hr /></div><div class="refentry"><a id="API-enum-ieee80211-rate-flags"></a><div class="titlepage"></div><div class="refnamediv"><h2>Name</h2><p>enum ieee80211_rate_flags — 
+  rate flags
+ </p></div><div class="refsynopsisdiv"><h2>Synopsis</h2><pre class="programlisting">
+enum ieee80211_rate_flags {
+  IEEE80211_RATE_SHORT_PREAMBLE,
+  IEEE80211_RATE_MANDATORY_A,
+  IEEE80211_RATE_MANDATORY_B,
+  IEEE80211_RATE_MANDATORY_G,
+  IEEE80211_RATE_ERP_G
+};  </pre></div><div class="refsect1"><a id="idp50090240"></a><h2>Constants</h2><div class="variablelist"><dl class="variablelist"><dt><span class="term">IEEE80211_RATE_SHORT_PREAMBLE</span></dt><dd><p>
+Hardware can send with short
+preamble on this bitrate; only relevant in 2.4GHz band and
+with CCK rates.
+      </p></dd><dt><span class="term">IEEE80211_RATE_MANDATORY_A</span></dt><dd><p>
+This bitrate is a mandatory rate
+when used with 802.11a (on the 5 GHz band); filled by the
+core code when registering the wiphy.
+      </p></dd><dt><span class="term">IEEE80211_RATE_MANDATORY_B</span></dt><dd><p>
+This bitrate is a mandatory rate
+when used with 802.11b (on the 2.4 GHz band); filled by the
+core code when registering the wiphy.
+      </p></dd><dt><span class="term">IEEE80211_RATE_MANDATORY_G</span></dt><dd><p>
+This bitrate is a mandatory rate
+when used with 802.11g (on the 2.4 GHz band); filled by the
+core code when registering the wiphy.
+      </p></dd><dt><span class="term">IEEE80211_RATE_ERP_G</span></dt><dd><p>
+This is an ERP rate in 802.11g mode.
+      </p></dd></dl></div></div><div class="refsect1"><a id="idp50098400"></a><h2>Description</h2><p>
+   </p><p>
+
+   Hardware/specification flags for rates. These are structured
+   in a way that allows using the same bitrate structure for
+   different bands/PHY modes.
+</p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="API-struct-ieee80211-channel.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="bk01ch01.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="API-struct-ieee80211-rate.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top"><span class="phrase">struct ieee80211_channel</span> </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> <span class="phrase">struct ieee80211_rate</span></td></tr></table></div></body></html>

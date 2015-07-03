@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>struct sta_info</title><meta name="generator" content="DocBook XSL Stylesheets V1.78.1" /><link rel="home" href="index.html" title="The 802.11 subsystems – for kernel developers" /><link rel="up" href="sta-info.html#idp54035088" title="Programming information" /><link rel="prev" href="sta-info.html" title="Chapter 22. Station info handling" /><link rel="next" href="API-enum-ieee80211-sta-info-flags.html" title="enum ieee80211_sta_info_flags" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center"><span class="phrase">struct sta_info</span></th></tr><tr><td width="20%" align="left"><a accesskey="p" href="sta-info.html">Prev</a> </td><th width="60%" align="center">Programming information</th><td width="20%" align="right"> <a accesskey="n" href="API-enum-ieee80211-sta-info-flags.html">Next</a></td></tr></table><hr /></div><div class="refentry"><a id="API-struct-sta-info"></a><div class="titlepage"></div><div class="refnamediv"><h2>Name</h2><p>struct sta_info — 
+  STA information
+ </p></div><div class="refsynopsisdiv"><h2>Synopsis</h2><pre class="programlisting">
+struct sta_info {
+  struct list_head list;
+  struct sta_info __rcu * hnext;
+  struct ieee80211_local * local;
+  struct ieee80211_sub_if_data * sdata;
+  struct ieee80211_key __rcu * gtk[NUM_DEFAULT_KEYS + NUM_DEFAULT_MGMT_KEYS];
+  struct ieee80211_key __rcu * ptk;
+  struct rate_control_ref * rate_ctrl;
+  void * rate_ctrl_priv;
+  spinlock_t lock;
+  struct work_struct drv_unblock_wk;
+  u16 listen_interval;
+  bool dead;
+  bool uploaded;
+  enum ieee80211_sta_state sta_state;
+  unsigned long _flags;
+  spinlock_t ps_lock;
+  struct sk_buff_head ps_tx_buf[IEEE80211_NUM_ACS];
+  struct sk_buff_head tx_filtered[IEEE80211_NUM_ACS];
+  unsigned long driver_buffered_tids;
+  unsigned long rx_packets;
+  unsigned long rx_bytes;
+  unsigned long wep_weak_iv_count;
+  unsigned long last_rx;
+  long last_connected;
+  unsigned long num_duplicates;
+  unsigned long rx_fragments;
+  unsigned long rx_dropped;
+  int last_signal;
+  struct ewma avg_signal;
+  __le16 last_seq_ctrl[NUM_RX_DATA_QUEUES + 1];
+  unsigned long tx_filtered_count;
+  unsigned long tx_retry_failed;
+  unsigned long tx_retry_count;
+  unsigned int fail_avg;
+  unsigned long tx_packets;
+  unsigned long tx_bytes;
+  unsigned long tx_fragments;
+  struct ieee80211_tx_rate last_tx_rate;
+  int last_rx_rate_idx;
+  int last_rx_rate_flag;
+  u16 tid_seq[IEEE80211_QOS_CTL_TID_MASK + 1];
+  struct sta_ampdu_mlme ampdu_mlme;
+  u8 timer_to_tid[STA_TID_NUM];
+#ifdef CONFIG_MAC80211_MESH
+  __le16 llid;
+  __le16 plid;
+  __le16 reason;
+  u8 plink_retries;
+  bool ignore_plink_timer;
+  bool plink_timer_was_running;
+  enum nl80211_plink_state plink_state;
+  u32 plink_timeout;
+  struct timer_list plink_timer;
+#endif
+#ifdef CONFIG_MAC80211_DEBUGFS
+  struct sta_info_debugfsdentries debugfs;
+#endif
+  unsigned int lost_packets;
+  unsigned int beacon_loss_count;
+  struct ieee80211_sta sta;
+};  </pre></div><div class="refsect1"><a id="idp54044864"></a><h2>Members</h2><div class="variablelist"><dl class="variablelist"><dt><span class="term">list</span></dt><dd><p>
+global linked list entry
+      </p></dd><dt><span class="term">hnext</span></dt><dd><p>
+hash table linked list pointer
+      </p></dd><dt><span class="term">local</span></dt><dd><p>
+pointer to the global information
+      </p></dd><dt><span class="term">sdata</span></dt><dd><p>
+virtual interface this station belongs to
+      </p></dd><dt><span class="term">gtk[NUM_DEFAULT_KEYS + NUM_DEFAULT_MGMT_KEYS]</span></dt><dd><p>
+group keys negotiated with this station, if any
+      </p></dd><dt><span class="term">ptk</span></dt><dd><p>
+peer key negotiated with this station, if any
+      </p></dd><dt><span class="term">rate_ctrl</span></dt><dd><p>
+rate control algorithm reference
+      </p></dd><dt><span class="term">rate_ctrl_priv</span></dt><dd><p>
+rate control private per-STA pointer
+      </p></dd><dt><span class="term">lock</span></dt><dd><p>
+used for locking all fields that require locking, see comments
+in the header file.
+      </p></dd><dt><span class="term">drv_unblock_wk</span></dt><dd><p>
+used for driver PS unblocking
+      </p></dd><dt><span class="term">listen_interval</span></dt><dd><p>
+listen interval of this station, when we're acting as AP
+      </p></dd><dt><span class="term">dead</span></dt><dd><p>
+set to true when sta is unlinked
+      </p></dd><dt><span class="term">uploaded</span></dt><dd><p>
+set to true when sta is uploaded to the driver
+      </p></dd><dt><span class="term">sta_state</span></dt><dd><p>
+duplicates information about station state (for debug)
+      </p></dd><dt><span class="term">_flags</span></dt><dd><p>
+STA flags, see <span class="structname">enum</span> ieee80211_sta_info_flags, do not use directly
+      </p></dd><dt><span class="term">ps_lock</span></dt><dd><p>
+used for powersave (when mac80211 is the AP) related locking
+      </p></dd><dt><span class="term">ps_tx_buf[IEEE80211_NUM_ACS]</span></dt><dd><p>
+buffers (per AC) of frames to transmit to this station
+when it leaves power saving state or polls
+      </p></dd><dt><span class="term">tx_filtered[IEEE80211_NUM_ACS]</span></dt><dd><p>
+buffers (per AC) of frames we already tried to
+transmit but were filtered by hardware due to STA having
+entered power saving state, these are also delivered to
+the station when it leaves powersave or polls for frames
+      </p></dd><dt><span class="term">driver_buffered_tids</span></dt><dd><p>
+bitmap of TIDs the driver has data buffered on
+      </p></dd><dt><span class="term">rx_packets</span></dt><dd><p>
+Number of MSDUs received from this STA
+      </p></dd><dt><span class="term">rx_bytes</span></dt><dd><p>
+Number of bytes received from this STA
+      </p></dd><dt><span class="term">wep_weak_iv_count</span></dt><dd><p>
+number of weak WEP IVs received from this station
+      </p></dd><dt><span class="term">last_rx</span></dt><dd><p>
+time (in jiffies) when last frame was received from this STA
+      </p></dd><dt><span class="term">last_connected</span></dt><dd><p>
+time (in seconds) when a station got connected
+      </p></dd><dt><span class="term">num_duplicates</span></dt><dd><p>
+number of duplicate frames received from this STA
+      </p></dd><dt><span class="term">rx_fragments</span></dt><dd><p>
+number of received MPDUs
+      </p></dd><dt><span class="term">rx_dropped</span></dt><dd><p>
+number of dropped MPDUs from this STA
+      </p></dd><dt><span class="term">last_signal</span></dt><dd><p>
+signal of last received frame from this STA
+      </p></dd><dt><span class="term">avg_signal</span></dt><dd><p>
+moving average of signal of received frames from this STA
+      </p></dd><dt><span class="term">last_seq_ctrl[NUM_RX_DATA_QUEUES + 1]</span></dt><dd><p>
+last received seq/frag number from this STA (per RX queue)
+      </p></dd><dt><span class="term">tx_filtered_count</span></dt><dd><p>
+number of frames the hardware filtered for this STA
+      </p></dd><dt><span class="term">tx_retry_failed</span></dt><dd><p>
+number of frames that failed retry
+      </p></dd><dt><span class="term">tx_retry_count</span></dt><dd><p>
+total number of retries for frames to this STA
+      </p></dd><dt><span class="term">fail_avg</span></dt><dd><p>
+moving percentage of failed MSDUs
+      </p></dd><dt><span class="term">tx_packets</span></dt><dd><p>
+number of RX/TX MSDUs
+      </p></dd><dt><span class="term">tx_bytes</span></dt><dd><p>
+number of bytes transmitted to this STA
+      </p></dd><dt><span class="term">tx_fragments</span></dt><dd><p>
+number of transmitted MPDUs
+      </p></dd><dt><span class="term">last_tx_rate</span></dt><dd><p>
+rate used for last transmit, to report to userspace as
+<span class="quote">“<span class="quote">the</span>”</span> transmit rate
+      </p></dd><dt><span class="term">last_rx_rate_idx</span></dt><dd><p>
+rx status rate index of the last data packet
+      </p></dd><dt><span class="term">last_rx_rate_flag</span></dt><dd><p>
+rx status flag of the last data packet
+      </p></dd><dt><span class="term">tid_seq[IEEE80211_QOS_CTL_TID_MASK + 1]</span></dt><dd><p>
+per-TID sequence numbers for sending to this STA
+      </p></dd><dt><span class="term">ampdu_mlme</span></dt><dd><p>
+A-MPDU state machine state
+      </p></dd><dt><span class="term">timer_to_tid[STA_TID_NUM]</span></dt><dd><p>
+identity mapping to ID timers
+      </p></dd><dt><span class="term">llid</span></dt><dd><p>
+Local link ID
+      </p></dd><dt><span class="term">plid</span></dt><dd><p>
+Peer link ID
+      </p></dd><dt><span class="term">reason</span></dt><dd><p>
+Cancel reason on PLINK_HOLDING state
+      </p></dd><dt><span class="term">plink_retries</span></dt><dd><p>
+Retries in establishment
+      </p></dd><dt><span class="term">ignore_plink_timer</span></dt><dd><p>
+ignore the peer-link timer (used internally)
+      </p></dd><dt><span class="term">plink_timer_was_running</span></dt><dd><p>
+used by suspend/resume to restore timers
+      </p></dd><dt><span class="term">plink_state</span></dt><dd><p>
+peer link state
+      </p></dd><dt><span class="term">plink_timeout</span></dt><dd><p>
+timeout of peer link
+      </p></dd><dt><span class="term">plink_timer</span></dt><dd><p>
+peer link watch timer
+      </p></dd><dt><span class="term">debugfs</span></dt><dd><p>
+debug filesystem info
+      </p></dd><dt><span class="term">lost_packets</span></dt><dd><p>
+number of consecutive lost packets
+      </p></dd><dt><span class="term">beacon_loss_count</span></dt><dd><p>
+number of times beacon loss has triggered
+      </p></dd><dt><span class="term">sta</span></dt><dd><p>
+station information we share with the driver
+      </p></dd></dl></div></div><div class="refsect1"><a id="idp54124288"></a><h2>Description</h2><p>
+   </p><p>
+
+   This structure collects information about a station that
+   mac80211 is communicating with.
+</p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="sta-info.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="sta-info.html#idp54035088">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="API-enum-ieee80211-sta-info-flags.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter 22. Station info handling </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> <span class="phrase">enum ieee80211_sta_info_flags</span></td></tr></table></div></body></html>

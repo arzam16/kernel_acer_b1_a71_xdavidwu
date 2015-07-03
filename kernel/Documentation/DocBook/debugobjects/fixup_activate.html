@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>fixup_activate</title><meta name="generator" content="DocBook XSL Stylesheets V1.78.1" /><link rel="home" href="index.html" title="Debug objects life time" /><link rel="up" href="fixupfunctions.html" title="Chapter 4. Fixup functions" /><link rel="prev" href="fixup_init.html" title="fixup_init" /><link rel="next" href="fixup_destroy.html" title="fixup_destroy" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">fixup_activate</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="fixup_init.html">Prev</a> </td><th width="60%" align="center">Chapter 4. Fixup functions</th><td width="20%" align="right"> <a accesskey="n" href="fixup_destroy.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="fixup_activate"></a>fixup_activate</h2></div></div></div><p>
+	This function is called from the debug code whenever a problem
+	in debug_object_activate is detected.
+      </p><p>
+	Called from debug_object_activate when the object state is:
+	</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>ODEBUG_STATE_NOTAVAILABLE</p></li><li class="listitem"><p>ODEBUG_STATE_ACTIVE</p></li></ul></div><p>
+      </p><p>
+	The function returns 1 when the fixup was successful,
+	otherwise 0. The return value is used to update the
+	statistics.
+      </p><p>
+	Note that the function needs to call the debug_object_activate()
+	function again after the damage has been repaired in order to
+	keep the state consistent.
+      </p><p>
+	The activation of statically initialized objects is a special
+	case. When debug_object_activate() has no tracked object for
+	this object address then fixup_activate() is called with
+	object state ODEBUG_STATE_NOTAVAILABLE. The fixup function
+	needs to check whether this is a legitimate case of a
+	statically initialized object or not. In case it is it calls
+	debug_object_init() and debug_object_activate() to make the
+	object known to the tracker and marked active. In this case
+	the function should return 0 because this is not a real fixup.
+      </p></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="fixup_init.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="fixupfunctions.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="fixup_destroy.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">fixup_init </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> fixup_destroy</td></tr></table></div></body></html>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Chapter 17. Spatial Multiplexing Powersave (SMPS)</title><meta name="generator" content="DocBook XSL Stylesheets V1.78.1" /><link rel="home" href="index.html" title="The 802.11 subsystems – for kernel developers" /><link rel="up" href="advanced.html" title="Part II. Advanced driver interface" /><link rel="prev" href="API-enum-ieee80211-ampdu-mlme-action.html" title="enum ieee80211_ampdu_mlme_action" /><link rel="next" href="API-ieee80211-request-smps.html" title="ieee80211_request_smps" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Chapter 17. Spatial Multiplexing Powersave (SMPS)</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="API-enum-ieee80211-ampdu-mlme-action.html">Prev</a> </td><th width="60%" align="center">Part II. Advanced driver interface</th><td width="20%" align="right"> <a accesskey="n" href="API-ieee80211-request-smps.html">Next</a></td></tr></table><hr /></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="smps"></a>Chapter 17. Spatial Multiplexing Powersave (SMPS)</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="refentrytitle"><a href="API-ieee80211-request-smps.html"><span class="phrase">ieee80211_request_smps</span></a></span><span class="refpurpose"> — 
+  request SM PS transition
+ </span></dt><dt><span class="refentrytitle"><a href="API-enum-ieee80211-smps-mode.html"><span class="phrase">enum ieee80211_smps_mode</span></a></span><span class="refpurpose"> — 
+  spatial multiplexing power save mode
+ </span></dt></dl></div><p>
+   </p><p>
+   SMPS (Spatial multiplexing power save) is a mechanism to conserve
+   power in an 802.11n implementation. For details on the mechanism
+   and rationale, please refer to 802.11 (as amended by 802.11n-2009)
+   <span class="quote">“<span class="quote">11.2.3 SM power save</span>”</span>.
+   </p><p>
+   The mac80211 implementation is capable of sending action frames
+   to update the AP about the station's SMPS mode, and will instruct
+   the driver to enter the specific mode. It will also announce the
+   requested SMPS mode during the association handshake. Hardware
+   support for this feature is required, and can be indicated by
+   hardware flags.
+   </p><p>
+   The default mode will be <span class="quote">“<span class="quote">automatic</span>”</span>, which nl80211/cfg80211
+   defines to be dynamic SMPS in (regular) powersave, and SMPS
+   turned off otherwise.
+   </p><p>
+   To support this feature, the driver must set the appropriate
+   hardware support flags, and handle the SMPS flag to the <code class="function">config</code>
+   operation. It will then with this mechanism be instructed to
+   enter the requested SMPS mode while associated to an HT AP.
+</p></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="API-enum-ieee80211-ampdu-mlme-action.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="advanced.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="API-ieee80211-request-smps.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top"><span class="phrase">enum ieee80211_ampdu_mlme_action</span> </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> <span class="phrase">ieee80211_request_smps</span></td></tr></table></div></body></html>

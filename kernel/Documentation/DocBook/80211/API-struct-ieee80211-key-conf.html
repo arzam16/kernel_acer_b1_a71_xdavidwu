@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>struct ieee80211_key_conf</title><meta name="generator" content="DocBook XSL Stylesheets V1.78.1" /><link rel="home" href="index.html" title="The 802.11 subsystems – for kernel developers" /><link rel="up" href="hardware-crypto-offload.html" title="Chapter 8. Hardware crypto acceleration" /><link rel="prev" href="API-enum-set-key-cmd.html" title="enum set_key_cmd" /><link rel="next" href="API-enum-ieee80211-key-flags.html" title="enum ieee80211_key_flags" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center"><span class="phrase">struct ieee80211_key_conf</span></th></tr><tr><td width="20%" align="left"><a accesskey="p" href="API-enum-set-key-cmd.html">Prev</a> </td><th width="60%" align="center">Chapter 8. Hardware crypto acceleration</th><td width="20%" align="right"> <a accesskey="n" href="API-enum-ieee80211-key-flags.html">Next</a></td></tr></table><hr /></div><div class="refentry"><a id="API-struct-ieee80211-key-conf"></a><div class="titlepage"></div><div class="refnamediv"><h2>Name</h2><p>struct ieee80211_key_conf — 
+  key information
+ </p></div><div class="refsynopsisdiv"><h2>Synopsis</h2><pre class="programlisting">
+struct ieee80211_key_conf {
+  u32 cipher;
+  u8 icv_len;
+  u8 iv_len;
+  u8 hw_key_idx;
+  u8 flags;
+  s8 keyidx;
+  u8 keylen;
+  u8 key[0];
+};  </pre></div><div class="refsect1"><a id="idp53319856"></a><h2>Members</h2><div class="variablelist"><dl class="variablelist"><dt><span class="term">cipher</span></dt><dd><p>
+The key's cipher suite selector.
+      </p></dd><dt><span class="term">icv_len</span></dt><dd><p>
+The ICV length for this key type
+      </p></dd><dt><span class="term">iv_len</span></dt><dd><p>
+The IV length for this key type
+      </p></dd><dt><span class="term">hw_key_idx</span></dt><dd><p>
+To be set by the driver, this is the key index the driver
+wants to be given when a frame is transmitted and needs to be
+encrypted in hardware.
+      </p></dd><dt><span class="term">flags</span></dt><dd><p>
+key flags, see <span class="structname">enum</span> ieee80211_key_flags.
+      </p></dd><dt><span class="term">keyidx</span></dt><dd><p>
+the key index (0-3)
+      </p></dd><dt><span class="term">keylen</span></dt><dd><p>
+key material length
+      </p></dd><dt><span class="term">key[0]</span></dt><dd><p>
+key material. For ALG_TKIP the key is encoded as a 256-bit (32 byte)
+      </p></dd></dl></div></div><div class="refsect1"><a id="idp53332560"></a><h2>Description</h2><p>
+   </p><p>
+
+   This key information is given by mac80211 to the driver by
+   the <code class="function">set_key</code> callback in <span class="structname">struct ieee80211_ops</span>.
+</p></div><div class="refsect1"><a id="idp53335216"></a><h2>data block</h2><p>
+   - Temporal Encryption Key (128 bits)
+   - Temporal Authenticator Tx MIC Key (64 bits)
+   - Temporal Authenticator Rx MIC Key (64 bits)
+</p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="API-enum-set-key-cmd.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="hardware-crypto-offload.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="API-enum-ieee80211-key-flags.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top"><span class="phrase">enum set_key_cmd</span> </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> <span class="phrase">enum ieee80211_key_flags</span></td></tr></table></div></body></html>

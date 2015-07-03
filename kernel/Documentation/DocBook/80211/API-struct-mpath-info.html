@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>struct mpath_info</title><meta name="generator" content="DocBook XSL Stylesheets V1.78.1" /><link rel="home" href="index.html" title="The 802.11 subsystems – for kernel developers" /><link rel="up" href="bk01ch02.html" title="Chapter 2. Actions and configuration" /><link rel="prev" href="API-enum-mpath-info-flags.html" title="enum mpath_info_flags" /><link rel="next" href="API-struct-bss-parameters.html" title="struct bss_parameters" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center"><span class="phrase">struct mpath_info</span></th></tr><tr><td width="20%" align="left"><a accesskey="p" href="API-enum-mpath-info-flags.html">Prev</a> </td><th width="60%" align="center">Chapter 2. Actions and configuration</th><td width="20%" align="right"> <a accesskey="n" href="API-struct-bss-parameters.html">Next</a></td></tr></table><hr /></div><div class="refentry"><a id="API-struct-mpath-info"></a><div class="titlepage"></div><div class="refnamediv"><h2>Name</h2><p>struct mpath_info — 
+  mesh path information
+ </p></div><div class="refsynopsisdiv"><h2>Synopsis</h2><pre class="programlisting">
+struct mpath_info {
+  u32 filled;
+  u32 frame_qlen;
+  u32 sn;
+  u32 metric;
+  u32 exptime;
+  u32 discovery_timeout;
+  u8 discovery_retries;
+  u8 flags;
+  int generation;
+};  </pre></div><div class="refsect1"><a id="idp50881856"></a><h2>Members</h2><div class="variablelist"><dl class="variablelist"><dt><span class="term">filled</span></dt><dd><p>
+bitfield of flags from <span class="structname">enum</span> mpath_info_flags
+      </p></dd><dt><span class="term">frame_qlen</span></dt><dd><p>
+number of queued frames for this destination
+      </p></dd><dt><span class="term">sn</span></dt><dd><p>
+target sequence number
+      </p></dd><dt><span class="term">metric</span></dt><dd><p>
+metric (cost) of this mesh path
+      </p></dd><dt><span class="term">exptime</span></dt><dd><p>
+expiration time for the mesh path from now, in msecs
+      </p></dd><dt><span class="term">discovery_timeout</span></dt><dd><p>
+total mesh path discovery timeout, in msecs
+      </p></dd><dt><span class="term">discovery_retries</span></dt><dd><p>
+mesh path discovery retries
+      </p></dd><dt><span class="term">flags</span></dt><dd><p>
+mesh path flags
+      </p></dd><dt><span class="term">generation</span></dt><dd><p>
+generation number for nl80211 dumps.
+This number should increase every time the list of mesh paths
+changes, i.e. when a station is added or removed, so that
+userspace can tell whether it got a consistent snapshot.
+      </p></dd></dl></div></div><div class="refsect1"><a id="idp50895232"></a><h2>Description</h2><p>
+   </p><p>
+
+   Mesh path information filled by driver for <code class="function">get_mpath</code> and <code class="function">dump_mpath</code>.
+</p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="API-enum-mpath-info-flags.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="bk01ch02.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="API-struct-bss-parameters.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top"><span class="phrase">enum mpath_info_flags</span> </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> <span class="phrase">struct bss_parameters</span></td></tr></table></div></body></html>

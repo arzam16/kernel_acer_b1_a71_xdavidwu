@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>struct cfg80211_ibss_params</title><meta name="generator" content="DocBook XSL Stylesheets V1.78.1" /><link rel="home" href="index.html" title="The 802.11 subsystems – for kernel developers" /><link rel="up" href="bk01ch02.html" title="Chapter 2. Actions and configuration" /><link rel="prev" href="API-struct-cfg80211-disassoc-request.html" title="struct cfg80211_disassoc_request" /><link rel="next" href="API-struct-cfg80211-connect-params.html" title="struct cfg80211_connect_params" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center"><span class="phrase">struct cfg80211_ibss_params</span></th></tr><tr><td width="20%" align="left"><a accesskey="p" href="API-struct-cfg80211-disassoc-request.html">Prev</a> </td><th width="60%" align="center">Chapter 2. Actions and configuration</th><td width="20%" align="right"> <a accesskey="n" href="API-struct-cfg80211-connect-params.html">Next</a></td></tr></table><hr /></div><div class="refentry"><a id="API-struct-cfg80211-ibss-params"></a><div class="titlepage"></div><div class="refnamediv"><h2>Name</h2><p>struct cfg80211_ibss_params — 
+  IBSS parameters
+ </p></div><div class="refsynopsisdiv"><h2>Synopsis</h2><pre class="programlisting">
+struct cfg80211_ibss_params {
+  u8 * ssid;
+  u8 * bssid;
+  struct ieee80211_channel * channel;
+  enum nl80211_channel_type channel_type;
+  u8 * ie;
+  u8 ssid_len;
+  u8 ie_len;
+  u16 beacon_interval;
+  u32 basic_rates;
+  bool channel_fixed;
+  bool privacy;
+  bool control_port;
+  int mcast_rate[IEEE80211_NUM_BANDS];
+};  </pre></div><div class="refsect1"><a id="idp51035376"></a><h2>Members</h2><div class="variablelist"><dl class="variablelist"><dt><span class="term">ssid</span></dt><dd><p>
+The SSID, will always be non-null.
+      </p></dd><dt><span class="term">bssid</span></dt><dd><p>
+Fixed BSSID requested, maybe be <code class="constant">NULL</code>, if set do not
+search for IBSSs with a different BSSID.
+      </p></dd><dt><span class="term">channel</span></dt><dd><p>
+The channel to use if no IBSS can be found to join.
+      </p></dd><dt><span class="term">channel_type</span></dt><dd><p>
+channel type (HT mode)
+      </p></dd><dt><span class="term">ie</span></dt><dd><p>
+information element(s) to include in the beacon
+      </p></dd><dt><span class="term">ssid_len</span></dt><dd><p>
+The length of the SSID, will always be non-zero.
+      </p></dd><dt><span class="term">ie_len</span></dt><dd><p>
+length of that
+      </p></dd><dt><span class="term">beacon_interval</span></dt><dd><p>
+beacon interval to use
+      </p></dd><dt><span class="term">basic_rates</span></dt><dd><p>
+bitmap of basic rates to use when creating the IBSS
+      </p></dd><dt><span class="term">channel_fixed</span></dt><dd><p>
+The channel should be fixed -- do not search for
+IBSSs to join on other channels.
+      </p></dd><dt><span class="term">privacy</span></dt><dd><p>
+this is a protected network, keys will be configured
+after joining
+      </p></dd><dt><span class="term">control_port</span></dt><dd><p>
+whether user space controls IEEE 802.1X port, i.e.,
+sets/clears <code class="constant">NL80211_STA_FLAG_AUTHORIZED</code>. If true, the driver is
+required to assume that the port is unauthorized until authorized by
+user space. Otherwise, port is marked authorized by default.
+      </p></dd><dt><span class="term">mcast_rate[IEEE80211_NUM_BANDS]</span></dt><dd><p>
+per-band multicast rate index + 1 (0: disabled)
+      </p></dd></dl></div></div><div class="refsect1"><a id="idp51054720"></a><h2>Description</h2><p>
+   </p><p>
+
+   This structure defines the IBSS parameters for the <code class="function">join_ibss</code>
+   method.
+</p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="API-struct-cfg80211-disassoc-request.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="bk01ch02.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="API-struct-cfg80211-connect-params.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top"><span class="phrase">struct cfg80211_disassoc_request</span> </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> <span class="phrase">struct cfg80211_connect_params</span></td></tr></table></div></body></html>

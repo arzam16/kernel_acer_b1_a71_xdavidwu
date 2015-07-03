@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Chapter 6. The mac80211 workqueue</title><meta name="generator" content="DocBook XSL Stylesheets V1.78.1" /><link rel="home" href="index.html" title="The 802.11 subsystems – for kernel developers" /><link rel="up" href="bk02pt01.html" title="Part I. The basic mac80211 driver interface" /><link rel="prev" href="API-enum-ieee80211-filter-flags.html" title="enum ieee80211_filter_flags" /><link rel="next" href="API-ieee80211-queue-work.html" title="ieee80211_queue_work" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Chapter 6. The mac80211 workqueue</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="API-enum-ieee80211-filter-flags.html">Prev</a> </td><th width="60%" align="center">Part I. The basic mac80211 driver interface</th><td width="20%" align="right"> <a accesskey="n" href="API-ieee80211-queue-work.html">Next</a></td></tr></table><hr /></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="workqueue"></a>Chapter 6. The mac80211 workqueue</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="refentrytitle"><a href="API-ieee80211-queue-work.html"><span class="phrase">ieee80211_queue_work</span></a></span><span class="refpurpose"> — 
+  add work onto the mac80211 workqueue
+ </span></dt><dt><span class="refentrytitle"><a href="API-ieee80211-queue-delayed-work.html"><span class="phrase">ieee80211_queue_delayed_work</span></a></span><span class="refpurpose"> — 
+  add work onto the mac80211 workqueue
+ </span></dt></dl></div><p>
+   </p><p>
+   mac80211 provides its own workqueue for drivers and internal mac80211 use.
+   The workqueue is a single threaded workqueue and can only be accessed by
+   helpers for sanity checking. Drivers must ensure all work added onto the
+   mac80211 workqueue should be cancelled on the driver <code class="function">stop</code> callback.
+   </p><p>
+   mac80211 will flushed the workqueue upon interface removal and during
+   suspend.
+   </p><p>
+   All work performed on the mac80211 workqueue must not acquire the RTNL lock.
+   </p><p>
+</p></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="API-enum-ieee80211-filter-flags.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="bk02pt01.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="API-ieee80211-queue-work.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top"><span class="phrase">enum ieee80211_filter_flags</span> </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> <span class="phrase">ieee80211_queue_work</span></td></tr></table></div></body></html>

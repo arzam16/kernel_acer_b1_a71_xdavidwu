@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>struct sta_ampdu_mlme</title><meta name="generator" content="DocBook XSL Stylesheets V1.78.1" /><link rel="home" href="index.html" title="The 802.11 subsystems – for kernel developers" /><link rel="up" href="aggregation-internals.html" title="Chapter 23. Aggregation" /><link rel="prev" href="aggregation-internals.html" title="Chapter 23. Aggregation" /><link rel="next" href="API-struct-tid-ampdu-tx.html" title="struct tid_ampdu_tx" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center"><span class="phrase">struct sta_ampdu_mlme</span></th></tr><tr><td width="20%" align="left"><a accesskey="p" href="aggregation-internals.html">Prev</a> </td><th width="60%" align="center">Chapter 23. Aggregation</th><td width="20%" align="right"> <a accesskey="n" href="API-struct-tid-ampdu-tx.html">Next</a></td></tr></table><hr /></div><div class="refentry"><a id="API-struct-sta-ampdu-mlme"></a><div class="titlepage"></div><div class="refnamediv"><h2>Name</h2><p>struct sta_ampdu_mlme — 
+  STA aggregation information.
+ </p></div><div class="refsynopsisdiv"><h2>Synopsis</h2><pre class="programlisting">
+struct sta_ampdu_mlme {
+  struct mutex mtx;
+  struct tid_ampdu_rx __rcu * tid_rx[STA_TID_NUM];
+  unsigned long tid_rx_timer_expired[BITS_TO_LONGS(STA_TID_NUM)];
+  unsigned long tid_rx_stop_requested[BITS_TO_LONGS(STA_TID_NUM)];
+  struct work_struct work;
+  struct tid_ampdu_tx __rcu * tid_tx[STA_TID_NUM];
+  struct tid_ampdu_tx * tid_start_tx[STA_TID_NUM];
+  unsigned long last_addba_req_time[STA_TID_NUM];
+  u8 addba_req_num[STA_TID_NUM];
+  u8 dialog_token_allocator;
+};  </pre></div><div class="refsect1"><a id="idp54182656"></a><h2>Members</h2><div class="variablelist"><dl class="variablelist"><dt><span class="term">mtx</span></dt><dd><p>
+mutex to protect all TX data (except non-NULL assignments
+to tid_tx[idx], which are protected by the sta spinlock)
+      </p></dd><dt><span class="term">tid_rx[STA_TID_NUM]</span></dt><dd><p>
+aggregation info for Rx per TID -- RCU protected
+      </p></dd><dt><span class="term">tid_rx_timer_expired[BITS_TO_LONGS(STA_TID_NUM)]</span></dt><dd><p>
+bitmap indicating on which TIDs the
+RX timer expired until the work for it runs
+      </p></dd><dt><span class="term">tid_rx_stop_requested[BITS_TO_LONGS(STA_TID_NUM)]</span></dt><dd><p>
+bitmap indicating which BA sessions per TID the
+driver requested to close until the work for it runs
+      </p></dd><dt><span class="term">work</span></dt><dd><p>
+work struct for starting/stopping aggregation
+      </p></dd><dt><span class="term">tid_tx[STA_TID_NUM]</span></dt><dd><p>
+aggregation info for Tx per TID
+      </p></dd><dt><span class="term">tid_start_tx[STA_TID_NUM]</span></dt><dd><p>
+sessions where start was requested
+      </p></dd><dt><span class="term">last_addba_req_time[STA_TID_NUM]</span></dt><dd><p>
+timestamp of the last addBA request.
+      </p></dd><dt><span class="term">addba_req_num[STA_TID_NUM]</span></dt><dd><p>
+number of times addBA request has been sent.
+      </p></dd><dt><span class="term">dialog_token_allocator</span></dt><dd><p>
+dialog token enumerator for each new session;
+      </p></dd></dl></div></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="aggregation-internals.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="aggregation-internals.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="API-struct-tid-ampdu-tx.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter 23. Aggregation </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> <span class="phrase">struct tid_ampdu_tx</span></td></tr></table></div></body></html>

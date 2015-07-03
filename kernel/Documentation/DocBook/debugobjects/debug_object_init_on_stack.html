@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>debug_object_init_on_stack</title><meta name="generator" content="DocBook XSL Stylesheets V1.78.1" /><link rel="home" href="index.html" title="Debug objects life time" /><link rel="up" href="debugfunctions.html" title="Chapter 3. Debug functions" /><link rel="prev" href="debug_object_init.html" title="debug_object_init" /><link rel="next" href="debug_object_activate.html" title="debug_object_activate" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">debug_object_init_on_stack</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="debug_object_init.html">Prev</a> </td><th width="60%" align="center">Chapter 3. Debug functions</th><td width="20%" align="right"> <a accesskey="n" href="debug_object_activate.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="debug_object_init_on_stack"></a>debug_object_init_on_stack</h2></div></div></div><p>
+	This function is called whenever the initialization function
+	of a real object which resides on the stack is called.
+      </p><p>
+	When the real object is already tracked by debugobjects it is
+	checked, whether the object can be initialized. Initializing
+	is not allowed for active and destroyed objects. When
+	debugobjects detects an error, then it calls the fixup_init
+	function of the object type description structure if provided
+	by the caller. The fixup function can correct the problem
+	before the real initialization of the object happens. E.g. it
+	can deactivate an active object in order to prevent damage to
+	the subsystem.
+      </p><p>
+	When the real object is not yet tracked by debugobjects
+	debugobjects allocates a tracker object for the real object
+	and sets the tracker object state to ODEBUG_STATE_INIT. It
+	verifies that the object is on the callers stack.
+      </p><p>
+	An object which is on the stack must be removed from the
+	tracker by calling debug_object_free() before the function
+	which allocates the object returns. Otherwise we keep track of
+	stale objects.
+      </p></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="debug_object_init.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="debugfunctions.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="debug_object_activate.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">debug_object_init </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> debug_object_activate</td></tr></table></div></body></html>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>snd_rawmidi_new</title><meta name="generator" content="DocBook XSL Stylesheets V1.78.1" /><link rel="home" href="index.html" title="The ALSA Driver API" /><link rel="up" href="ch04.html#idp40428704" title="Raw MIDI API" /><link rel="prev" href="API-snd-rawmidi-transmit.html" title="snd_rawmidi_transmit" /><link rel="next" href="API-snd-rawmidi-set-ops.html" title="snd_rawmidi_set_ops" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center"><span class="phrase">snd_rawmidi_new</span></th></tr><tr><td width="20%" align="left"><a accesskey="p" href="API-snd-rawmidi-transmit.html">Prev</a> </td><th width="60%" align="center">Raw MIDI API</th><td width="20%" align="right"> <a accesskey="n" href="API-snd-rawmidi-set-ops.html">Next</a></td></tr></table><hr /></div><div class="refentry"><a id="API-snd-rawmidi-new"></a><div class="titlepage"></div><div class="refnamediv"><h2>Name</h2><p>snd_rawmidi_new — 
+     create a rawmidi instance
+ </p></div><div class="refsynopsisdiv"><h2>Synopsis</h2><div class="funcsynopsis"><table border="0" class="funcprototype-table" summary="Function synopsis" style="cellspacing: 0; cellpadding: 0;"><tr><td><code class="funcdef">int <strong class="fsfunc">snd_rawmidi_new </strong>(</code></td><td>struct snd_card * <var class="pdparam">card</var>, </td></tr><tr><td> </td><td>char * <var class="pdparam">id</var>, </td></tr><tr><td> </td><td>int <var class="pdparam">device</var>, </td></tr><tr><td> </td><td>int <var class="pdparam">output_count</var>, </td></tr><tr><td> </td><td>int <var class="pdparam">input_count</var>, </td></tr><tr><td> </td><td>struct snd_rawmidi ** <var class="pdparam">rrawmidi</var><code>)</code>;</td></tr></table><div class="funcprototype-spacer"> </div></div></div><div class="refsect1"><a id="idp40535856"></a><h2>Arguments</h2><div class="variablelist"><dl class="variablelist"><dt><span class="term"><em class="parameter"><code>card</code></em></span></dt><dd><p>
+     the card instance
+    </p></dd><dt><span class="term"><em class="parameter"><code>id</code></em></span></dt><dd><p>
+     the id string
+    </p></dd><dt><span class="term"><em class="parameter"><code>device</code></em></span></dt><dd><p>
+     the device index
+    </p></dd><dt><span class="term"><em class="parameter"><code>output_count</code></em></span></dt><dd><p>
+     the number of output streams
+    </p></dd><dt><span class="term"><em class="parameter"><code>input_count</code></em></span></dt><dd><p>
+     the number of input streams
+    </p></dd><dt><span class="term"><em class="parameter"><code>rrawmidi</code></em></span></dt><dd><p>
+     the pointer to store the new rawmidi instance
+    </p></dd></dl></div></div><div class="refsect1"><a id="idp40549136"></a><h2>Description</h2><p>
+   Creates a new rawmidi instance.
+   Use <code class="function">snd_rawmidi_set_ops</code> to set the operators to the new instance.
+   </p><p>
+
+   Returns zero if successful, or a negative error code on failure.
+</p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="API-snd-rawmidi-transmit.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="ch04.html#idp40428704">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="API-snd-rawmidi-set-ops.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top"><span class="phrase">snd_rawmidi_transmit</span> </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> <span class="phrase">snd_rawmidi_set_ops</span></td></tr></table></div></body></html>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>struct debug_obj_descr</title><meta name="generator" content="DocBook XSL Stylesheets V1.78.1" /><link rel="home" href="index.html" title="Debug objects life time" /><link rel="up" href="fixupfunctions.html#debug_obj_descr" title="Debug object type description structure" /><link rel="prev" href="API-struct-debug-obj.html" title="struct debug_obj" /><link rel="next" href="fixup_init.html" title="fixup_init" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center"><span class="phrase">struct debug_obj_descr</span></th></tr><tr><td width="20%" align="left"><a accesskey="p" href="API-struct-debug-obj.html">Prev</a> </td><th width="60%" align="center">Debug object type description structure</th><td width="20%" align="right"> <a accesskey="n" href="fixup_init.html">Next</a></td></tr></table><hr /></div><div class="refentry"><a id="API-struct-debug-obj-descr"></a><div class="titlepage"></div><div class="refnamediv"><h2>Name</h2><p>struct debug_obj_descr — 
+     object type specific debug description structure
+ </p></div><div class="refsynopsisdiv"><h2>Synopsis</h2><pre class="programlisting">
+struct debug_obj_descr {
+  const char * name;
+  void *(* debug_hint) (void *addr);
+  int (* fixup_init) (void *addr, enum debug_obj_state state);
+  int (* fixup_activate) (void *addr, enum debug_obj_state state);
+  int (* fixup_destroy) (void *addr, enum debug_obj_state state);
+  int (* fixup_free) (void *addr, enum debug_obj_state state);
+  int (* fixup_assert_init) (void *addr, enum debug_obj_state state);
+};  </pre></div><div class="refsect1"><a id="idp42378160"></a><h2>Members</h2><div class="variablelist"><dl class="variablelist"><dt><span class="term">name</span></dt><dd><p>
+   name of the object typee
+      </p></dd><dt><span class="term">debug_hint</span></dt><dd><p>
+   function returning address, which have associated
+   kernel symbol, to allow identify the object
+      </p></dd><dt><span class="term">fixup_init</span></dt><dd><p>
+   fixup function, which is called when the init check
+   fails
+      </p></dd><dt><span class="term">fixup_activate</span></dt><dd><p>
+   fixup function, which is called when the activate check
+   fails
+      </p></dd><dt><span class="term">fixup_destroy</span></dt><dd><p>
+   fixup function, which is called when the destroy check
+   fails
+      </p></dd><dt><span class="term">fixup_free</span></dt><dd><p>
+   fixup function, which is called when the free check
+   fails
+      </p></dd><dt><span class="term">fixup_assert_init</span></dt><dd><p>
+   fixup function, which is called when the assert_init
+   check fails
+      </p></dd></dl></div></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="API-struct-debug-obj.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="fixupfunctions.html#debug_obj_descr">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="fixup_init.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top"><span class="phrase">struct debug_obj</span> </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> fixup_init</td></tr></table></div></body></html>

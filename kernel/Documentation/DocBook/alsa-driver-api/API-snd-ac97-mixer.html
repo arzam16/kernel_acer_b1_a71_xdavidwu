@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>snd_ac97_mixer</title><meta name="generator" content="DocBook XSL Stylesheets V1.78.1" /><link rel="home" href="index.html" title="The ALSA Driver API" /><link rel="up" href="ch03s02.html" title="AC97 Codec API" /><link rel="prev" href="API-snd-ac97-bus.html" title="snd_ac97_bus" /><link rel="next" href="API-snd-ac97-update-power.html" title="snd_ac97_update_power" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center"><span class="phrase">snd_ac97_mixer</span></th></tr><tr><td width="20%" align="left"><a accesskey="p" href="API-snd-ac97-bus.html">Prev</a> </td><th width="60%" align="center">AC97 Codec API</th><td width="20%" align="right"> <a accesskey="n" href="API-snd-ac97-update-power.html">Next</a></td></tr></table><hr /></div><div class="refentry"><a id="API-snd-ac97-mixer"></a><div class="titlepage"></div><div class="refnamediv"><h2>Name</h2><p>snd_ac97_mixer — 
+     create an Codec97 component
+ </p></div><div class="refsynopsisdiv"><h2>Synopsis</h2><div class="funcsynopsis"><table border="0" class="funcprototype-table" summary="Function synopsis" style="cellspacing: 0; cellpadding: 0;"><tr><td><code class="funcdef">int <strong class="fsfunc">snd_ac97_mixer </strong>(</code></td><td>struct snd_ac97_bus * <var class="pdparam">bus</var>, </td></tr><tr><td> </td><td>struct snd_ac97_template * <var class="pdparam">template</var>, </td></tr><tr><td> </td><td>struct snd_ac97 ** <var class="pdparam">rac97</var><code>)</code>;</td></tr></table><div class="funcprototype-spacer"> </div></div></div><div class="refsect1"><a id="idp40176240"></a><h2>Arguments</h2><div class="variablelist"><dl class="variablelist"><dt><span class="term"><em class="parameter"><code>bus</code></em></span></dt><dd><p>
+     the AC97 bus which codec is attached to
+    </p></dd><dt><span class="term"><em class="parameter"><code>template</code></em></span></dt><dd><p>
+     the template of ac97, including index, callbacks and
+     the private data.
+    </p></dd><dt><span class="term"><em class="parameter"><code>rac97</code></em></span></dt><dd><p>
+     the pointer to store the new ac97 instance.
+    </p></dd></dl></div></div><div class="refsect1"><a id="idp40183200"></a><h2>Description</h2><p>
+   Creates an Codec97 component.  An struct snd_ac97 instance is newly
+   allocated and initialized from the template.  The codec
+   is then initialized by the standard procedure.
+   </p><p>
+
+   The template must include the codec number (num) and address (addr),
+   and the private data (private_data).
+   </p><p>
+
+   The ac97 instance is registered as a low-level device, so you don't
+   have to release it manually.
+   </p><p>
+
+   Returns zero if successful, or a negative error code on failure.
+</p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="API-snd-ac97-bus.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="ch03s02.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="API-snd-ac97-update-power.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top"><span class="phrase">snd_ac97_bus</span> </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> <span class="phrase">snd_ac97_update_power</span></td></tr></table></div></body></html>

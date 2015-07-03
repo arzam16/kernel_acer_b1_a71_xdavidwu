@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>struct tid_ampdu_tx</title><meta name="generator" content="DocBook XSL Stylesheets V1.78.1" /><link rel="home" href="index.html" title="The 802.11 subsystems – for kernel developers" /><link rel="up" href="aggregation-internals.html" title="Chapter 23. Aggregation" /><link rel="prev" href="API-struct-sta-ampdu-mlme.html" title="struct sta_ampdu_mlme" /><link rel="next" href="API-struct-tid-ampdu-rx.html" title="struct tid_ampdu_rx" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center"><span class="phrase">struct tid_ampdu_tx</span></th></tr><tr><td width="20%" align="left"><a accesskey="p" href="API-struct-sta-ampdu-mlme.html">Prev</a> </td><th width="60%" align="center">Chapter 23. Aggregation</th><td width="20%" align="right"> <a accesskey="n" href="API-struct-tid-ampdu-rx.html">Next</a></td></tr></table><hr /></div><div class="refentry"><a id="API-struct-tid-ampdu-tx"></a><div class="titlepage"></div><div class="refnamediv"><h2>Name</h2><p>struct tid_ampdu_tx — 
+  TID aggregation information (Tx).
+ </p></div><div class="refsynopsisdiv"><h2>Synopsis</h2><pre class="programlisting">
+struct tid_ampdu_tx {
+  struct rcu_head rcu_head;
+  struct timer_list session_timer;
+  struct timer_list addba_resp_timer;
+  struct sk_buff_head pending;
+  unsigned long state;
+  u16 timeout;
+  u8 dialog_token;
+  u8 stop_initiator;
+  bool tx_stop;
+  u8 buf_size;
+  u16 failed_bar_ssn;
+  bool bar_pending;
+};  </pre></div><div class="refsect1"><a id="idp54205520"></a><h2>Members</h2><div class="variablelist"><dl class="variablelist"><dt><span class="term">rcu_head</span></dt><dd><p>
+rcu head for freeing structure
+      </p></dd><dt><span class="term">session_timer</span></dt><dd><p>
+check if we keep Tx-ing on the TID (by timeout value)
+      </p></dd><dt><span class="term">addba_resp_timer</span></dt><dd><p>
+timer for peer's response to addba request
+      </p></dd><dt><span class="term">pending</span></dt><dd><p>
+pending frames queue -- use sta's spinlock to protect
+      </p></dd><dt><span class="term">state</span></dt><dd><p>
+session state (see above)
+      </p></dd><dt><span class="term">timeout</span></dt><dd><p>
+session timeout value to be filled in ADDBA requests
+      </p></dd><dt><span class="term">dialog_token</span></dt><dd><p>
+dialog token for aggregation session
+      </p></dd><dt><span class="term">stop_initiator</span></dt><dd><p>
+initiator of a session stop
+      </p></dd><dt><span class="term">tx_stop</span></dt><dd><p>
+TX DelBA frame when stopping
+      </p></dd><dt><span class="term">buf_size</span></dt><dd><p>
+reorder buffer size at receiver
+      </p></dd><dt><span class="term">failed_bar_ssn</span></dt><dd><p>
+ssn of the last failed BAR tx attempt
+      </p></dd><dt><span class="term">bar_pending</span></dt><dd><p>
+BAR needs to be re-sent
+      </p></dd></dl></div></div><div class="refsect1"><a id="idp54223168"></a><h2>Description</h2><p>
+   This structure's lifetime is managed by RCU, assignments to
+   the array holding it must hold the aggregation mutex.
+   </p><p>
+
+   The TX path can access it under RCU lock-free if, and
+   only if, the state has the flag <code class="constant">HT_AGG_STATE_OPERATIONAL</code>
+   set. Otherwise, the TX path must also acquire the spinlock
+   and re-check the state, see comments in the tx code
+   touching it.
+</p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="API-struct-sta-ampdu-mlme.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="aggregation-internals.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="API-struct-tid-ampdu-rx.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top"><span class="phrase">struct sta_ampdu_mlme</span> </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> <span class="phrase">struct tid_ampdu_rx</span></td></tr></table></div></body></html>

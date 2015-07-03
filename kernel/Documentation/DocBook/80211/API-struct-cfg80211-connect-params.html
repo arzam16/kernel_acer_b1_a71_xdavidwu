@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>struct cfg80211_connect_params</title><meta name="generator" content="DocBook XSL Stylesheets V1.78.1" /><link rel="home" href="index.html" title="The 802.11 subsystems – for kernel developers" /><link rel="up" href="bk01ch02.html" title="Chapter 2. Actions and configuration" /><link rel="prev" href="API-struct-cfg80211-ibss-params.html" title="struct cfg80211_ibss_params" /><link rel="next" href="API-struct-cfg80211-pmksa.html" title="struct cfg80211_pmksa" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center"><span class="phrase">struct cfg80211_connect_params</span></th></tr><tr><td width="20%" align="left"><a accesskey="p" href="API-struct-cfg80211-ibss-params.html">Prev</a> </td><th width="60%" align="center">Chapter 2. Actions and configuration</th><td width="20%" align="right"> <a accesskey="n" href="API-struct-cfg80211-pmksa.html">Next</a></td></tr></table><hr /></div><div class="refentry"><a id="API-struct-cfg80211-connect-params"></a><div class="titlepage"></div><div class="refnamediv"><h2>Name</h2><p>struct cfg80211_connect_params — 
+  Connection parameters
+ </p></div><div class="refsynopsisdiv"><h2>Synopsis</h2><pre class="programlisting">
+struct cfg80211_connect_params {
+  struct ieee80211_channel * channel;
+  u8 * bssid;
+  u8 * ssid;
+  size_t ssid_len;
+  enum nl80211_auth_type auth_type;
+  u8 * ie;
+  size_t ie_len;
+  bool privacy;
+  struct cfg80211_crypto_settings crypto;
+  const u8 * key;
+  u8 key_len;
+  u8 key_idx;
+  u32 flags;
+  int bg_scan_period;
+  struct ieee80211_ht_cap ht_capa;
+  struct ieee80211_ht_cap ht_capa_mask;
+};  </pre></div><div class="refsect1"><a id="idp51064096"></a><h2>Members</h2><div class="variablelist"><dl class="variablelist"><dt><span class="term">channel</span></dt><dd><p>
+The channel to use or <code class="constant">NULL</code> if not specified (auto-select based
+on scan results)
+      </p></dd><dt><span class="term">bssid</span></dt><dd><p>
+The AP BSSID or <code class="constant">NULL</code> if not specified (auto-select based on scan
+results)
+      </p></dd><dt><span class="term">ssid</span></dt><dd><p>
+SSID
+      </p></dd><dt><span class="term">ssid_len</span></dt><dd><p>
+Length of ssid in octets
+      </p></dd><dt><span class="term">auth_type</span></dt><dd><p>
+Authentication type (algorithm)
+      </p></dd><dt><span class="term">ie</span></dt><dd><p>
+IEs for association request
+      </p></dd><dt><span class="term">ie_len</span></dt><dd><p>
+Length of assoc_ie in octets
+      </p></dd><dt><span class="term">privacy</span></dt><dd><p>
+indicates whether privacy-enabled APs should be used
+      </p></dd><dt><span class="term">crypto</span></dt><dd><p>
+crypto settings
+      </p></dd><dt><span class="term">key</span></dt><dd><p>
+WEP key for shared key authentication
+      </p></dd><dt><span class="term">key_len</span></dt><dd><p>
+length of WEP key for shared key authentication
+      </p></dd><dt><span class="term">key_idx</span></dt><dd><p>
+index of WEP key for shared key authentication
+      </p></dd><dt><span class="term">flags</span></dt><dd><p>
+See <span class="structname">enum</span> cfg80211_assoc_req_flags
+      </p></dd><dt><span class="term">bg_scan_period</span></dt><dd><p>
+Background scan period in seconds
+or -1 to indicate that default value is to be used.
+      </p></dd><dt><span class="term">ht_capa</span></dt><dd><p>
+HT Capabilities over-rides.  Values set in ht_capa_mask
+will be used in ht_capa.  Un-supported values will be ignored.
+      </p></dd><dt><span class="term">ht_capa_mask</span></dt><dd><p>
+The bits of ht_capa which are to be used.
+      </p></dd></dl></div></div><div class="refsect1"><a id="idp51087376"></a><h2>Description</h2><p>
+   </p><p>
+
+   This structure provides information needed to complete IEEE 802.11
+   authentication and association.
+</p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="API-struct-cfg80211-ibss-params.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="bk01ch02.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="API-struct-cfg80211-pmksa.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top"><span class="phrase">struct cfg80211_ibss_params</span> </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> <span class="phrase">struct cfg80211_pmksa</span></td></tr></table></div></body></html>

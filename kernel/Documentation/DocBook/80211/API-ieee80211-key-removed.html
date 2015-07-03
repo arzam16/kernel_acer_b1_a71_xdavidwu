@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>ieee80211_key_removed</title><meta name="generator" content="DocBook XSL Stylesheets V1.78.1" /><link rel="home" href="index.html" title="The 802.11 subsystems – for kernel developers" /><link rel="up" href="hardware-crypto-offload.html" title="Chapter 8. Hardware crypto acceleration" /><link rel="prev" href="API-ieee80211-get-tkip-p2k.html" title="ieee80211_get_tkip_p2k" /><link rel="next" href="powersave.html" title="Chapter 9. Powersave support" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center"><span class="phrase">ieee80211_key_removed</span></th></tr><tr><td width="20%" align="left"><a accesskey="p" href="API-ieee80211-get-tkip-p2k.html">Prev</a> </td><th width="60%" align="center">Chapter 8. Hardware crypto acceleration</th><td width="20%" align="right"> <a accesskey="n" href="powersave.html">Next</a></td></tr></table><hr /></div><div class="refentry"><a id="API-ieee80211-key-removed"></a><div class="titlepage"></div><div class="refnamediv"><h2>Name</h2><p>ieee80211_key_removed — 
+  disable hw acceleration for key
+ </p></div><div class="refsynopsisdiv"><h2>Synopsis</h2><div class="funcsynopsis"><table border="0" class="funcprototype-table" summary="Function synopsis" style="cellspacing: 0; cellpadding: 0;"><tr><td><code class="funcdef">void <strong class="fsfunc">ieee80211_key_removed </strong>(</code></td><td>struct ieee80211_key_conf * <var class="pdparam">key_conf</var><code>)</code>;</td></tr></table><div class="funcprototype-spacer"> </div></div></div><div class="refsect1"><a id="idp53426960"></a><h2>Arguments</h2><div class="variablelist"><dl class="variablelist"><dt><span class="term"><em class="parameter"><code>key_conf</code></em></span></dt><dd><p>
+     The key hw acceleration should be disabled for
+    </p></dd></dl></div></div><div class="refsect1"><a id="idp53430192"></a><h2>Description</h2><p>
+   This allows drivers to indicate that the given key has been
+   removed from hardware acceleration, due to a new key that
+   was added. Don't use this if the key can continue to be used
+   for TX, if the key restriction is on RX only it is permitted
+   to keep the key for TX only and not call this function.
+   </p><p>
+
+   Due to locking constraints, it may only be called during
+   <em class="parameter"><code>set_key</code></em>. This function must be allowed to sleep, and the
+   key it tries to disable may still be used until it returns.
+</p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="API-ieee80211-get-tkip-p2k.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="hardware-crypto-offload.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="powersave.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top"><span class="phrase">ieee80211_get_tkip_p2k</span> </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Chapter 9. Powersave support</td></tr></table></div></body></html>

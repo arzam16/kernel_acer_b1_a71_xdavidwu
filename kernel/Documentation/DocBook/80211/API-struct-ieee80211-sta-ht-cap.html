@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>struct ieee80211_sta_ht_cap</title><meta name="generator" content="DocBook XSL Stylesheets V1.78.1" /><link rel="home" href="index.html" title="The 802.11 subsystems – for kernel developers" /><link rel="up" href="bk01ch01.html" title="Chapter 1. Device registration" /><link rel="prev" href="API-struct-ieee80211-rate.html" title="struct ieee80211_rate" /><link rel="next" href="API-struct-ieee80211-supported-band.html" title="struct ieee80211_supported_band" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center"><span class="phrase">struct ieee80211_sta_ht_cap</span></th></tr><tr><td width="20%" align="left"><a accesskey="p" href="API-struct-ieee80211-rate.html">Prev</a> </td><th width="60%" align="center">Chapter 1. Device registration</th><td width="20%" align="right"> <a accesskey="n" href="API-struct-ieee80211-supported-band.html">Next</a></td></tr></table><hr /></div><div class="refentry"><a id="API-struct-ieee80211-sta-ht-cap"></a><div class="titlepage"></div><div class="refnamediv"><h2>Name</h2><p>struct ieee80211_sta_ht_cap — 
+  STA's HT capabilities
+ </p></div><div class="refsynopsisdiv"><h2>Synopsis</h2><pre class="programlisting">
+struct ieee80211_sta_ht_cap {
+  u16 cap;
+  bool ht_supported;
+  u8 ampdu_factor;
+  u8 ampdu_density;
+  struct ieee80211_mcs_info mcs;
+};  </pre></div><div class="refsect1"><a id="idp50123088"></a><h2>Members</h2><div class="variablelist"><dl class="variablelist"><dt><span class="term">cap</span></dt><dd><p>
+HT capabilities map as described in 802.11n spec
+      </p></dd><dt><span class="term">ht_supported</span></dt><dd><p>
+is HT supported by the STA
+      </p></dd><dt><span class="term">ampdu_factor</span></dt><dd><p>
+Maximum A-MPDU length factor
+      </p></dd><dt><span class="term">ampdu_density</span></dt><dd><p>
+Minimum A-MPDU spacing
+      </p></dd><dt><span class="term">mcs</span></dt><dd><p>
+Supported MCS rates
+      </p></dd></dl></div></div><div class="refsect1"><a id="idp50130640"></a><h2>Description</h2><p>
+   </p><p>
+
+   This structure describes most essential parameters needed
+   to describe 802.11n HT capabilities for an STA.
+</p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="API-struct-ieee80211-rate.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="bk01ch01.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="API-struct-ieee80211-supported-band.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top"><span class="phrase">struct ieee80211_rate</span> </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> <span class="phrase">struct ieee80211_supported_band</span></td></tr></table></div></body></html>

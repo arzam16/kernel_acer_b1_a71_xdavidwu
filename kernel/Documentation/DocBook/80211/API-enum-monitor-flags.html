@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>enum monitor_flags</title><meta name="generator" content="DocBook XSL Stylesheets V1.78.1" /><link rel="home" href="index.html" title="The 802.11 subsystems – for kernel developers" /><link rel="up" href="bk01ch02.html" title="Chapter 2. Actions and configuration" /><link rel="prev" href="API-struct-station-info.html" title="struct station_info" /><link rel="next" href="API-enum-mpath-info-flags.html" title="enum mpath_info_flags" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center"><span class="phrase">enum monitor_flags</span></th></tr><tr><td width="20%" align="left"><a accesskey="p" href="API-struct-station-info.html">Prev</a> </td><th width="60%" align="center">Chapter 2. Actions and configuration</th><td width="20%" align="right"> <a accesskey="n" href="API-enum-mpath-info-flags.html">Next</a></td></tr></table><hr /></div><div class="refentry"><a id="API-enum-monitor-flags"></a><div class="titlepage"></div><div class="refnamediv"><h2>Name</h2><p>enum monitor_flags — 
+  monitor flags
+ </p></div><div class="refsynopsisdiv"><h2>Synopsis</h2><pre class="programlisting">
+enum monitor_flags {
+  MONITOR_FLAG_FCSFAIL,
+  MONITOR_FLAG_PLCPFAIL,
+  MONITOR_FLAG_CONTROL,
+  MONITOR_FLAG_OTHER_BSS,
+  MONITOR_FLAG_COOK_FRAMES
+};  </pre></div><div class="refsect1"><a id="idp50841152"></a><h2>Constants</h2><div class="variablelist"><dl class="variablelist"><dt><span class="term">MONITOR_FLAG_FCSFAIL</span></dt><dd><p>
+pass frames with bad FCS
+      </p></dd><dt><span class="term">MONITOR_FLAG_PLCPFAIL</span></dt><dd><p>
+pass frames with bad PLCP
+      </p></dd><dt><span class="term">MONITOR_FLAG_CONTROL</span></dt><dd><p>
+pass control frames
+      </p></dd><dt><span class="term">MONITOR_FLAG_OTHER_BSS</span></dt><dd><p>
+disable BSSID filtering
+      </p></dd><dt><span class="term">MONITOR_FLAG_COOK_FRAMES</span></dt><dd><p>
+report frames after processing
+      </p></dd></dl></div></div><div class="refsect1"><a id="idp50848704"></a><h2>Description</h2><p>
+   </p><p>
+
+   Monitor interface configuration flags. Note that these must be the bits
+   according to the nl80211 flags.
+</p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="API-struct-station-info.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="bk01ch02.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="API-enum-mpath-info-flags.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top"><span class="phrase">struct station_info</span> </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> <span class="phrase">enum mpath_info_flags</span></td></tr></table></div></body></html>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>struct station_info</title><meta name="generator" content="DocBook XSL Stylesheets V1.78.1" /><link rel="home" href="index.html" title="The 802.11 subsystems – for kernel developers" /><link rel="up" href="bk01ch02.html" title="Chapter 2. Actions and configuration" /><link rel="prev" href="API-struct-rate-info.html" title="struct rate_info" /><link rel="next" href="API-enum-monitor-flags.html" title="enum monitor_flags" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center"><span class="phrase">struct station_info</span></th></tr><tr><td width="20%" align="left"><a accesskey="p" href="API-struct-rate-info.html">Prev</a> </td><th width="60%" align="center">Chapter 2. Actions and configuration</th><td width="20%" align="right"> <a accesskey="n" href="API-enum-monitor-flags.html">Next</a></td></tr></table><hr /></div><div class="refentry"><a id="API-struct-station-info"></a><div class="titlepage"></div><div class="refnamediv"><h2>Name</h2><p>struct station_info — 
+  station information
+ </p></div><div class="refsynopsisdiv"><h2>Synopsis</h2><pre class="programlisting">
+struct station_info {
+  u32 filled;
+  u32 connected_time;
+  u32 inactive_time;
+  u32 rx_bytes;
+  u32 tx_bytes;
+  u16 llid;
+  u16 plid;
+  u8 plink_state;
+  s8 signal;
+  s8 signal_avg;
+  struct rate_info txrate;
+  struct rate_info rxrate;
+  u32 rx_packets;
+  u32 tx_packets;
+  u32 tx_retries;
+  u32 tx_failed;
+  u32 rx_dropped_misc;
+  struct sta_bss_parameters bss_param;
+  struct nl80211_sta_flag_update sta_flags;
+  int generation;
+  const u8 * assoc_req_ies;
+  size_t assoc_req_ies_len;
+  u32 beacon_loss_count;
+};  </pre></div><div class="refsect1"><a id="idp50799664"></a><h2>Members</h2><div class="variablelist"><dl class="variablelist"><dt><span class="term">filled</span></dt><dd><p>
+bitflag of flags from <span class="structname">enum</span> station_info_flags
+      </p></dd><dt><span class="term">connected_time</span></dt><dd><p>
+time(in secs) since a station is last connected
+      </p></dd><dt><span class="term">inactive_time</span></dt><dd><p>
+time since last station activity (tx/rx) in milliseconds
+      </p></dd><dt><span class="term">rx_bytes</span></dt><dd><p>
+bytes received from this station
+      </p></dd><dt><span class="term">tx_bytes</span></dt><dd><p>
+bytes transmitted to this station
+      </p></dd><dt><span class="term">llid</span></dt><dd><p>
+mesh local link id
+      </p></dd><dt><span class="term">plid</span></dt><dd><p>
+mesh peer link id
+      </p></dd><dt><span class="term">plink_state</span></dt><dd><p>
+mesh peer link state
+      </p></dd><dt><span class="term">signal</span></dt><dd><p>
+the signal strength, type depends on the wiphy's signal_type
+      </p></dd><dt><span class="term">signal_avg</span></dt><dd><p>
+avg signal strength, type depends on the wiphy's signal_type
+      </p></dd><dt><span class="term">txrate</span></dt><dd><p>
+current unicast bitrate from this station
+      </p></dd><dt><span class="term">rxrate</span></dt><dd><p>
+current unicast bitrate to this station
+      </p></dd><dt><span class="term">rx_packets</span></dt><dd><p>
+packets received from this station
+      </p></dd><dt><span class="term">tx_packets</span></dt><dd><p>
+packets transmitted to this station
+      </p></dd><dt><span class="term">tx_retries</span></dt><dd><p>
+cumulative retry counts
+      </p></dd><dt><span class="term">tx_failed</span></dt><dd><p>
+number of failed transmissions (retries exceeded, no ACK)
+      </p></dd><dt><span class="term">rx_dropped_misc</span></dt><dd><p>
+Dropped for un-specified reason.
+      </p></dd><dt><span class="term">bss_param</span></dt><dd><p>
+current BSS parameters
+      </p></dd><dt><span class="term">sta_flags</span></dt><dd><p>
+station flags mask &amp; values
+      </p></dd><dt><span class="term">generation</span></dt><dd><p>
+generation number for nl80211 dumps.
+This number should increase every time the list of stations
+changes, i.e. when a station is added or removed, so that
+userspace can tell whether it got a consistent snapshot.
+      </p></dd><dt><span class="term">assoc_req_ies</span></dt><dd><p>
+IEs from (Re)Association Request.
+This is used only when in AP mode with drivers that do not use
+user space MLME/SME implementation. The information is provided for
+the <code class="function">cfg80211_new_sta</code> calls to notify user space of the IEs.
+      </p></dd><dt><span class="term">assoc_req_ies_len</span></dt><dd><p>
+Length of assoc_req_ies buffer in octets.
+      </p></dd><dt><span class="term">beacon_loss_count</span></dt><dd><p>
+Number of times beacon loss event has triggered.
+      </p></dd></dl></div></div><div class="refsect1"><a id="idp50832096"></a><h2>Description</h2><p>
+   </p><p>
+
+   Station information filled by driver for <code class="function">get_station</code> and dump_station.
+</p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="API-struct-rate-info.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="bk01ch02.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="API-enum-monitor-flags.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top"><span class="phrase">struct rate_info</span> </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> <span class="phrase">enum monitor_flags</span></td></tr></table></div></body></html>

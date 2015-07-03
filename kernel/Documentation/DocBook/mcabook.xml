@@ -1,0 +1,991 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+	"http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" []>
+
+<book id="MCAGuide">
+ <bookinfo>
+  <title>MCA Driver Programming Interface</title>
+  
+  <authorgroup>
+   <author>
+    <firstname>Alan</firstname>
+    <surname>Cox</surname>
+    <affiliation>
+     <address>
+      <email>alan@lxorguk.ukuu.org.uk</email>
+     </address>
+    </affiliation>
+   </author>
+   <author>
+    <firstname>David</firstname>
+    <surname>Weinehall</surname>
+   </author>
+   <author>
+    <firstname>Chris</firstname>
+    <surname>Beauregard</surname>
+   </author>
+  </authorgroup>
+
+  <copyright>
+   <year>2000</year>
+   <holder>Alan Cox</holder>
+   <holder>David Weinehall</holder>
+   <holder>Chris Beauregard</holder>
+  </copyright>
+
+  <legalnotice>
+   <para>
+     This documentation is free software; you can redistribute
+     it and/or modify it under the terms of the GNU General Public
+     License as published by the Free Software Foundation; either
+     version 2 of the License, or (at your option) any later
+     version.
+   </para>
+      
+   <para>
+     This program is distributed in the hope that it will be
+     useful, but WITHOUT ANY WARRANTY; without even the implied
+     warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+     See the GNU General Public License for more details.
+   </para>
+      
+   <para>
+     You should have received a copy of the GNU General Public
+     License along with this program; if not, write to the Free
+     Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
+     MA 02111-1307 USA
+   </para>
+      
+   <para>
+     For more details see the file COPYING in the source
+     distribution of Linux.
+   </para>
+  </legalnotice>
+ </bookinfo>
+
+<toc></toc>
+
+  <chapter id="intro">
+      <title>Introduction</title>
+  <para>
+	The MCA bus functions provide a generalised interface to find MCA
+	bus cards, to claim them for a driver, and to read and manipulate POS 
+	registers without being aware of the motherboard internals or 
+	certain deep magic specific to onboard devices.
+  </para>
+  <para>
+	The basic interface to the MCA bus devices is the slot. Each slot
+	is numbered and virtual slot numbers are assigned to the internal
+	devices. Using a pci_dev as other busses do does not really make
+	sense in the MCA context as the MCA bus resources require card
+	specific interpretation.
+  </para>
+  <para>
+	Finally the MCA bus functions provide a parallel set of DMA
+	functions mimicing the ISA bus DMA functions as closely as possible,
+	although also supporting the additional DMA functionality on the
+	MCA bus controllers.
+  </para>
+  </chapter>
+  <chapter id="bugs">
+     <title>Known Bugs And Assumptions</title>
+  <para>
+	None.	
+  </para>
+  </chapter>
+
+  <chapter id="pubfunctions">
+     <title>Public Functions Provided</title>
+<!-- drivers/mca/mca-legacy.c -->
+<refentry id="API-mca-find-adapter">
+<refentryinfo>
+ <title>LINUX</title>
+ <productname>Kernel Hackers Manual</productname>
+ <date>July 2015</date>
+</refentryinfo>
+<refmeta>
+ <refentrytitle><phrase>mca_find_adapter</phrase></refentrytitle>
+ <manvolnum>9</manvolnum>
+ <refmiscinfo class="version">3.4.104</refmiscinfo>
+</refmeta>
+<refnamediv>
+ <refname>mca_find_adapter</refname>
+ <refpurpose>
+  scan for adapters
+ </refpurpose>
+</refnamediv>
+<refsynopsisdiv>
+ <title>Synopsis</title>
+  <funcsynopsis><funcprototype>
+   <funcdef>int <function>mca_find_adapter </function></funcdef>
+   <paramdef>int <parameter>id</parameter></paramdef>
+   <paramdef>int <parameter>start</parameter></paramdef>
+  </funcprototype></funcsynopsis>
+</refsynopsisdiv>
+<refsect1>
+ <title>Arguments</title>
+ <variablelist>
+  <varlistentry>
+   <term><parameter>id</parameter></term>
+   <listitem>
+    <para>
+     MCA identification to search for
+    </para>
+   </listitem>
+  </varlistentry>
+  <varlistentry>
+   <term><parameter>start</parameter></term>
+   <listitem>
+    <para>
+     starting slot
+    </para>
+   </listitem>
+  </varlistentry>
+ </variablelist>
+</refsect1>
+<refsect1>
+<title>Description</title>
+<para>
+   Search the MCA configuration for adapters matching the 16bit
+   ID given. The first time it should be called with start as zero
+   and then further calls made passing the return value of the
+   previous call until <constant>MCA_NOTFOUND</constant> is returned.
+   </para><para>
+
+   Disabled adapters are not reported.
+</para>
+</refsect1>
+</refentry>
+
+<refentry id="API-mca-find-unused-adapter">
+<refentryinfo>
+ <title>LINUX</title>
+ <productname>Kernel Hackers Manual</productname>
+ <date>July 2015</date>
+</refentryinfo>
+<refmeta>
+ <refentrytitle><phrase>mca_find_unused_adapter</phrase></refentrytitle>
+ <manvolnum>9</manvolnum>
+ <refmiscinfo class="version">3.4.104</refmiscinfo>
+</refmeta>
+<refnamediv>
+ <refname>mca_find_unused_adapter</refname>
+ <refpurpose>
+     scan for unused adapters
+ </refpurpose>
+</refnamediv>
+<refsynopsisdiv>
+ <title>Synopsis</title>
+  <funcsynopsis><funcprototype>
+   <funcdef>int <function>mca_find_unused_adapter </function></funcdef>
+   <paramdef>int <parameter>id</parameter></paramdef>
+   <paramdef>int <parameter>start</parameter></paramdef>
+  </funcprototype></funcsynopsis>
+</refsynopsisdiv>
+<refsect1>
+ <title>Arguments</title>
+ <variablelist>
+  <varlistentry>
+   <term><parameter>id</parameter></term>
+   <listitem>
+    <para>
+     MCA identification to search for
+    </para>
+   </listitem>
+  </varlistentry>
+  <varlistentry>
+   <term><parameter>start</parameter></term>
+   <listitem>
+    <para>
+     starting slot
+    </para>
+   </listitem>
+  </varlistentry>
+ </variablelist>
+</refsect1>
+<refsect1>
+<title>Description</title>
+<para>
+   Search the MCA configuration for adapters matching the 16bit
+   ID given. The first time it should be called with start as zero
+   and then further calls made passing the return value of the
+   previous call until <constant>MCA_NOTFOUND</constant> is returned.
+   </para><para>
+
+   Adapters that have been claimed by drivers and those that
+   are disabled are not reported. This function thus allows a driver
+   to scan for further cards when some may already be driven.
+</para>
+</refsect1>
+</refentry>
+
+<refentry id="API-mca-read-stored-pos">
+<refentryinfo>
+ <title>LINUX</title>
+ <productname>Kernel Hackers Manual</productname>
+ <date>July 2015</date>
+</refentryinfo>
+<refmeta>
+ <refentrytitle><phrase>mca_read_stored_pos</phrase></refentrytitle>
+ <manvolnum>9</manvolnum>
+ <refmiscinfo class="version">3.4.104</refmiscinfo>
+</refmeta>
+<refnamediv>
+ <refname>mca_read_stored_pos</refname>
+ <refpurpose>
+     read POS register from boot data
+ </refpurpose>
+</refnamediv>
+<refsynopsisdiv>
+ <title>Synopsis</title>
+  <funcsynopsis><funcprototype>
+   <funcdef>unsigned char <function>mca_read_stored_pos </function></funcdef>
+   <paramdef>int <parameter>slot</parameter></paramdef>
+   <paramdef>int <parameter>reg</parameter></paramdef>
+  </funcprototype></funcsynopsis>
+</refsynopsisdiv>
+<refsect1>
+ <title>Arguments</title>
+ <variablelist>
+  <varlistentry>
+   <term><parameter>slot</parameter></term>
+   <listitem>
+    <para>
+     slot number to read from
+    </para>
+   </listitem>
+  </varlistentry>
+  <varlistentry>
+   <term><parameter>reg</parameter></term>
+   <listitem>
+    <para>
+     register to read from
+    </para>
+   </listitem>
+  </varlistentry>
+ </variablelist>
+</refsect1>
+<refsect1>
+<title>Description</title>
+<para>
+   Fetch a POS value that was stored at boot time by the kernel
+   when it scanned the MCA space. The register value is returned.
+   Missing or invalid registers report 0.
+</para>
+</refsect1>
+</refentry>
+
+<refentry id="API-mca-read-pos">
+<refentryinfo>
+ <title>LINUX</title>
+ <productname>Kernel Hackers Manual</productname>
+ <date>July 2015</date>
+</refentryinfo>
+<refmeta>
+ <refentrytitle><phrase>mca_read_pos</phrase></refentrytitle>
+ <manvolnum>9</manvolnum>
+ <refmiscinfo class="version">3.4.104</refmiscinfo>
+</refmeta>
+<refnamediv>
+ <refname>mca_read_pos</refname>
+ <refpurpose>
+     read POS register from card
+ </refpurpose>
+</refnamediv>
+<refsynopsisdiv>
+ <title>Synopsis</title>
+  <funcsynopsis><funcprototype>
+   <funcdef>unsigned char <function>mca_read_pos </function></funcdef>
+   <paramdef>int <parameter>slot</parameter></paramdef>
+   <paramdef>int <parameter>reg</parameter></paramdef>
+  </funcprototype></funcsynopsis>
+</refsynopsisdiv>
+<refsect1>
+ <title>Arguments</title>
+ <variablelist>
+  <varlistentry>
+   <term><parameter>slot</parameter></term>
+   <listitem>
+    <para>
+     slot number to read from
+    </para>
+   </listitem>
+  </varlistentry>
+  <varlistentry>
+   <term><parameter>reg</parameter></term>
+   <listitem>
+    <para>
+     register to read from
+    </para>
+   </listitem>
+  </varlistentry>
+ </variablelist>
+</refsect1>
+<refsect1>
+<title>Description</title>
+<para>
+   Fetch a POS value directly from the hardware to obtain the
+   current value. This is much slower than mca_read_stored_pos and
+   may not be invoked from interrupt context. It handles the
+   deep magic required for onboard devices transparently.
+</para>
+</refsect1>
+</refentry>
+
+<refentry id="API-mca-write-pos">
+<refentryinfo>
+ <title>LINUX</title>
+ <productname>Kernel Hackers Manual</productname>
+ <date>July 2015</date>
+</refentryinfo>
+<refmeta>
+ <refentrytitle><phrase>mca_write_pos</phrase></refentrytitle>
+ <manvolnum>9</manvolnum>
+ <refmiscinfo class="version">3.4.104</refmiscinfo>
+</refmeta>
+<refnamediv>
+ <refname>mca_write_pos</refname>
+ <refpurpose>
+     read POS register from card
+ </refpurpose>
+</refnamediv>
+<refsynopsisdiv>
+ <title>Synopsis</title>
+  <funcsynopsis><funcprototype>
+   <funcdef>void <function>mca_write_pos </function></funcdef>
+   <paramdef>int <parameter>slot</parameter></paramdef>
+   <paramdef>int <parameter>reg</parameter></paramdef>
+   <paramdef>unsigned char <parameter>byte</parameter></paramdef>
+  </funcprototype></funcsynopsis>
+</refsynopsisdiv>
+<refsect1>
+ <title>Arguments</title>
+ <variablelist>
+  <varlistentry>
+   <term><parameter>slot</parameter></term>
+   <listitem>
+    <para>
+     slot number to read from
+    </para>
+   </listitem>
+  </varlistentry>
+  <varlistentry>
+   <term><parameter>reg</parameter></term>
+   <listitem>
+    <para>
+     register to read from
+    </para>
+   </listitem>
+  </varlistentry>
+  <varlistentry>
+   <term><parameter>byte</parameter></term>
+   <listitem>
+    <para>
+     byte to write to the POS registers
+    </para>
+   </listitem>
+  </varlistentry>
+ </variablelist>
+</refsect1>
+<refsect1>
+<title>Description</title>
+<para>
+   Store a POS value directly from the hardware. You should not
+   normally need to use this function and should have a very good
+   knowledge of MCA bus before you do so. Doing this wrongly can
+   damage the hardware.
+   </para><para>
+
+   This function may not be used from interrupt context.
+   </para><para>
+
+   Note that this a technically a Bad Thing, as IBM tech stuff says
+   you should only set POS values through their utilities.
+   However, some devices such as the 3c523 recommend that you write
+   back some data to make sure the configuration is consistent.
+   I'd say that IBM is right, but I like my drivers to work.
+   </para><para>
+
+   This function can't do checks to see if multiple devices end up
+   with the same resources, so you might see magic smoke if someone
+   screws up.
+</para>
+</refsect1>
+</refentry>
+
+<refentry id="API-mca-set-adapter-name">
+<refentryinfo>
+ <title>LINUX</title>
+ <productname>Kernel Hackers Manual</productname>
+ <date>July 2015</date>
+</refentryinfo>
+<refmeta>
+ <refentrytitle><phrase>mca_set_adapter_name</phrase></refentrytitle>
+ <manvolnum>9</manvolnum>
+ <refmiscinfo class="version">3.4.104</refmiscinfo>
+</refmeta>
+<refnamediv>
+ <refname>mca_set_adapter_name</refname>
+ <refpurpose>
+     Set the description of the card
+ </refpurpose>
+</refnamediv>
+<refsynopsisdiv>
+ <title>Synopsis</title>
+  <funcsynopsis><funcprototype>
+   <funcdef>void <function>mca_set_adapter_name </function></funcdef>
+   <paramdef>int <parameter>slot</parameter></paramdef>
+   <paramdef>char * <parameter>name</parameter></paramdef>
+  </funcprototype></funcsynopsis>
+</refsynopsisdiv>
+<refsect1>
+ <title>Arguments</title>
+ <variablelist>
+  <varlistentry>
+   <term><parameter>slot</parameter></term>
+   <listitem>
+    <para>
+     slot to name
+    </para>
+   </listitem>
+  </varlistentry>
+  <varlistentry>
+   <term><parameter>name</parameter></term>
+   <listitem>
+    <para>
+     text string for the namen
+    </para>
+   </listitem>
+  </varlistentry>
+ </variablelist>
+</refsect1>
+<refsect1>
+<title>Description</title>
+<para>
+   This function sets the name reported via /proc for this
+   adapter slot. This is for user information only. Setting a
+   name deletes any previous name.
+</para>
+</refsect1>
+</refentry>
+
+<refentry id="API-mca-mark-as-used">
+<refentryinfo>
+ <title>LINUX</title>
+ <productname>Kernel Hackers Manual</productname>
+ <date>July 2015</date>
+</refentryinfo>
+<refmeta>
+ <refentrytitle><phrase>mca_mark_as_used</phrase></refentrytitle>
+ <manvolnum>9</manvolnum>
+ <refmiscinfo class="version">3.4.104</refmiscinfo>
+</refmeta>
+<refnamediv>
+ <refname>mca_mark_as_used</refname>
+ <refpurpose>
+     claim an MCA device
+ </refpurpose>
+</refnamediv>
+<refsynopsisdiv>
+ <title>Synopsis</title>
+  <funcsynopsis><funcprototype>
+   <funcdef>int <function>mca_mark_as_used </function></funcdef>
+   <paramdef>int <parameter>slot</parameter></paramdef>
+  </funcprototype></funcsynopsis>
+</refsynopsisdiv>
+<refsect1>
+ <title>Arguments</title>
+ <variablelist>
+  <varlistentry>
+   <term><parameter>slot</parameter></term>
+   <listitem>
+    <para>
+     slot to claim
+    </para>
+   </listitem>
+  </varlistentry>
+ </variablelist>
+</refsect1>
+<refsect1>
+<title>FIXME</title>
+<para>
+   should we make this threadsafe
+   </para><para>
+
+   Claim an MCA slot for a device driver. If the
+   slot is already taken the function returns 1,
+   if it is not taken it is claimed and 0 is
+   returned.
+</para>
+</refsect1>
+</refentry>
+
+<refentry id="API-mca-mark-as-unused">
+<refentryinfo>
+ <title>LINUX</title>
+ <productname>Kernel Hackers Manual</productname>
+ <date>July 2015</date>
+</refentryinfo>
+<refmeta>
+ <refentrytitle><phrase>mca_mark_as_unused</phrase></refentrytitle>
+ <manvolnum>9</manvolnum>
+ <refmiscinfo class="version">3.4.104</refmiscinfo>
+</refmeta>
+<refnamediv>
+ <refname>mca_mark_as_unused</refname>
+ <refpurpose>
+     release an MCA device
+ </refpurpose>
+</refnamediv>
+<refsynopsisdiv>
+ <title>Synopsis</title>
+  <funcsynopsis><funcprototype>
+   <funcdef>void <function>mca_mark_as_unused </function></funcdef>
+   <paramdef>int <parameter>slot</parameter></paramdef>
+  </funcprototype></funcsynopsis>
+</refsynopsisdiv>
+<refsect1>
+ <title>Arguments</title>
+ <variablelist>
+  <varlistentry>
+   <term><parameter>slot</parameter></term>
+   <listitem>
+    <para>
+     slot to claim
+    </para>
+   </listitem>
+  </varlistentry>
+ </variablelist>
+</refsect1>
+<refsect1>
+<title>Description</title>
+<para>
+   Release the slot for other drives to use.
+</para>
+</refsect1>
+</refentry>
+
+  </chapter>
+
+  <chapter id="dmafunctions">
+     <title>DMA Functions Provided</title>
+<!-- arch/x86/include/asm/mca_dma.h -->
+<refentry id="API-mca-enable-dma">
+<refentryinfo>
+ <title>LINUX</title>
+ <productname>Kernel Hackers Manual</productname>
+ <date>July 2015</date>
+</refentryinfo>
+<refmeta>
+ <refentrytitle><phrase>mca_enable_dma</phrase></refentrytitle>
+ <manvolnum>9</manvolnum>
+ <refmiscinfo class="version">3.4.104</refmiscinfo>
+</refmeta>
+<refnamediv>
+ <refname>mca_enable_dma</refname>
+ <refpurpose>
+  channel to enable DMA on
+ </refpurpose>
+</refnamediv>
+<refsynopsisdiv>
+ <title>Synopsis</title>
+  <funcsynopsis><funcprototype>
+   <funcdef>void <function>mca_enable_dma </function></funcdef>
+   <paramdef>unsigned int <parameter>dmanr</parameter></paramdef>
+  </funcprototype></funcsynopsis>
+</refsynopsisdiv>
+<refsect1>
+ <title>Arguments</title>
+ <variablelist>
+  <varlistentry>
+   <term><parameter>dmanr</parameter></term>
+   <listitem>
+    <para>
+     DMA channel
+    </para>
+   </listitem>
+  </varlistentry>
+ </variablelist>
+</refsect1>
+<refsect1>
+<title>Description</title>
+<para>
+   Enable the MCA bus DMA on a channel. This can be called from
+   IRQ context.
+</para>
+</refsect1>
+</refentry>
+
+<refentry id="API-mca-disable-dma">
+<refentryinfo>
+ <title>LINUX</title>
+ <productname>Kernel Hackers Manual</productname>
+ <date>July 2015</date>
+</refentryinfo>
+<refmeta>
+ <refentrytitle><phrase>mca_disable_dma</phrase></refentrytitle>
+ <manvolnum>9</manvolnum>
+ <refmiscinfo class="version">3.4.104</refmiscinfo>
+</refmeta>
+<refnamediv>
+ <refname>mca_disable_dma</refname>
+ <refpurpose>
+     channel to disable DMA on
+ </refpurpose>
+</refnamediv>
+<refsynopsisdiv>
+ <title>Synopsis</title>
+  <funcsynopsis><funcprototype>
+   <funcdef>void <function>mca_disable_dma </function></funcdef>
+   <paramdef>unsigned int <parameter>dmanr</parameter></paramdef>
+  </funcprototype></funcsynopsis>
+</refsynopsisdiv>
+<refsect1>
+ <title>Arguments</title>
+ <variablelist>
+  <varlistentry>
+   <term><parameter>dmanr</parameter></term>
+   <listitem>
+    <para>
+     DMA channel
+    </para>
+   </listitem>
+  </varlistentry>
+ </variablelist>
+</refsect1>
+<refsect1>
+<title>Description</title>
+<para>
+   Enable the MCA bus DMA on a channel. This can be called from
+   IRQ context.
+</para>
+</refsect1>
+</refentry>
+
+<refentry id="API-mca-set-dma-addr">
+<refentryinfo>
+ <title>LINUX</title>
+ <productname>Kernel Hackers Manual</productname>
+ <date>July 2015</date>
+</refentryinfo>
+<refmeta>
+ <refentrytitle><phrase>mca_set_dma_addr</phrase></refentrytitle>
+ <manvolnum>9</manvolnum>
+ <refmiscinfo class="version">3.4.104</refmiscinfo>
+</refmeta>
+<refnamediv>
+ <refname>mca_set_dma_addr</refname>
+ <refpurpose>
+     load a 24bit DMA address
+ </refpurpose>
+</refnamediv>
+<refsynopsisdiv>
+ <title>Synopsis</title>
+  <funcsynopsis><funcprototype>
+   <funcdef>void <function>mca_set_dma_addr </function></funcdef>
+   <paramdef>unsigned int <parameter>dmanr</parameter></paramdef>
+   <paramdef>unsigned int <parameter>a</parameter></paramdef>
+  </funcprototype></funcsynopsis>
+</refsynopsisdiv>
+<refsect1>
+ <title>Arguments</title>
+ <variablelist>
+  <varlistentry>
+   <term><parameter>dmanr</parameter></term>
+   <listitem>
+    <para>
+     DMA channel
+    </para>
+   </listitem>
+  </varlistentry>
+  <varlistentry>
+   <term><parameter>a</parameter></term>
+   <listitem>
+    <para>
+     24bit bus address
+    </para>
+   </listitem>
+  </varlistentry>
+ </variablelist>
+</refsect1>
+<refsect1>
+<title>Description</title>
+<para>
+   Load the address register in the DMA controller. This has a 24bit
+   limitation (16Mb).
+</para>
+</refsect1>
+</refentry>
+
+<refentry id="API-mca-get-dma-addr">
+<refentryinfo>
+ <title>LINUX</title>
+ <productname>Kernel Hackers Manual</productname>
+ <date>July 2015</date>
+</refentryinfo>
+<refmeta>
+ <refentrytitle><phrase>mca_get_dma_addr</phrase></refentrytitle>
+ <manvolnum>9</manvolnum>
+ <refmiscinfo class="version">3.4.104</refmiscinfo>
+</refmeta>
+<refnamediv>
+ <refname>mca_get_dma_addr</refname>
+ <refpurpose>
+     load a 24bit DMA address
+ </refpurpose>
+</refnamediv>
+<refsynopsisdiv>
+ <title>Synopsis</title>
+  <funcsynopsis><funcprototype>
+   <funcdef>unsigned int <function>mca_get_dma_addr </function></funcdef>
+   <paramdef>unsigned int <parameter>dmanr</parameter></paramdef>
+  </funcprototype></funcsynopsis>
+</refsynopsisdiv>
+<refsect1>
+ <title>Arguments</title>
+ <variablelist>
+  <varlistentry>
+   <term><parameter>dmanr</parameter></term>
+   <listitem>
+    <para>
+     DMA channel
+    </para>
+   </listitem>
+  </varlistentry>
+ </variablelist>
+</refsect1>
+<refsect1>
+<title>Description</title>
+<para>
+   Read the address register in the DMA controller. This has a 24bit
+   limitation (16Mb). The return is a bus address.
+</para>
+</refsect1>
+</refentry>
+
+<refentry id="API-mca-set-dma-count">
+<refentryinfo>
+ <title>LINUX</title>
+ <productname>Kernel Hackers Manual</productname>
+ <date>July 2015</date>
+</refentryinfo>
+<refmeta>
+ <refentrytitle><phrase>mca_set_dma_count</phrase></refentrytitle>
+ <manvolnum>9</manvolnum>
+ <refmiscinfo class="version">3.4.104</refmiscinfo>
+</refmeta>
+<refnamediv>
+ <refname>mca_set_dma_count</refname>
+ <refpurpose>
+     load a 16bit transfer count
+ </refpurpose>
+</refnamediv>
+<refsynopsisdiv>
+ <title>Synopsis</title>
+  <funcsynopsis><funcprototype>
+   <funcdef>void <function>mca_set_dma_count </function></funcdef>
+   <paramdef>unsigned int <parameter>dmanr</parameter></paramdef>
+   <paramdef>unsigned int <parameter>count</parameter></paramdef>
+  </funcprototype></funcsynopsis>
+</refsynopsisdiv>
+<refsect1>
+ <title>Arguments</title>
+ <variablelist>
+  <varlistentry>
+   <term><parameter>dmanr</parameter></term>
+   <listitem>
+    <para>
+     DMA channel
+    </para>
+   </listitem>
+  </varlistentry>
+  <varlistentry>
+   <term><parameter>count</parameter></term>
+   <listitem>
+    <para>
+     count
+    </para>
+   </listitem>
+  </varlistentry>
+ </variablelist>
+</refsect1>
+<refsect1>
+<title>Description</title>
+<para>
+   Set the DMA count for this channel. This can be up to 64Kbytes.
+   Setting a count of zero will not do what you expect.
+</para>
+</refsect1>
+</refentry>
+
+<refentry id="API-mca-get-dma-residue">
+<refentryinfo>
+ <title>LINUX</title>
+ <productname>Kernel Hackers Manual</productname>
+ <date>July 2015</date>
+</refentryinfo>
+<refmeta>
+ <refentrytitle><phrase>mca_get_dma_residue</phrase></refentrytitle>
+ <manvolnum>9</manvolnum>
+ <refmiscinfo class="version">3.4.104</refmiscinfo>
+</refmeta>
+<refnamediv>
+ <refname>mca_get_dma_residue</refname>
+ <refpurpose>
+     get the remaining bytes to transfer
+ </refpurpose>
+</refnamediv>
+<refsynopsisdiv>
+ <title>Synopsis</title>
+  <funcsynopsis><funcprototype>
+   <funcdef>unsigned int <function>mca_get_dma_residue </function></funcdef>
+   <paramdef>unsigned int <parameter>dmanr</parameter></paramdef>
+  </funcprototype></funcsynopsis>
+</refsynopsisdiv>
+<refsect1>
+ <title>Arguments</title>
+ <variablelist>
+  <varlistentry>
+   <term><parameter>dmanr</parameter></term>
+   <listitem>
+    <para>
+     DMA channel
+    </para>
+   </listitem>
+  </varlistentry>
+ </variablelist>
+</refsect1>
+<refsect1>
+<title>Description</title>
+<para>
+   This function returns the number of bytes left to transfer
+   on this DMA channel.
+</para>
+</refsect1>
+</refentry>
+
+<refentry id="API-mca-set-dma-io">
+<refentryinfo>
+ <title>LINUX</title>
+ <productname>Kernel Hackers Manual</productname>
+ <date>July 2015</date>
+</refentryinfo>
+<refmeta>
+ <refentrytitle><phrase>mca_set_dma_io</phrase></refentrytitle>
+ <manvolnum>9</manvolnum>
+ <refmiscinfo class="version">3.4.104</refmiscinfo>
+</refmeta>
+<refnamediv>
+ <refname>mca_set_dma_io</refname>
+ <refpurpose>
+     set the port for an I/O transfer
+ </refpurpose>
+</refnamediv>
+<refsynopsisdiv>
+ <title>Synopsis</title>
+  <funcsynopsis><funcprototype>
+   <funcdef>void <function>mca_set_dma_io </function></funcdef>
+   <paramdef>unsigned int <parameter>dmanr</parameter></paramdef>
+   <paramdef>unsigned int <parameter>io_addr</parameter></paramdef>
+  </funcprototype></funcsynopsis>
+</refsynopsisdiv>
+<refsect1>
+ <title>Arguments</title>
+ <variablelist>
+  <varlistentry>
+   <term><parameter>dmanr</parameter></term>
+   <listitem>
+    <para>
+     DMA channel
+    </para>
+   </listitem>
+  </varlistentry>
+  <varlistentry>
+   <term><parameter>io_addr</parameter></term>
+   <listitem>
+    <para>
+     an I/O port number
+    </para>
+   </listitem>
+  </varlistentry>
+ </variablelist>
+</refsect1>
+<refsect1>
+<title>Description</title>
+<para>
+   Unlike the ISA bus DMA controllers the DMA on MCA bus can transfer
+   with an I/O port target.
+</para>
+</refsect1>
+</refentry>
+
+<refentry id="API-mca-set-dma-mode">
+<refentryinfo>
+ <title>LINUX</title>
+ <productname>Kernel Hackers Manual</productname>
+ <date>July 2015</date>
+</refentryinfo>
+<refmeta>
+ <refentrytitle><phrase>mca_set_dma_mode</phrase></refentrytitle>
+ <manvolnum>9</manvolnum>
+ <refmiscinfo class="version">3.4.104</refmiscinfo>
+</refmeta>
+<refnamediv>
+ <refname>mca_set_dma_mode</refname>
+ <refpurpose>
+     set the DMA mode
+ </refpurpose>
+</refnamediv>
+<refsynopsisdiv>
+ <title>Synopsis</title>
+  <funcsynopsis><funcprototype>
+   <funcdef>void <function>mca_set_dma_mode </function></funcdef>
+   <paramdef>unsigned int <parameter>dmanr</parameter></paramdef>
+   <paramdef>unsigned int <parameter>mode</parameter></paramdef>
+  </funcprototype></funcsynopsis>
+</refsynopsisdiv>
+<refsect1>
+ <title>Arguments</title>
+ <variablelist>
+  <varlistentry>
+   <term><parameter>dmanr</parameter></term>
+   <listitem>
+    <para>
+     DMA channel
+    </para>
+   </listitem>
+  </varlistentry>
+  <varlistentry>
+   <term><parameter>mode</parameter></term>
+   <listitem>
+    <para>
+     mode to set
+    </para>
+   </listitem>
+  </varlistentry>
+ </variablelist>
+</refsect1>
+<refsect1>
+<title>Description</title>
+<para>
+   The DMA controller supports several modes. The mode values you can
+   set are-
+   </para><para>
+
+   <constant>MCA_DMA_MODE_READ</constant> when reading from the DMA device.
+   </para><para>
+
+   <constant>MCA_DMA_MODE_WRITE</constant> to writing to the DMA device.
+   </para><para>
+
+   <constant>MCA_DMA_MODE_IO</constant> to do DMA to or from an I/O port.
+   </para><para>
+
+   <constant>MCA_DMA_MODE_16</constant> to do 16bit transfers.
+</para>
+</refsect1>
+</refentry>
+
+  </chapter>
+
+</book>

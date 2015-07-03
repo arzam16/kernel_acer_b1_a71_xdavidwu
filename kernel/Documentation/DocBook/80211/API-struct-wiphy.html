@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>struct wiphy</title><meta name="generator" content="DocBook XSL Stylesheets V1.78.1" /><link rel="home" href="index.html" title="The 802.11 subsystems – for kernel developers" /><link rel="up" href="bk01ch01.html" title="Chapter 1. Device registration" /><link rel="prev" href="API-enum-wiphy-flags.html" title="enum wiphy_flags" /><link rel="next" href="API-struct-wireless-dev.html" title="struct wireless_dev" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center"><span class="phrase">struct wiphy</span></th></tr><tr><td width="20%" align="left"><a accesskey="p" href="API-enum-wiphy-flags.html">Prev</a> </td><th width="60%" align="center">Chapter 1. Device registration</th><td width="20%" align="right"> <a accesskey="n" href="API-struct-wireless-dev.html">Next</a></td></tr></table><hr /></div><div class="refentry"><a id="API-struct-wiphy"></a><div class="titlepage"></div><div class="refnamediv"><h2>Name</h2><p>struct wiphy — 
+  wireless hardware description
+ </p></div><div class="refsynopsisdiv"><h2>Synopsis</h2><pre class="programlisting">
+struct wiphy {
+  u8 perm_addr[ETH_ALEN];
+  u8 addr_mask[ETH_ALEN];
+  struct mac_address * addresses;
+  const struct ieee80211_txrx_stypes * mgmt_stypes;
+  const struct ieee80211_iface_combination * iface_combinations;
+  int n_iface_combinations;
+  u16 software_iftypes;
+  u16 n_addresses;
+  u16 interface_modes;
+  u32 flags;
+  u32 features;
+  u32 ap_sme_capa;
+  enum cfg80211_signal_type signal_type;
+  int bss_priv_size;
+  u8 max_scan_ssids;
+  u8 max_sched_scan_ssids;
+  u8 max_match_sets;
+  u16 max_scan_ie_len;
+  u16 max_sched_scan_ie_len;
+  int n_cipher_suites;
+  const u32 * cipher_suites;
+  u8 retry_short;
+  u8 retry_long;
+  u32 frag_threshold;
+  u32 rts_threshold;
+  u8 coverage_class;
+  char fw_version[ETHTOOL_BUSINFO_LEN];
+  u32 hw_version;
+  struct wiphy_wowlan_support wowlan;
+  u16 max_remain_on_channel_duration;
+  u8 max_num_pmkids;
+  u32 available_antennas_tx;
+  u32 available_antennas_rx;
+  u32 probe_resp_offload;
+  const void * privid;
+  struct ieee80211_supported_band * bands[IEEE80211_NUM_BANDS];
+  int (* reg_notifier) (struct wiphy *wiphy,struct regulatory_request *request);
+  const struct ieee80211_regdomain * regd;
+  struct device dev;
+  bool registered;
+  struct dentry * debugfsdir;
+  const struct ieee80211_ht_cap * ht_capa_mod_mask;
+#ifdef CONFIG_NET_NS
+  struct net * _net;
+#endif
+#ifdef CONFIG_CFG80211_WEXT
+  const struct iw_handler_def * wext;
+#endif
+  char priv[0] __attribute__((__aligned__(NETDEV_ALIGN)));
+};  </pre></div><div class="refsect1"><a id="idp50238064"></a><h2>Members</h2><div class="variablelist"><dl class="variablelist"><dt><span class="term">perm_addr[ETH_ALEN]</span></dt><dd><p>
+permanent MAC address of this device
+      </p></dd><dt><span class="term">addr_mask[ETH_ALEN]</span></dt><dd><p>
+If the device supports multiple MAC addresses by masking,
+set this to a mask with variable bits set to 1, e.g. if the last
+      </p></dd><dt><span class="term">addresses</span></dt><dd><p>
+If the device has more than one address, set this pointer
+to a list of addresses (6 bytes each). The first one will be used
+by default for perm_addr. In this case, the mask should be set to
+all-zeroes. In this case it is assumed that the device can handle
+the same number of arbitrary MAC addresses.
+      </p></dd><dt><span class="term">mgmt_stypes</span></dt><dd><p>
+bitmasks of frame subtypes that can be subscribed to or
+transmitted through nl80211, points to an array indexed by interface
+type
+      </p></dd><dt><span class="term">iface_combinations</span></dt><dd><p>
+Valid interface combinations array, should not
+list single interface types.
+      </p></dd><dt><span class="term">n_iface_combinations</span></dt><dd><p>
+number of entries in <em class="parameter"><code>iface_combinations</code></em> array.
+      </p></dd><dt><span class="term">software_iftypes</span></dt><dd><p>
+bitmask of software interface types, these are not
+subject to any restrictions since they are purely managed in SW.
+      </p></dd><dt><span class="term">n_addresses</span></dt><dd><p>
+number of addresses in <em class="parameter"><code>addresses</code></em>.
+      </p></dd><dt><span class="term">interface_modes</span></dt><dd><p>
+bitmask of interfaces types valid for this wiphy,
+must be set by driver
+      </p></dd><dt><span class="term">flags</span></dt><dd><p>
+wiphy flags, see <span class="structname">enum</span> wiphy_flags
+      </p></dd><dt><span class="term">features</span></dt><dd><p>
+features advertised to nl80211, see <span class="structname">enum</span> nl80211_feature_flags.
+      </p></dd><dt><span class="term">ap_sme_capa</span></dt><dd><p>
+AP SME capabilities, flags from <span class="structname">enum</span> nl80211_ap_sme_features.
+      </p></dd><dt><span class="term">signal_type</span></dt><dd><p>
+signal type reported in <span class="structname">struct cfg80211_bss</span>.
+      </p></dd><dt><span class="term">bss_priv_size</span></dt><dd><p>
+each BSS struct has private data allocated with it,
+this variable determines its size
+      </p></dd><dt><span class="term">max_scan_ssids</span></dt><dd><p>
+maximum number of SSIDs the device can scan for in
+any given scan
+      </p></dd><dt><span class="term">max_sched_scan_ssids</span></dt><dd><p>
+maximum number of SSIDs the device can scan
+for in any given scheduled scan
+      </p></dd><dt><span class="term">max_match_sets</span></dt><dd><p>
+maximum number of match sets the device can handle
+when performing a scheduled scan, 0 if filtering is not
+supported.
+      </p></dd><dt><span class="term">max_scan_ie_len</span></dt><dd><p>
+maximum length of user-controlled IEs device can
+add to probe request frames transmitted during a scan, must not
+include fixed IEs like supported rates
+      </p></dd><dt><span class="term">max_sched_scan_ie_len</span></dt><dd><p>
+same as max_scan_ie_len, but for scheduled
+scans
+      </p></dd><dt><span class="term">n_cipher_suites</span></dt><dd><p>
+number of supported cipher suites
+      </p></dd><dt><span class="term">cipher_suites</span></dt><dd><p>
+supported cipher suites
+      </p></dd><dt><span class="term">retry_short</span></dt><dd><p>
+Retry limit for short frames (dot11ShortRetryLimit)
+      </p></dd><dt><span class="term">retry_long</span></dt><dd><p>
+Retry limit for long frames (dot11LongRetryLimit)
+      </p></dd><dt><span class="term">frag_threshold</span></dt><dd><p>
+Fragmentation threshold (dot11FragmentationThreshold);
+-1 = fragmentation disabled, only odd values &gt;= 256 used
+      </p></dd><dt><span class="term">rts_threshold</span></dt><dd><p>
+RTS threshold (dot11RTSThreshold); -1 = RTS/CTS disabled
+      </p></dd><dt><span class="term">coverage_class</span></dt><dd><p>
+current coverage class
+      </p></dd><dt><span class="term">fw_version[ETHTOOL_BUSINFO_LEN]</span></dt><dd><p>
+firmware version for ethtool reporting
+      </p></dd><dt><span class="term">hw_version</span></dt><dd><p>
+hardware version for ethtool reporting
+      </p></dd><dt><span class="term">wowlan</span></dt><dd><p>
+WoWLAN support information
+      </p></dd><dt><span class="term">max_remain_on_channel_duration</span></dt><dd><p>
+Maximum time a remain-on-channel operation
+may request, if implemented.
+      </p></dd><dt><span class="term">max_num_pmkids</span></dt><dd><p>
+maximum number of PMKIDs supported by device
+      </p></dd><dt><span class="term">available_antennas_tx</span></dt><dd><p>
+bitmap of antennas which are available to be
+configured as TX antennas. Antenna configuration commands will be
+rejected unless this or <em class="parameter"><code>available_antennas_rx</code></em> is set.
+      </p></dd><dt><span class="term">available_antennas_rx</span></dt><dd><p>
+bitmap of antennas which are available to be
+configured as RX antennas. Antenna configuration commands will be
+rejected unless this or <em class="parameter"><code>available_antennas_tx</code></em> is set.
+      </p></dd><dt><span class="term">probe_resp_offload</span></dt><dd><p>
+Bitmap of supported protocols for probe response offloading.
+See <span class="structname">enum</span> nl80211_probe_resp_offload_support_attr. Only valid
+when the wiphy flag <em class="parameter"><code>WIPHY_FLAG_AP_PROBE_RESP_OFFLOAD</code></em> is set.
+      </p></dd><dt><span class="term">privid</span></dt><dd><p>
+a pointer that drivers can use to identify if an arbitrary
+wiphy is theirs, e.g. in global notifiers
+      </p></dd><dt><span class="term">bands[IEEE80211_NUM_BANDS]</span></dt><dd><p>
+information about bands/channels supported by this device
+      </p></dd><dt><span class="term">reg_notifier</span></dt><dd><p>
+the driver's regulatory notification callback,
+note that if your driver uses <code class="function">wiphy_apply_custom_regulatory</code>
+the reg_notifier's request can be passed as NULL
+      </p></dd><dt><span class="term">regd</span></dt><dd><p>
+the driver's regulatory domain, if one was requested via
+the <code class="function">regulatory_hint</code> API. This can be used by the driver
+on the <code class="function">reg_notifier</code> if it chooses to ignore future
+regulatory domain changes caused by other drivers.
+      </p></dd><dt><span class="term">dev</span></dt><dd><p>
+(virtual) struct device for this wiphy
+      </p></dd><dt><span class="term">registered</span></dt><dd><p>
+helps synchronize suspend/resume with wiphy unregister
+      </p></dd><dt><span class="term">debugfsdir</span></dt><dd><p>
+debugfs directory used for this wiphy, will be renamed
+automatically on wiphy renames
+      </p></dd><dt><span class="term">ht_capa_mod_mask</span></dt><dd><p>
+Specify what ht_cap values can be over-ridden.
+If null, then none can be over-ridden.
+      </p></dd><dt><span class="term">_net</span></dt><dd><p>
+the network namespace this wiphy currently lives in
+      </p></dd><dt><span class="term">wext</span></dt><dd><p>
+wireless extension handlers
+      </p></dd><dt><span class="term">priv[0] __attribute__((__aligned__(NETDEV_ALIGN)))</span></dt><dd><p>
+driver private data (sized according to <code class="function">wiphy_new</code> parameter)
+      </p></dd></dl></div></div><div class="refsect1"><a id="idp50307872"></a><h2>four bits are variable then set it to 00</h2><p>
+   ...:00:0f. The actual
+   variable bits shall be determined by the interfaces added, with
+   interfaces not matching the mask being rejected to be brought up.
+</p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="API-enum-wiphy-flags.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="bk01ch01.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="API-struct-wireless-dev.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top"><span class="phrase">enum wiphy_flags</span> </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> <span class="phrase">struct wireless_dev</span></td></tr></table></div></body></html>

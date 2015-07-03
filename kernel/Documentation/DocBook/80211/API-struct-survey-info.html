@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>struct survey_info</title><meta name="generator" content="DocBook XSL Stylesheets V1.78.1" /><link rel="home" href="index.html" title="The 802.11 subsystems – for kernel developers" /><link rel="up" href="bk01ch02.html" title="Chapter 2. Actions and configuration" /><link rel="prev" href="API-enum-survey-info-flags.html" title="enum survey_info_flags" /><link rel="next" href="bk01ch02re28.html" title="/home/xdavidwu/android/kernel/b1-710/Kernel_Acer_B1-A71_xdavidwu/kernel//include/net/cfg80211.h" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center"><span class="phrase">struct survey_info</span></th></tr><tr><td width="20%" align="left"><a accesskey="p" href="API-enum-survey-info-flags.html">Prev</a> </td><th width="60%" align="center">Chapter 2. Actions and configuration</th><td width="20%" align="right"> <a accesskey="n" href="bk01ch02re28.html">Next</a></td></tr></table><hr /></div><div class="refentry"><a id="API-struct-survey-info"></a><div class="titlepage"></div><div class="refnamediv"><h2>Name</h2><p>struct survey_info — 
+  channel survey response
+ </p></div><div class="refsynopsisdiv"><h2>Synopsis</h2><pre class="programlisting">
+struct survey_info {
+  struct ieee80211_channel * channel;
+  u64 channel_time;
+  u64 channel_time_busy;
+  u64 channel_time_ext_busy;
+  u64 channel_time_rx;
+  u64 channel_time_tx;
+  u32 filled;
+  s8 noise;
+};  </pre></div><div class="refsect1"><a id="idp50656352"></a><h2>Members</h2><div class="variablelist"><dl class="variablelist"><dt><span class="term">channel</span></dt><dd><p>
+the channel this survey record reports, mandatory
+      </p></dd><dt><span class="term">channel_time</span></dt><dd><p>
+amount of time in ms the radio spent on the channel
+      </p></dd><dt><span class="term">channel_time_busy</span></dt><dd><p>
+amount of time the primary channel was sensed busy
+      </p></dd><dt><span class="term">channel_time_ext_busy</span></dt><dd><p>
+amount of time the extension channel was sensed busy
+      </p></dd><dt><span class="term">channel_time_rx</span></dt><dd><p>
+amount of time the radio spent receiving data
+      </p></dd><dt><span class="term">channel_time_tx</span></dt><dd><p>
+amount of time the radio spent transmitting data
+      </p></dd><dt><span class="term">filled</span></dt><dd><p>
+bitflag of flags from <span class="structname">enum</span> survey_info_flags
+      </p></dd><dt><span class="term">noise</span></dt><dd><p>
+channel noise in dBm. This and all following fields are
+optional
+      </p></dd></dl></div></div><div class="refsect1"><a id="idp50668624"></a><h2>Description</h2><p>
+   Used by <code class="function">dump_survey</code> to report back per-channel survey information.
+   </p><p>
+
+   This structure can later be expanded with things like
+   channel duty cycle etc.
+</p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="API-enum-survey-info-flags.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="bk01ch02.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="bk01ch02re28.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top"><span class="phrase">enum survey_info_flags</span> </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 
+   /home/xdavidwu/android/kernel/b1-710/Kernel_Acer_B1-A71_xdavidwu/kernel//include/net/cfg80211.h
+  </td></tr></table></div></body></html>

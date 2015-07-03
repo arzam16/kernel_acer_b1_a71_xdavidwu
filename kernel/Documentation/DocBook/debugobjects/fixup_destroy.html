@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>fixup_destroy</title><meta name="generator" content="DocBook XSL Stylesheets V1.78.1" /><link rel="home" href="index.html" title="Debug objects life time" /><link rel="up" href="fixupfunctions.html" title="Chapter 4. Fixup functions" /><link rel="prev" href="fixup_activate.html" title="fixup_activate" /><link rel="next" href="fixup_free.html" title="fixup_free" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">fixup_destroy</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="fixup_activate.html">Prev</a> </td><th width="60%" align="center">Chapter 4. Fixup functions</th><td width="20%" align="right"> <a accesskey="n" href="fixup_free.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="fixup_destroy"></a>fixup_destroy</h2></div></div></div><p>
+	This function is called from the debug code whenever a problem
+	in debug_object_destroy is detected.
+      </p><p>
+	Called from debug_object_destroy when the object state is:
+	</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>ODEBUG_STATE_ACTIVE</p></li></ul></div><p>
+      </p><p>
+	The function returns 1 when the fixup was successful,
+	otherwise 0. The return value is used to update the
+	statistics.
+      </p></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="fixup_activate.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="fixupfunctions.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="fixup_free.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">fixup_activate </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> fixup_free</td></tr></table></div></body></html>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>enum mpath_info_flags</title><meta name="generator" content="DocBook XSL Stylesheets V1.78.1" /><link rel="home" href="index.html" title="The 802.11 subsystems – for kernel developers" /><link rel="up" href="bk01ch02.html" title="Chapter 2. Actions and configuration" /><link rel="prev" href="API-enum-monitor-flags.html" title="enum monitor_flags" /><link rel="next" href="API-struct-mpath-info.html" title="struct mpath_info" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center"><span class="phrase">enum mpath_info_flags</span></th></tr><tr><td width="20%" align="left"><a accesskey="p" href="API-enum-monitor-flags.html">Prev</a> </td><th width="60%" align="center">Chapter 2. Actions and configuration</th><td width="20%" align="right"> <a accesskey="n" href="API-struct-mpath-info.html">Next</a></td></tr></table><hr /></div><div class="refentry"><a id="API-enum-mpath-info-flags"></a><div class="titlepage"></div><div class="refnamediv"><h2>Name</h2><p>enum mpath_info_flags — 
+  mesh path information flags
+ </p></div><div class="refsynopsisdiv"><h2>Synopsis</h2><pre class="programlisting">
+enum mpath_info_flags {
+  MPATH_INFO_FRAME_QLEN,
+  MPATH_INFO_SN,
+  MPATH_INFO_METRIC,
+  MPATH_INFO_EXPTIME,
+  MPATH_INFO_DISCOVERY_TIMEOUT,
+  MPATH_INFO_DISCOVERY_RETRIES,
+  MPATH_INFO_FLAGS
+};  </pre></div><div class="refsect1"><a id="idp50857296"></a><h2>Constants</h2><div class="variablelist"><dl class="variablelist"><dt><span class="term">MPATH_INFO_FRAME_QLEN</span></dt><dd><p>
+<em class="parameter"><code>frame_qlen</code></em> filled
+      </p></dd><dt><span class="term">MPATH_INFO_SN</span></dt><dd><p>
+<em class="parameter"><code>sn</code></em> filled
+      </p></dd><dt><span class="term">MPATH_INFO_METRIC</span></dt><dd><p>
+<em class="parameter"><code>metric</code></em> filled
+      </p></dd><dt><span class="term">MPATH_INFO_EXPTIME</span></dt><dd><p>
+<em class="parameter"><code>exptime</code></em> filled
+      </p></dd><dt><span class="term">MPATH_INFO_DISCOVERY_TIMEOUT</span></dt><dd><p>
+<em class="parameter"><code>discovery_timeout</code></em> filled
+      </p></dd><dt><span class="term">MPATH_INFO_DISCOVERY_RETRIES</span></dt><dd><p>
+<em class="parameter"><code>discovery_retries</code></em> filled
+      </p></dd><dt><span class="term">MPATH_INFO_FLAGS</span></dt><dd><p>
+<em class="parameter"><code>flags</code></em> filled
+      </p></dd></dl></div></div><div class="refsect1"><a id="idp50871776"></a><h2>Description</h2><p>
+   </p><p>
+
+   Used by the driver to indicate which info in <span class="structname">struct mpath_info</span> it has filled
+   in during <code class="function">get_station</code> or <code class="function">dump_station</code>.
+</p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="API-enum-monitor-flags.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="bk01ch02.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="API-struct-mpath-info.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top"><span class="phrase">enum monitor_flags</span> </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> <span class="phrase">struct mpath_info</span></td></tr></table></div></body></html>

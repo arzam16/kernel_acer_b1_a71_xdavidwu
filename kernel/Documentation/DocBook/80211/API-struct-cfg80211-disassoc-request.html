@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>struct cfg80211_disassoc_request</title><meta name="generator" content="DocBook XSL Stylesheets V1.78.1" /><link rel="home" href="index.html" title="The 802.11 subsystems – for kernel developers" /><link rel="up" href="bk01ch02.html" title="Chapter 2. Actions and configuration" /><link rel="prev" href="API-struct-cfg80211-deauth-request.html" title="struct cfg80211_deauth_request" /><link rel="next" href="API-struct-cfg80211-ibss-params.html" title="struct cfg80211_ibss_params" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center"><span class="phrase">struct cfg80211_disassoc_request</span></th></tr><tr><td width="20%" align="left"><a accesskey="p" href="API-struct-cfg80211-deauth-request.html">Prev</a> </td><th width="60%" align="center">Chapter 2. Actions and configuration</th><td width="20%" align="right"> <a accesskey="n" href="API-struct-cfg80211-ibss-params.html">Next</a></td></tr></table><hr /></div><div class="refentry"><a id="API-struct-cfg80211-disassoc-request"></a><div class="titlepage"></div><div class="refnamediv"><h2>Name</h2><p>struct cfg80211_disassoc_request — 
+  Disassociation request data
+ </p></div><div class="refsynopsisdiv"><h2>Synopsis</h2><pre class="programlisting">
+struct cfg80211_disassoc_request {
+  struct cfg80211_bss * bss;
+  const u8 * ie;
+  size_t ie_len;
+  u16 reason_code;
+  bool local_state_change;
+};  </pre></div><div class="refsect1"><a id="idp51018624"></a><h2>Members</h2><div class="variablelist"><dl class="variablelist"><dt><span class="term">bss</span></dt><dd><p>
+the BSS to disassociate from
+      </p></dd><dt><span class="term">ie</span></dt><dd><p>
+Extra IEs to add to Disassociation frame or <code class="constant">NULL</code>
+      </p></dd><dt><span class="term">ie_len</span></dt><dd><p>
+Length of ie buffer in octets
+      </p></dd><dt><span class="term">reason_code</span></dt><dd><p>
+The reason code for the disassociation
+      </p></dd><dt><span class="term">local_state_change</span></dt><dd><p>
+This is a request for a local state only, i.e., no
+Disassociation frame is to be transmitted.
+      </p></dd></dl></div></div><div class="refsect1"><a id="idp51026672"></a><h2>Description</h2><p>
+   </p><p>
+
+   This structure provides information needed to complete IEEE 802.11
+   disassocation.
+</p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="API-struct-cfg80211-deauth-request.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="bk01ch02.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="API-struct-cfg80211-ibss-params.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top"><span class="phrase">struct cfg80211_deauth_request</span> </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> <span class="phrase">struct cfg80211_ibss_params</span></td></tr></table></div></body></html>

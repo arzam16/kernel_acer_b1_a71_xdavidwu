@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Frame format</title><meta name="generator" content="DocBook XSL Stylesheets V1.78.1" /><link rel="home" href="index.html" title="The 802.11 subsystems – for kernel developers" /><link rel="up" href="rx-tx.html" title="Chapter 4. Receive and transmit processing" /><link rel="prev" href="rx-tx.html" title="Chapter 4. Receive and transmit processing" /><link rel="next" href="bk02pt01ch04s03.html" title="Packet alignment" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Frame format</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="rx-tx.html">Prev</a> </td><th width="60%" align="center">Chapter 4. Receive and transmit processing</th><td width="20%" align="right"> <a accesskey="n" href="bk02pt01ch04s03.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="idp52562672"></a>Frame format</h2></div></div></div><p>
+   </p><p>
+   As a general rule, when frames are passed between mac80211 and the driver,
+   they start with the IEEE 802.11 header and include the same octets that are
+   sent over the air except for the FCS which should be calculated by the
+   hardware.
+   </p><p>
+   There are, however, various exceptions to this rule for advanced features:
+   </p><p>
+   The first exception is for hardware encryption and decryption offload
+   where the IV/ICV may or may not be generated in hardware.
+   </p><p>
+   Secondly, when the hardware handles fragmentation, the frame handed to
+   the driver from mac80211 is the MSDU, not the MPDU.
+   </p><p>
+   Finally, for received frames, the driver is able to indicate that it has
+   filled a radiotap header and put that in front of the frame; if it does
+   not do so then mac80211 may add this under certain circumstances.
+</p></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="rx-tx.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="rx-tx.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="bk02pt01ch04s03.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter 4. Receive and transmit processing </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Packet alignment</td></tr></table></div></body></html>

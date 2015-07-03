@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>RX A-MPDU aggregation</title><meta name="generator" content="DocBook XSL Stylesheets V1.78.1" /><link rel="home" href="index.html" title="The 802.11 subsystems – for kernel developers" /><link rel="up" href="aggregation.html" title="Chapter 16. Aggregation" /><link rel="prev" href="aggregation.html" title="Chapter 16. Aggregation" /><link rel="next" href="API-enum-ieee80211-ampdu-mlme-action.html" title="enum ieee80211_ampdu_mlme_action" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">RX A-MPDU aggregation</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="aggregation.html">Prev</a> </td><th width="60%" align="center">Chapter 16. Aggregation</th><td width="20%" align="right"> <a accesskey="n" href="API-enum-ieee80211-ampdu-mlme-action.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="idp53820096"></a>RX A-MPDU aggregation</h2></div></div></div><p>
+   </p><p>
+   Aggregation on the RX side requires only implementing the
+   <em class="parameter"><code>ampdu_action</code></em> callback that is invoked to start/stop any
+   block-ack sessions for RX aggregation.
+   </p><p>
+   When RX aggregation is started by the peer, the driver is
+   notified via <em class="parameter"><code>ampdu_action</code></em> function, with the
+   <code class="constant">IEEE80211_AMPDU_RX_START</code> action, and may reject the request
+   in which case a negative response is sent to the peer, if it
+   accepts it a positive response is sent.
+   </p><p>
+   While the session is active, the device/driver are required
+   to de-aggregate frames and pass them up one by one to mac80211,
+   which will handle the reorder buffer.
+   </p><p>
+   When the aggregation session is stopped again by the peer or
+   ourselves, the driver's <em class="parameter"><code>ampdu_action</code></em> function will be called
+   with the action <code class="constant">IEEE80211_AMPDU_RX_STOP</code>. In this case, the
+   call must not fail.
+</p></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="aggregation.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="aggregation.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="API-enum-ieee80211-ampdu-mlme-action.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter 16. Aggregation </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> <span class="phrase">enum ieee80211_ampdu_mlme_action</span></td></tr></table></div></body></html>

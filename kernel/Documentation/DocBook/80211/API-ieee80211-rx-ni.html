@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>ieee80211_rx_ni</title><meta name="generator" content="DocBook XSL Stylesheets V1.78.1" /><link rel="home" href="index.html" title="The 802.11 subsystems – for kernel developers" /><link rel="up" href="bk02pt01ch04s05.html" title="functions/definitions" /><link rel="prev" href="API-ieee80211-rx.html" title="ieee80211_rx" /><link rel="next" href="API-ieee80211-rx-irqsafe.html" title="ieee80211_rx_irqsafe" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center"><span class="phrase">ieee80211_rx_ni</span></th></tr><tr><td width="20%" align="left"><a accesskey="p" href="API-ieee80211-rx.html">Prev</a> </td><th width="60%" align="center">functions/definitions</th><td width="20%" align="right"> <a accesskey="n" href="API-ieee80211-rx-irqsafe.html">Next</a></td></tr></table><hr /></div><div class="refentry"><a id="API-ieee80211-rx-ni"></a><div class="titlepage"></div><div class="refnamediv"><h2>Name</h2><p>ieee80211_rx_ni — 
+  receive frame (in process context)
+ </p></div><div class="refsynopsisdiv"><h2>Synopsis</h2><div class="funcsynopsis"><table border="0" class="funcprototype-table" summary="Function synopsis" style="cellspacing: 0; cellpadding: 0;"><tr><td><code class="funcdef">void <strong class="fsfunc">ieee80211_rx_ni </strong>(</code></td><td>struct ieee80211_hw * <var class="pdparam">hw</var>, </td></tr><tr><td> </td><td>struct sk_buff * <var class="pdparam">skb</var><code>)</code>;</td></tr></table><div class="funcprototype-spacer"> </div></div></div><div class="refsect1"><a id="idp52790160"></a><h2>Arguments</h2><div class="variablelist"><dl class="variablelist"><dt><span class="term"><em class="parameter"><code>hw</code></em></span></dt><dd><p>
+     the hardware this frame came in on
+    </p></dd><dt><span class="term"><em class="parameter"><code>skb</code></em></span></dt><dd><p>
+     the buffer to receive, owned by mac80211 after this call
+    </p></dd></dl></div></div><div class="refsect1"><a id="idp52795360"></a><h2>Description</h2><p>
+   </p><p>
+
+   Like <code class="function">ieee80211_rx</code> but can be called in process context
+   (internally disables bottom halves).
+   </p><p>
+
+   Calls to this function, <code class="function">ieee80211_rx</code> and <code class="function">ieee80211_rx_irqsafe</code> may
+   not be mixed for a single hardware.
+</p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="API-ieee80211-rx.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="bk02pt01ch04s05.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="API-ieee80211-rx-irqsafe.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top"><span class="phrase">ieee80211_rx</span> </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> <span class="phrase">ieee80211_rx_irqsafe</span></td></tr></table></div></body></html>

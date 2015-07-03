@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>struct ieee80211_rx_status</title><meta name="generator" content="DocBook XSL Stylesheets V1.78.1" /><link rel="home" href="index.html" title="The 802.11 subsystems – for kernel developers" /><link rel="up" href="bk02pt01ch04s05.html" title="functions/definitions" /><link rel="prev" href="bk02pt01ch04s05.html" title="functions/definitions" /><link rel="next" href="API-enum-mac80211-rx-flags.html" title="enum mac80211_rx_flags" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center"><span class="phrase">struct ieee80211_rx_status</span></th></tr><tr><td width="20%" align="left"><a accesskey="p" href="bk02pt01ch04s05.html">Prev</a> </td><th width="60%" align="center">functions/definitions</th><td width="20%" align="right"> <a accesskey="n" href="API-enum-mac80211-rx-flags.html">Next</a></td></tr></table><hr /></div><div class="refentry"><a id="API-struct-ieee80211-rx-status"></a><div class="titlepage"></div><div class="refnamediv"><h2>Name</h2><p>struct ieee80211_rx_status — 
+  receive status
+ </p></div><div class="refsynopsisdiv"><h2>Synopsis</h2><pre class="programlisting">
+struct ieee80211_rx_status {
+  u64 mactime;
+  enum ieee80211_band band;
+  int freq;
+  int signal;
+  int antenna;
+  int rate_idx;
+  int flag;
+  unsigned int rx_flags;
+};  </pre></div><div class="refsect1"><a id="idp52582688"></a><h2>Members</h2><div class="variablelist"><dl class="variablelist"><dt><span class="term">mactime</span></dt><dd><p>
+value in microseconds of the 64-bit Time Synchronization Function
+(TSF) timer when the first data symbol (MPDU) arrived at the hardware.
+      </p></dd><dt><span class="term">band</span></dt><dd><p>
+the active band when this frame was received
+      </p></dd><dt><span class="term">freq</span></dt><dd><p>
+frequency the radio was tuned to when receiving this frame, in MHz
+      </p></dd><dt><span class="term">signal</span></dt><dd><p>
+signal strength when receiving this frame, either in dBm, in dB or
+unspecified depending on the hardware capabilities flags
+<em class="parameter"><code>IEEE80211_HW_SIGNAL_</code></em>*
+      </p></dd><dt><span class="term">antenna</span></dt><dd><p>
+antenna used
+      </p></dd><dt><span class="term">rate_idx</span></dt><dd><p>
+index of data rate into band's supported rates or MCS index if
+HT rates are use (RX_FLAG_HT)
+      </p></dd><dt><span class="term">flag</span></dt><dd><p>
+<code class="constant">RX_FLAG_</code>*
+      </p></dd><dt><span class="term">rx_flags</span></dt><dd><p>
+internal RX flags for mac80211
+      </p></dd></dl></div></div><div class="refsect1"><a id="idp52596192"></a><h2>Description</h2><p>
+   </p><p>
+
+   The low-level driver should provide this information (the subset
+   supported by hardware) to the 802.11 code with each received
+   frame, in the skb's control buffer (cb).
+</p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="bk02pt01ch04s05.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="bk02pt01ch04s05.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="API-enum-mac80211-rx-flags.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">functions/definitions </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> <span class="phrase">enum mac80211_rx_flags</span></td></tr></table></div></body></html>

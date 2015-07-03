@@ -1,0 +1,417 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>struct ieee80211_ops</title><meta name="generator" content="DocBook XSL Stylesheets V1.78.1" /><link rel="home" href="index.html" title="The 802.11 subsystems – for kernel developers" /><link rel="up" href="basics.html" title="Chapter 1. Basic hardware handling" /><link rel="prev" href="API-SET-IEEE80211-PERM-ADDR.html" title="SET_IEEE80211_PERM_ADDR" /><link rel="next" href="API-ieee80211-alloc-hw.html" title="ieee80211_alloc_hw" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center"><span class="phrase">struct ieee80211_ops</span></th></tr><tr><td width="20%" align="left"><a accesskey="p" href="API-SET-IEEE80211-PERM-ADDR.html">Prev</a> </td><th width="60%" align="center">Chapter 1. Basic hardware handling</th><td width="20%" align="right"> <a accesskey="n" href="API-ieee80211-alloc-hw.html">Next</a></td></tr></table><hr /></div><div class="refentry"><a id="API-struct-ieee80211-ops"></a><div class="titlepage"></div><div class="refnamediv"><h2>Name</h2><p>struct ieee80211_ops — 
+  callbacks from mac80211 to the driver
+ </p></div><div class="refsynopsisdiv"><h2>Synopsis</h2><pre class="programlisting">
+struct ieee80211_ops {
+  void (* tx) (struct ieee80211_hw *hw, struct sk_buff *skb);
+  void (* tx_frags) (struct ieee80211_hw *hw, struct ieee80211_vif *vif,struct ieee80211_sta *sta, struct sk_buff_head *skbs);
+  int (* start) (struct ieee80211_hw *hw);
+  void (* stop) (struct ieee80211_hw *hw);
+#ifdef CONFIG_PM
+  int (* suspend) (struct ieee80211_hw *hw, struct cfg80211_wowlan *wowlan);
+  int (* resume) (struct ieee80211_hw *hw);
+#endif
+  int (* add_interface) (struct ieee80211_hw *hw,struct ieee80211_vif *vif);
+  int (* change_interface) (struct ieee80211_hw *hw,struct ieee80211_vif *vif,enum nl80211_iftype new_type, bool p2p);
+  void (* remove_interface) (struct ieee80211_hw *hw,struct ieee80211_vif *vif);
+  int (* config) (struct ieee80211_hw *hw, u32 changed);
+  void (* bss_info_changed) (struct ieee80211_hw *hw,struct ieee80211_vif *vif,struct ieee80211_bss_conf *info,u32 changed);
+  u64 (* prepare_multicast) (struct ieee80211_hw *hw,struct netdev_hw_addr_list *mc_list);
+  void (* configure_filter) (struct ieee80211_hw *hw,unsigned int changed_flags,unsigned int *total_flags,u64 multicast);
+  int (* set_tim) (struct ieee80211_hw *hw, struct ieee80211_sta *sta,bool set);
+  int (* set_key) (struct ieee80211_hw *hw, enum set_key_cmd cmd,struct ieee80211_vif *vif, struct ieee80211_sta *sta,struct ieee80211_key_conf *key);
+  void (* update_tkip_key) (struct ieee80211_hw *hw,struct ieee80211_vif *vif,struct ieee80211_key_conf *conf,struct ieee80211_sta *sta,u32 iv32, u16 *phase1key);
+  void (* set_rekey_data) (struct ieee80211_hw *hw,struct ieee80211_vif *vif,struct cfg80211_gtk_rekey_data *data);
+  int (* hw_scan) (struct ieee80211_hw *hw, struct ieee80211_vif *vif,struct cfg80211_scan_request *req);
+  void (* cancel_hw_scan) (struct ieee80211_hw *hw,struct ieee80211_vif *vif);
+  int (* sched_scan_start) (struct ieee80211_hw *hw,struct ieee80211_vif *vif,struct cfg80211_sched_scan_request *req,struct ieee80211_sched_scan_ies *ies);
+  void (* sched_scan_stop) (struct ieee80211_hw *hw,struct ieee80211_vif *vif);
+  void (* sw_scan_start) (struct ieee80211_hw *hw);
+  void (* sw_scan_complete) (struct ieee80211_hw *hw);
+  int (* get_stats) (struct ieee80211_hw *hw,struct ieee80211_low_level_stats *stats);
+  void (* get_tkip_seq) (struct ieee80211_hw *hw, u8 hw_key_idx,u32 *iv32, u16 *iv16);
+  int (* set_frag_threshold) (struct ieee80211_hw *hw, u32 value);
+  int (* set_rts_threshold) (struct ieee80211_hw *hw, u32 value);
+  int (* sta_add) (struct ieee80211_hw *hw, struct ieee80211_vif *vif,struct ieee80211_sta *sta);
+  int (* sta_remove) (struct ieee80211_hw *hw, struct ieee80211_vif *vif,struct ieee80211_sta *sta);
+  void (* sta_notify) (struct ieee80211_hw *hw, struct ieee80211_vif *vif,enum sta_notify_cmd, struct ieee80211_sta *sta);
+  int (* sta_state) (struct ieee80211_hw *hw, struct ieee80211_vif *vif,struct ieee80211_sta *sta,enum ieee80211_sta_state old_state,enum ieee80211_sta_state new_state);
+  int (* conf_tx) (struct ieee80211_hw *hw,struct ieee80211_vif *vif, u16 queue,const struct ieee80211_tx_queue_params *params);
+  u64 (* get_tsf) (struct ieee80211_hw *hw, struct ieee80211_vif *vif);
+  void (* set_tsf) (struct ieee80211_hw *hw, struct ieee80211_vif *vif,u64 tsf);
+  void (* reset_tsf) (struct ieee80211_hw *hw, struct ieee80211_vif *vif);
+  int (* tx_last_beacon) (struct ieee80211_hw *hw);
+  int (* ampdu_action) (struct ieee80211_hw *hw,struct ieee80211_vif *vif,enum ieee80211_ampdu_mlme_action action,struct ieee80211_sta *sta, u16 tid, u16 *ssn,u8 buf_size);
+  int (* get_survey) (struct ieee80211_hw *hw, int idx,struct survey_info *survey);
+  void (* rfkill_poll) (struct ieee80211_hw *hw);
+  void (* set_coverage_class) (struct ieee80211_hw *hw, u8 coverage_class);
+#ifdef CONFIG_NL80211_TESTMODE
+  int (* testmode_cmd) (struct ieee80211_hw *hw, void *data, int len);
+  int (* testmode_dump) (struct ieee80211_hw *hw, struct sk_buff *skb,struct netlink_callback *cb,void *data, int len);
+#endif
+  void (* flush) (struct ieee80211_hw *hw, bool drop);
+  void (* channel_switch) (struct ieee80211_hw *hw,struct ieee80211_channel_switch *ch_switch);
+  int (* napi_poll) (struct ieee80211_hw *hw, int budget);
+  int (* set_antenna) (struct ieee80211_hw *hw, u32 tx_ant, u32 rx_ant);
+  int (* get_antenna) (struct ieee80211_hw *hw, u32 *tx_ant, u32 *rx_ant);
+  int (* remain_on_channel) (struct ieee80211_hw *hw,struct ieee80211_channel *chan,enum nl80211_channel_type channel_type,int duration);
+  int (* cancel_remain_on_channel) (struct ieee80211_hw *hw);
+  int (* set_ringparam) (struct ieee80211_hw *hw, u32 tx, u32 rx);
+  void (* get_ringparam) (struct ieee80211_hw *hw,u32 *tx, u32 *tx_max, u32 *rx, u32 *rx_max);
+  bool (* tx_frames_pending) (struct ieee80211_hw *hw);
+  int (* set_bitrate_mask) (struct ieee80211_hw *hw, struct ieee80211_vif *vif,const struct cfg80211_bitrate_mask *mask);
+  void (* rssi_callback) (struct ieee80211_hw *hw,enum ieee80211_rssi_event rssi_event);
+  void (* allow_buffered_frames) (struct ieee80211_hw *hw,struct ieee80211_sta *sta,u16 tids, int num_frames,enum ieee80211_frame_release_type reason,bool more_data);
+  void (* release_buffered_frames) (struct ieee80211_hw *hw,struct ieee80211_sta *sta,u16 tids, int num_frames,enum ieee80211_frame_release_type reason,bool more_data);
+};  </pre></div><div class="refsect1"><a id="idp52303696"></a><h2>Members</h2><div class="variablelist"><dl class="variablelist"><dt><span class="term">tx</span></dt><dd><p>
+Handler that 802.11 module calls for each transmitted frame.
+skb contains the buffer starting from the IEEE 802.11 header.
+The low-level driver should send the frame out based on
+configuration in the TX control data. This handler should,
+preferably, never fail and stop queues appropriately.
+This must be implemented if <em class="parameter"><code>tx_frags</code></em> is not.
+Must be atomic.
+      </p></dd><dt><span class="term">tx_frags</span></dt><dd><p>
+Called to transmit multiple fragments of a single MSDU.
+This handler must consume all fragments, sending out some of
+them only is useless and it can't ask for some of them to be
+queued again. If the frame is not fragmented the queue has a
+single SKB only. To avoid issues with the networking stack
+when TX status is reported the frames should be removed from
+the skb queue.
+If this is used, the tx_info <em class="parameter"><code>vif</code></em> and <em class="parameter"><code>sta</code></em> pointers will be
+invalid -- you must not use them in that case.
+This must be implemented if <em class="parameter"><code>tx</code></em> isn't.
+Must be atomic.
+      </p></dd><dt><span class="term">start</span></dt><dd><p>
+Called before the first netdevice attached to the hardware
+is enabled. This should turn on the hardware and must turn on
+frame reception (for possibly enabled monitor interfaces.)
+Returns negative error codes, these may be seen in userspace,
+or zero.
+When the device is started it should not have a MAC address
+to avoid acknowledging frames before a non-monitor device
+is added.
+Must be implemented and can sleep.
+      </p></dd><dt><span class="term">stop</span></dt><dd><p>
+Called after last netdevice attached to the hardware
+is disabled. This should turn off the hardware (at least
+it must turn off frame reception.)
+May be called right after add_interface if that rejects
+an interface. If you added any work onto the mac80211 workqueue
+you should ensure to cancel it on this callback.
+Must be implemented and can sleep.
+      </p></dd><dt><span class="term">suspend</span></dt><dd><p>
+Suspend the device; mac80211 itself will quiesce before and
+stop transmitting and doing any other configuration, and then
+ask the device to suspend. This is only invoked when WoWLAN is
+configured, otherwise the device is deconfigured completely and
+reconfigured at resume time.
+The driver may also impose special conditions under which it
+wants to use the <span class="quote">“<span class="quote">normal</span>”</span> suspend (deconfigure), say if it only
+supports WoWLAN when the device is associated. In this case, it
+must return 1 from this function.
+      </p></dd><dt><span class="term">resume</span></dt><dd><p>
+If WoWLAN was configured, this indicates that mac80211 is
+now resuming its operation, after this the device must be fully
+functional again. If this returns an error, the only way out is
+to also unregister the device. If it returns 1, then mac80211
+will also go through the regular complete restart on resume.
+      </p></dd><dt><span class="term">add_interface</span></dt><dd><p>
+Called when a netdevice attached to the hardware is
+enabled. Because it is not called for monitor mode devices, <em class="parameter"><code>start</code></em>
+and <em class="parameter"><code>stop</code></em> must be implemented.
+The driver should perform any initialization it needs before
+the device can be enabled. The initial configuration for the
+interface is given in the conf parameter.
+The callback may refuse to add an interface by returning a
+negative error code (which will be seen in userspace.)
+Must be implemented and can sleep.
+      </p></dd><dt><span class="term">change_interface</span></dt><dd><p>
+Called when a netdevice changes type. This callback
+is optional, but only if it is supported can interface types be
+switched while the interface is UP. The callback may sleep.
+Note that while an interface is being switched, it will not be
+found by the interface iteration callbacks.
+      </p></dd><dt><span class="term">remove_interface</span></dt><dd><p>
+Notifies a driver that an interface is going down.
+The <em class="parameter"><code>stop</code></em> callback is called after this if it is the last interface
+and no monitor interfaces are present.
+When all interfaces are removed, the MAC address in the hardware
+must be cleared so the device no longer acknowledges packets,
+the mac_addr member of the conf structure is, however, set to the
+MAC address of the device going away.
+Hence, this callback must be implemented. It can sleep.
+      </p></dd><dt><span class="term">config</span></dt><dd><p>
+Handler for configuration requests. IEEE 802.11 code calls this
+function to change hardware configuration, e.g., channel.
+This function should never fail but returns a negative error code
+if it does. The callback can sleep.
+      </p></dd><dt><span class="term">bss_info_changed</span></dt><dd><p>
+Handler for configuration requests related to BSS
+parameters that may vary during BSS's lifespan, and may affect low
+level driver (e.g. assoc/disassoc status, erp parameters).
+This function should not be used if no BSS has been set, unless
+for association indication. The <em class="parameter"><code>changed</code></em> parameter indicates which
+of the bss parameters has changed when a call is made. The callback
+can sleep.
+      </p></dd><dt><span class="term">prepare_multicast</span></dt><dd><p>
+Prepare for multicast filter configuration.
+This callback is optional, and its return value is passed
+to <code class="function">configure_filter</code>. This callback must be atomic.
+      </p></dd><dt><span class="term">configure_filter</span></dt><dd><p>
+Configure the device's RX filter.
+See the section <span class="quote">“<span class="quote">Frame filtering</span>”</span> for more information.
+This callback must be implemented and can sleep.
+      </p></dd><dt><span class="term">set_tim</span></dt><dd><p>
+Set TIM bit. mac80211 calls this function when a TIM bit
+must be set or cleared for a given STA. Must be atomic.
+      </p></dd><dt><span class="term">set_key</span></dt><dd><p>
+See the section <span class="quote">“<span class="quote">Hardware crypto acceleration</span>”</span>
+This callback is only called between add_interface and
+remove_interface calls, i.e. while the given virtual interface
+is enabled.
+Returns a negative error code if the key can't be added.
+The callback can sleep.
+      </p></dd><dt><span class="term">update_tkip_key</span></dt><dd><p>
+See the section <span class="quote">“<span class="quote">Hardware crypto acceleration</span>”</span>
+This callback will be called in the context of Rx. Called for drivers
+which set IEEE80211_KEY_FLAG_TKIP_REQ_RX_P1_KEY.
+The callback must be atomic.
+      </p></dd><dt><span class="term">set_rekey_data</span></dt><dd><p>
+If the device supports GTK rekeying, for example while the
+host is suspended, it can assign this callback to retrieve the data
+necessary to do GTK rekeying, this is the KEK, KCK and replay counter.
+After rekeying was done it should (for example during resume) notify
+userspace of the new replay counter using <code class="function">ieee80211_gtk_rekey_notify</code>.
+      </p></dd><dt><span class="term">hw_scan</span></dt><dd><p>
+Ask the hardware to service the scan request, no need to start
+the scan state machine in stack. The scan must honour the channel
+configuration done by the regulatory agent in the wiphy's
+registered bands. The hardware (or the driver) needs to make sure
+that power save is disabled.
+The <em class="parameter"><code>req</code></em> ie/ie_len members are rewritten by mac80211 to contain the
+entire IEs after the SSID, so that drivers need not look at these
+at all but just send them after the SSID -- mac80211 includes the
+(extended) supported rates and HT information (where applicable).
+When the scan finishes, <code class="function">ieee80211_scan_completed</code> must be called;
+note that it also must be called when the scan cannot finish due to
+any error unless this callback returned a negative error code.
+The callback can sleep.
+      </p></dd><dt><span class="term">cancel_hw_scan</span></dt><dd><p>
+Ask the low-level tp cancel the active hw scan.
+The driver should ask the hardware to cancel the scan (if possible),
+but the scan will be completed only after the driver will call
+<code class="function">ieee80211_scan_completed</code>.
+This callback is needed for wowlan, to prevent enqueueing a new
+scan_work after the low-level driver was already suspended.
+The callback can sleep.
+      </p></dd><dt><span class="term">sched_scan_start</span></dt><dd><p>
+Ask the hardware to start scanning repeatedly at
+specific intervals.  The driver must call the
+<code class="function">ieee80211_sched_scan_results</code> function whenever it finds results.
+This process will continue until sched_scan_stop is called.
+      </p></dd><dt><span class="term">sched_scan_stop</span></dt><dd><p>
+Tell the hardware to stop an ongoing scheduled scan.
+      </p></dd><dt><span class="term">sw_scan_start</span></dt><dd><p>
+Notifier function that is called just before a software scan
+is started. Can be NULL, if the driver doesn't need this notification.
+The callback can sleep.
+      </p></dd><dt><span class="term">sw_scan_complete</span></dt><dd><p>
+Notifier function that is called just after a
+software scan finished. Can be NULL, if the driver doesn't need
+this notification.
+The callback can sleep.
+      </p></dd><dt><span class="term">get_stats</span></dt><dd><p>
+Return low-level statistics.
+Returns zero if statistics are available.
+The callback can sleep.
+      </p></dd><dt><span class="term">get_tkip_seq</span></dt><dd><p>
+If your device implements TKIP encryption in hardware this
+callback should be provided to read the TKIP transmit IVs (both IV32
+and IV16) for the given key from hardware.
+The callback must be atomic.
+      </p></dd><dt><span class="term">set_frag_threshold</span></dt><dd><p>
+Configuration of fragmentation threshold. Assign this
+if the device does fragmentation by itself; if this callback is
+implemented then the stack will not do fragmentation.
+The callback can sleep.
+      </p></dd><dt><span class="term">set_rts_threshold</span></dt><dd><p>
+Configuration of RTS threshold (if device needs it)
+The callback can sleep.
+      </p></dd><dt><span class="term">sta_add</span></dt><dd><p>
+Notifies low level driver about addition of an associated station,
+AP, IBSS/WDS/mesh peer etc. This callback can sleep.
+      </p></dd><dt><span class="term">sta_remove</span></dt><dd><p>
+Notifies low level driver about removal of an associated
+station, AP, IBSS/WDS/mesh peer etc. This callback can sleep.
+      </p></dd><dt><span class="term">sta_notify</span></dt><dd><p>
+Notifies low level driver about power state transition of an
+associated station, AP,  IBSS/WDS/mesh peer etc. For a VIF operating
+in AP mode, this callback will not be called when the flag
+<code class="constant">IEEE80211_HW_AP_LINK_PS</code> is set. Must be atomic.
+      </p></dd><dt><span class="term">sta_state</span></dt><dd><p>
+Notifies low level driver about state transition of a
+station (which can be the AP, a client, IBSS/WDS/mesh peer etc.)
+This callback is mutually exclusive with <em class="parameter"><code>sta_add</code></em>/<em class="parameter"><code>sta_remove</code></em>.
+It must not fail for down transitions but may fail for transitions
+up the list of states.
+The callback can sleep.
+      </p></dd><dt><span class="term">conf_tx</span></dt><dd><p>
+Configure TX queue parameters (EDCF (aifs, cw_min, cw_max),
+bursting) for a hardware TX queue.
+Returns a negative error code on failure.
+The callback can sleep.
+      </p></dd><dt><span class="term">get_tsf</span></dt><dd><p>
+Get the current TSF timer value from firmware/hardware. Currently,
+this is only used for IBSS mode BSSID merging and debugging. Is not a
+required function.
+The callback can sleep.
+      </p></dd><dt><span class="term">set_tsf</span></dt><dd><p>
+Set the TSF timer to the specified value in the firmware/hardware.
+Currently, this is only used for IBSS mode debugging. Is not a
+required function.
+The callback can sleep.
+      </p></dd><dt><span class="term">reset_tsf</span></dt><dd><p>
+Reset the TSF timer and allow firmware/hardware to synchronize
+with other STAs in the IBSS. This is only used in IBSS mode. This
+function is optional if the firmware/hardware takes full care of
+TSF synchronization.
+The callback can sleep.
+      </p></dd><dt><span class="term">tx_last_beacon</span></dt><dd><p>
+Determine whether the last IBSS beacon was sent by us.
+This is needed only for IBSS mode and the result of this function is
+used to determine whether to reply to Probe Requests.
+Returns non-zero if this device sent the last beacon.
+The callback can sleep.
+      </p></dd><dt><span class="term">ampdu_action</span></dt><dd><p>
+Perform a certain A-MPDU action
+The RA/TID combination determines the destination and TID we want
+the ampdu action to be performed for. The action is defined through
+ieee80211_ampdu_mlme_action. Starting sequence number (<em class="parameter"><code>ssn</code></em>)
+is the first frame we expect to perform the action on. Notice
+that TX/RX_STOP can pass NULL for this parameter.
+The <em class="parameter"><code>buf_size</code></em> parameter is only valid when the action is set to
+<code class="constant">IEEE80211_AMPDU_TX_OPERATIONAL</code> and indicates the peer's reorder
+buffer size (number of subframes) for this session -- the driver
+may neither send aggregates containing more subframes than this
+nor send aggregates in a way that lost frames would exceed the
+buffer size. If just limiting the aggregate size, this would be
+      </p></dd><dt><span class="term">get_survey</span></dt><dd><p>
+Return per-channel survey information
+      </p></dd><dt><span class="term">rfkill_poll</span></dt><dd><p>
+Poll rfkill hardware state. If you need this, you also
+need to set wiphy-&gt;rfkill_poll to <code class="constant">true</code> before registration,
+and need to call <code class="function">wiphy_rfkill_set_hw_state</code> in the callback.
+The callback can sleep.
+      </p></dd><dt><span class="term">set_coverage_class</span></dt><dd><p>
+Set slot time for given coverage class as specified
+in IEEE 802.11-2007 section 17.3.8.6 and modify ACK timeout
+accordingly. This callback is not required and may sleep.
+      </p></dd><dt><span class="term">testmode_cmd</span></dt><dd><p>
+Implement a cfg80211 test mode command.
+The callback can sleep.
+      </p></dd><dt><span class="term">testmode_dump</span></dt><dd><p>
+Implement a cfg80211 test mode dump. The callback can sleep.
+      </p></dd><dt><span class="term">flush</span></dt><dd><p>
+Flush all pending frames from the hardware queue, making sure
+that the hardware queues are empty. If the parameter <em class="parameter"><code>drop</code></em> is set
+to <code class="constant">true</code>, pending frames may be dropped. The callback can sleep.
+      </p></dd><dt><span class="term">channel_switch</span></dt><dd><p>
+Drivers that need (or want) to offload the channel
+switch operation for CSAs received from the AP may implement this
+callback. They must then call <code class="function">ieee80211_chswitch_done</code> to indicate
+completion of the channel switch.
+      </p></dd><dt><span class="term">napi_poll</span></dt><dd><p>
+Poll Rx queue for incoming data frames.
+      </p></dd><dt><span class="term">set_antenna</span></dt><dd><p>
+Set antenna configuration (tx_ant, rx_ant) on the device.
+Parameters are bitmaps of allowed antennas to use for TX/RX. Drivers may
+reject TX/RX mask combinations they cannot support by returning -EINVAL
+(also see nl80211.h <em class="parameter"><code>NL80211_ATTR_WIPHY_ANTENNA_TX</code></em>).
+      </p></dd><dt><span class="term">get_antenna</span></dt><dd><p>
+Get current antenna configuration from device (tx_ant, rx_ant).
+      </p></dd><dt><span class="term">remain_on_channel</span></dt><dd><p>
+Starts an off-channel period on the given channel, must
+call back to <code class="function">ieee80211_ready_on_channel</code> when on that channel. Note
+that normal channel traffic is not stopped as this is intended for hw
+offload. Frames to transmit on the off-channel channel are transmitted
+normally except for the <code class="constant">IEEE80211_TX_CTL_TX_OFFCHAN</code> flag. When the
+duration (which will always be non-zero) expires, the driver must call
+<code class="function">ieee80211_remain_on_channel_expired</code>. This callback may sleep.
+      </p></dd><dt><span class="term">cancel_remain_on_channel</span></dt><dd><p>
+Requests that an ongoing off-channel period is
+aborted before it expires. This callback may sleep.
+      </p></dd><dt><span class="term">set_ringparam</span></dt><dd><p>
+Set tx and rx ring sizes.
+      </p></dd><dt><span class="term">get_ringparam</span></dt><dd><p>
+Get tx and rx ring current and maximum sizes.
+      </p></dd><dt><span class="term">tx_frames_pending</span></dt><dd><p>
+Check if there is any pending frame in the hardware
+queues before entering power save.
+      </p></dd><dt><span class="term">set_bitrate_mask</span></dt><dd><p>
+Set a mask of rates to be used for rate control selection
+when transmitting a frame. Currently only legacy rates are handled.
+The callback can sleep.
+      </p></dd><dt><span class="term">rssi_callback</span></dt><dd><p>
+Notify driver when the average RSSI goes above/below
+thresholds that were registered previously. The callback can sleep.
+      </p></dd><dt><span class="term">allow_buffered_frames</span></dt><dd><p>
+Prepare device to allow the given number of frames
+to go out to the given station. The frames will be sent by mac80211
+via the usual TX path after this call. The TX information for frames
+released will also have the <code class="constant">IEEE80211_TX_CTL_NO_PS_BUFFER</code> flag set
+and the last one will also have <code class="constant">IEEE80211_TX_STATUS_EOSP</code> set. In case
+frames from multiple TIDs are released and the driver might reorder
+them between the TIDs, it must set the <code class="constant">IEEE80211_TX_STATUS_EOSP</code> flag
+on the last frame and clear it on all others and also handle the EOSP
+bit in the QoS header correctly. Alternatively, it can also call the
+<code class="function">ieee80211_sta_eosp_irqsafe</code> function.
+The <em class="parameter"><code>tids</code></em> parameter is a bitmap and tells the driver which TIDs the
+frames will be on; it will at most have two bits set.
+This callback must be atomic.
+      </p></dd><dt><span class="term">release_buffered_frames</span></dt><dd><p>
+Release buffered frames according to the given
+parameters. In the case where the driver buffers some frames for
+sleeping stations mac80211 will use this callback to tell the driver
+to release some frames, either for PS-poll or uAPSD.
+Note that if the <em class="parameter"><code>more_data</code></em> paramter is <code class="constant">false</code> the driver must check
+if there are more frames on the given TIDs, and if there are more than
+the frames being released then it must still set the more-data bit in
+the frame. If the <em class="parameter"><code>more_data</code></em> parameter is <code class="constant">true</code>, then of course the
+more-data bit must always be set.
+The <em class="parameter"><code>tids</code></em> parameter tells the driver which TIDs to release frames
+from, for PS-poll it will always have only a single bit set.
+In the case this is used for a PS-poll initiated release, the
+<em class="parameter"><code>num_frames</code></em> parameter will always be 1 so code can be shared. In
+this case the driver must also set <code class="constant">IEEE80211_TX_STATUS_EOSP</code> flag
+on the TX status (and must report TX status) so that the PS-poll
+period is properly ended. This is used to avoid sending multiple
+responses for a retried PS-poll frame.
+In the case this is used for uAPSD, the <em class="parameter"><code>num_frames</code></em> parameter may be
+bigger than one, but the driver may send fewer frames (it must send
+at least one, however). In this case it is also responsible for
+setting the EOSP flag in the QoS header of the frames. Also, when the
+service period ends, the driver must set <code class="constant">IEEE80211_TX_STATUS_EOSP</code>
+on the last frame in the SP. Alternatively, it may call the function
+<code class="function">ieee80211_sta_eosp_irqsafe</code> to inform mac80211 of the end of the SP.
+This callback must be atomic.
+      </p></dd></dl></div></div><div class="refsect1"><a id="idp52423408"></a><h2>Description</h2><p>
+   </p><p>
+
+   This structure contains various callbacks that the driver may
+   handle or, in some cases, must handle, for example to configure
+   the hardware to a new channel or to transmit a frame.
+</p></div><div class="refsect1"><a id="idp52425056"></a><h2>possible with a buf_size of 8</h2><p>
+   - TX: 1.....7
+   - RX:  2....7 (lost frame #1)
+   - TX:        8..1...
+   which is invalid since #1 was now re-transmitted well past the
+   buffer size of 8. Correct ways to retransmit #1 would be:
+   - TX:       1 or 18 or 81
+   Even <span class="quote">“<span class="quote">189</span>”</span> would be wrong since 1 could be lost again.
+   </p><p>
+
+   Returns a negative error code on failure.
+   The callback can sleep.
+</p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="API-SET-IEEE80211-PERM-ADDR.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="basics.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="API-ieee80211-alloc-hw.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top"><span class="phrase">SET_IEEE80211_PERM_ADDR</span> </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> <span class="phrase">ieee80211_alloc_hw</span></td></tr></table></div></body></html>

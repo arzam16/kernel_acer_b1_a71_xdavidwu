@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>struct debug_obj</title><meta name="generator" content="DocBook XSL Stylesheets V1.78.1" /><link rel="home" href="index.html" title="Debug objects life time" /><link rel="up" href="fixupfunctions.html#debug_obj_descr" title="Debug object type description structure" /><link rel="prev" href="fixupfunctions.html" title="Chapter 4. Fixup functions" /><link rel="next" href="API-struct-debug-obj-descr.html" title="struct debug_obj_descr" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center"><span class="phrase">struct debug_obj</span></th></tr><tr><td width="20%" align="left"><a accesskey="p" href="fixupfunctions.html">Prev</a> </td><th width="60%" align="center">Debug object type description structure</th><td width="20%" align="right"> <a accesskey="n" href="API-struct-debug-obj-descr.html">Next</a></td></tr></table><hr /></div><div class="refentry"><a id="API-struct-debug-obj"></a><div class="titlepage"></div><div class="refnamediv"><h2>Name</h2><p>struct debug_obj — 
+  representaion of an tracked object
+ </p></div><div class="refsynopsisdiv"><h2>Synopsis</h2><pre class="programlisting">
+struct debug_obj {
+  struct hlist_node node;
+  enum debug_obj_state state;
+  unsigned int astate;
+  void * object;
+  struct debug_obj_descr * descr;
+};  </pre></div><div class="refsect1"><a id="idp42363328"></a><h2>Members</h2><div class="variablelist"><dl class="variablelist"><dt><span class="term">node</span></dt><dd><p>
+hlist node to link the object into the tracker list
+      </p></dd><dt><span class="term">state</span></dt><dd><p>
+tracked object state
+      </p></dd><dt><span class="term">astate</span></dt><dd><p>
+current active state
+      </p></dd><dt><span class="term">object</span></dt><dd><p>
+pointer to the real object
+      </p></dd><dt><span class="term">descr</span></dt><dd><p>
+pointer to an object type specific debug description structure
+      </p></dd></dl></div></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="fixupfunctions.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="fixupfunctions.html#debug_obj_descr">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="API-struct-debug-obj-descr.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter 4. Fixup functions </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> <span class="phrase">struct debug_obj_descr</span></td></tr></table></div></body></html>

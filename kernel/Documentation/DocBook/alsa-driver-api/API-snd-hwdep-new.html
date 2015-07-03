@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>snd_hwdep_new</title><meta name="generator" content="DocBook XSL Stylesheets V1.78.1" /><link rel="home" href="index.html" title="The ALSA Driver API" /><link rel="up" href="ch06.html#idp40793584" title="Hardware-Dependent Devices API" /><link rel="prev" href="ch06.html" title="Chapter 6. Miscellaneous Functions" /><link rel="next" href="ch06s02.html" title="Jack Abstraction Layer API" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center"><span class="phrase">snd_hwdep_new</span></th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch06.html">Prev</a> </td><th width="60%" align="center">Hardware-Dependent Devices API</th><td width="20%" align="right"> <a accesskey="n" href="ch06s02.html">Next</a></td></tr></table><hr /></div><div class="refentry"><a id="API-snd-hwdep-new"></a><div class="titlepage"></div><div class="refnamediv"><h2>Name</h2><p>snd_hwdep_new — 
+  create a new hwdep instance
+ </p></div><div class="refsynopsisdiv"><h2>Synopsis</h2><div class="funcsynopsis"><table border="0" class="funcprototype-table" summary="Function synopsis" style="cellspacing: 0; cellpadding: 0;"><tr><td><code class="funcdef">int <strong class="fsfunc">snd_hwdep_new </strong>(</code></td><td>struct snd_card * <var class="pdparam">card</var>, </td></tr><tr><td> </td><td>char * <var class="pdparam">id</var>, </td></tr><tr><td> </td><td>int <var class="pdparam">device</var>, </td></tr><tr><td> </td><td>struct snd_hwdep ** <var class="pdparam">rhwdep</var><code>)</code>;</td></tr></table><div class="funcprototype-spacer"> </div></div></div><div class="refsect1"><a id="idp40806432"></a><h2>Arguments</h2><div class="variablelist"><dl class="variablelist"><dt><span class="term"><em class="parameter"><code>card</code></em></span></dt><dd><p>
+     the card instance
+    </p></dd><dt><span class="term"><em class="parameter"><code>id</code></em></span></dt><dd><p>
+     the id string
+    </p></dd><dt><span class="term"><em class="parameter"><code>device</code></em></span></dt><dd><p>
+     the device index (zero-based)
+    </p></dd><dt><span class="term"><em class="parameter"><code>rhwdep</code></em></span></dt><dd><p>
+     the pointer to store the new hwdep instance
+    </p></dd></dl></div></div><div class="refsect1"><a id="idp40815680"></a><h2>Description</h2><p>
+   Creates a new hwdep instance with the given index on the card.
+   The callbacks (hwdep-&gt;ops) must be set on the returned instance
+   after this call manually by the caller.
+   </p><p>
+
+   Returns zero if successful, or a negative error code on failure.
+</p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch06.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="ch06.html#idp40793584">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch06s02.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter 6. Miscellaneous Functions </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Jack Abstraction Layer API</td></tr></table></div></body></html>
