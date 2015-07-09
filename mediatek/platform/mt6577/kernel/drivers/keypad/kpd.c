@@ -28,7 +28,9 @@
 
 #include <asm/atomic.h>
 #include <asm/uaccess.h>
-
+#ifdef CONFIG_TOUCHSCREEN_SWEEP2WAKE
+#include <linux/input/sweep2wake.h>
+#endif
 
 #include <mach/mt_reg_base.h>
 #include <mach/mt_boot.h>
@@ -815,6 +817,11 @@ static int kpd_pdrv_probe(struct platform_device *pdev)
 		if (kpd_keymap[i] != 0)
 			__set_bit(kpd_keymap[i], kpd_input_dev->keybit);
 	}
+
+#ifdef CONFIG_TOUCHSCREEN_SWEEP2WAKE
+	sweep2wake_setdev(kpd_input_dev);
+	printk(KERN_INFO "[sweep2wake]: set device %s\n", kpd_input_dev->name);
+#endif
 
 #if KPD_AUTOTEST
 	for (i = 0; i < ARRAY_SIZE(kpd_auto_keymap); i++)
