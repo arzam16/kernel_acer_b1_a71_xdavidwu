@@ -116,8 +116,11 @@ printk("[SWEEP2WAKE]: ressetting in s2w\n");
 
 	//reset doubletap2wake
 	dt2w_time[0] = 0;
+	if (!timetweak)
+	{
 	dt2w_x[0] = 0;
 	dt2w_y[0] = 0;
+	}
 	dt2w_time[1] = 0;
 	dt2w_x[1] = 0;
 	dt2w_y[1] = 0;
@@ -227,21 +230,22 @@ void doubletap2wake_func(int x, int y, unsigned long time)
 	{
 		reset_sweep2wake(true);
 		printk("[SWEEP2WAKE]: d2w reset\n");
+		return;
 	}
 	
 	if ((dt2w_time[0] - dt2w_time[1]) < 10)
 		return;
-printk("[SWEEP2WAKE]: checking d2w\n");
+	printk("[SWEEP2WAKE]: checking d2w\n");
 	dt2w_x[1] = dt2w_x[0];
-    dt2w_x[0] = x;
+	dt2w_x[0] = x;
 	dt2w_y[1] = dt2w_y[0];
-    dt2w_y[0] = y;
+	dt2w_y[0] = y;
 
 	delta_x = (dt2w_x[0]-dt2w_x[1]);
 	delta_y = (dt2w_y[0]-dt2w_y[1]);
 
         if (scr_suspended && doubletap2wake > 0) {
-printk("[SWEEP2WAKE]: y = %d, timedelta = %lu, deltax= %d, deltay = %d\n",y,(dt2w_time[0] - initial_time),delta_x,delta_y);
+		printk("[SWEEP2WAKE]: y = %d, timedelta = %lu, deltax= %d, deltay = %d\n",y,(dt2w_time[0] - initial_time),delta_x,delta_y);
 		if (y > 50 && y < 1200
 			&& ((dt2w_time[0] - initial_time) > DT2W_TIMEOUT_MIN)
 			&& ((dt2w_time[0] - initial_time) < DT2W_TIMEOUT_MAX)
