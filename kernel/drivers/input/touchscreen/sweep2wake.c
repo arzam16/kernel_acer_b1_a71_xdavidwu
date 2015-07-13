@@ -105,7 +105,7 @@ printk("[SWEEP2WAKE]: power button cached\n");
 }
 EXPORT_SYMBOL(sweep2wake_setdev);
 
-static void reset_sweep2wake(void)
+static void reset_sweep2wake(bool timetweak)
 {
 printk("[SWEEP2WAKE]: ressetting in s2w\n");
     pr_info("[sweep2wake]: line : %d | func : %s\n", __LINE__, __func__);
@@ -121,7 +121,14 @@ printk("[SWEEP2WAKE]: ressetting in s2w\n");
 	dt2w_time[1] = 0;
 	dt2w_x[1] = 0;
 	dt2w_y[1] = 0;
-	initial_time = 0;
+	if (timetweak)
+	{
+		initial_time = jiffies;
+	}
+	else
+	{
+		initial_time = 0;
+	}
     return;
 }
 
@@ -130,7 +137,7 @@ static void sweep2wake_presspwr(struct work_struct * sweep2wake_presspwr_work) {
 	if (!mutex_trylock(&pwrkeyworklock))
                 return;
 printk("[SWEEP2WAKE]: pressing power\n");
-        reset_sweep2wake();
+        reset_sweep2wake(false);
 	input_event(sweep2wake_pwrdev, EV_KEY, KEY_POWER, 1);
 	input_event(sweep2wake_pwrdev, EV_SYN, 0, 0);
 	msleep(DEFAULT_S2W_PWRKEY_DUR);
@@ -216,9 +223,9 @@ void doubletap2wake_func(int x, int y, unsigned long time)
 	if (!initial_time)
 		initial_time = time;	
 
-	if ((time - initial_time) > 800)
+	if ((time - initial_time) > DT2W_TIMEOUT_MAX)
 	{
-		reset_sweep2wake();
+		reset_sweep2wake(true);
 		printk("[SWEEP2WAKE]: d2w reset\n");
 	}
 	
