@@ -33,9 +33,9 @@ echo "####  You can find the zImage in the root folder: /build_result/kernel/   
 echo "####  You can find all kernel modules in the root folder: /build_result/modules/ ####"
 echo ""
 echo "####       Repack the zImage with the stock RamDisk, and your done               ####"
-cp build_result/kernel/kernel /home/xdavidwu/桌面/boot4pda.img-kernel.img
+cp build_result/kernel/kernel /home/xdavidwu/桌面/boot.img-kernel.img
 datenow=$(date +%Y%m%d%H%M)
-perl /home/xdavidwu/桌面/repack-MTK.pl -boot /home/xdavidwu/桌面/boot4pda.img-kernel.img /home/xdavidwu/桌面/boot4pda.img-ramdisk /home/xdavidwu/桌面/boot${datenow}.img
+perl /home/xdavidwu/桌面/repack-MTK.pl -boot /home/xdavidwu/桌面/boot.img-kernel.img /home/xdavidwu/桌面/boot.img-ramdisk /home/xdavidwu/桌面/boot${datenow}.img
 if [ "$1" == "test" ]; then
 	echo "testing on real device selected";
 	cd /home/xdavidwu/桌面/;

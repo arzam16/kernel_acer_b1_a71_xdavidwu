@@ -1,6 +1,6 @@
 VERSION = 3
 PATCHLEVEL = 4
-SUBLEVEL = 108
+SUBLEVEL = 109
 EXTRAVERSION =
 NAME = Saber-toothed Squirrel
 
@@ -198,7 +198,7 @@ export KBUILD_BUILDHOST := $(SUBARCH)
 #CROSS_COMPILE	?= $(CONFIG_CROSS_COMPILE:"%"=%)
 ARCH		?= arm
 #CROSS_COMPILE	?= arm-linux-androideabi-
-CROSS_COMPILE	?= ../toolchain/arm-linux-androideabi-4.6/bin/arm-linux-androideabi-
+CROSS_COMPILE	?= ../../../../toolchain/arm-linux-androideabi-4.6/bin/arm-linux-androideabi-
 
 # Architecture as present in compile.h
 UTS_MACHINE 	:= $(ARCH)
