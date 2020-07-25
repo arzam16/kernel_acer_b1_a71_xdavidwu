@@ -8,7 +8,7 @@ This is the kernel source code for Acer Iconia B1-A71. It is based on the B1-710
 
 ## Toolchain
 
-This kernel could be successfully built with GCC 4.9.4 toolchain from [Linaro](https://releases.linaro.org/components/toolchain/binaries/latest-4/arm-linux-gnueabihf/).
+The kernel with its default configuration could be successfully built with GCC 7.5.0 toolchain from [Linaro](https://releases.linaro.org/components/toolchain/binaries/latest-7/arm-linux-gnueabihf/).
 
 ## Building
 
