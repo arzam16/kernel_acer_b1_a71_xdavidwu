@@ -16,7 +16,7 @@ make
 
 ## Toolchain
 
-This kernel could be successfully built with GCC 4.6 toolchain from [Google Git](https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.6/).
+This kernel could be successfully built with GCC 4.9.4 toolchain from [Linaro](https://releases.linaro.org/components/toolchain/binaries/latest-4/arm-linux-gnueabihf/).
 
 ## Non-free (proprietary) code warning
 
