@@ -1,6 +1,14 @@
+# Warning! 
+
+This repository contains non-free (proprietary) components. You can find the list of them in [non-free.txt](https://github.com/arzam16/kernel_acer_b1_a71_xdavidwu/blob/master/non-free.txt).
+
 ## Introduction
 
 This is the kernel source code for Acer Iconia B1-A71. It is based on the B1-710 source package (Linux 3.4.x), including patches to make it work. Thanks [superdragonpt](https://forum.xda-developers.com/member.php?u=5238428) from XDA Developers and [xdavidwu](https://github.com/xdavidwu) for your contributions.
+
+## Toolchain
+
+This kernel could be successfully built with GCC 4.9.4 toolchain from [Linaro](https://releases.linaro.org/components/toolchain/binaries/latest-4/arm-linux-gnueabihf/).
 
 ## Building
 
@@ -14,10 +22,15 @@ export MTK_ROOT_CUSTOM=../mediatek/custom/
 make
 ```
 
-## Toolchain
+## Creating boot.img
 
-This kernel could be successfully built with GCC 4.9.4 toolchain from [Linaro](https://releases.linaro.org/components/toolchain/binaries/latest-4/arm-linux-gnueabihf/).
+After you build the zImage, you can create the flashable boot.img.
+Please note that *you'll need some ramdisk*, the one from the stock RC05RV05 firmware works great.
+You'll also need an `mkimage` program to append MediaTek headers to both kernel and ramdisk.
+`mkbootimg` utility usually could be installed from your OS' package manager.
 
-## Non-free (proprietary) code warning
-
-This repository contains non-free (proprietary) code. You can find the list of non-free components in [non-free.txt](https://github.com/arzam16/kernel_acer_b1_a71_xdavidwu/blob/master/non-free.txt).
+```
+mkimage arch/arm/boot/zImage KERNEL > kernel.mtk
+mkimage /path/to/your/ramdisk ROOTFS > ramdisk.mtk
+mkbootimg --kernel kernel.mtk --ramdisk ramdisk.mtk -o boot.img
+```
