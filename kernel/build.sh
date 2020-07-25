@@ -9,7 +9,6 @@ makeflags="-w -j8"
 makedefs="V=0"
 makejobs=${MAKEJOBS}
 curdir=`pwd`
-TOOLCHAIN="./toolchain/arm-linux-androideabi-4.6/bin"
 #if [ "${KBUILD_OUTPUT_SUPPORT}" == "yes" ];then
 #  outdir=$curdir/out
 #  mkdir -p $outdir
@@ -195,7 +194,7 @@ done
 
 echo "**** Patching all built modules (.ko) in /build_result/modules/ ****"
 cd ..
-find ./build_result/modules/ -type f -name '*.ko' | xargs -n 1 $TOOLCHAIN/arm-linux-androideabi-strip --strip-unneeded
+find ./build_result/modules/ -type f -name '*.ko' | xargs -n 1 ${CROSS_COMPILE}strip --strip-unneeded
 
 echo "####                          Finnish                                            ####"
 echo ""
