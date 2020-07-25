@@ -123,10 +123,18 @@ LINUXINCLUDE += -I$(MTK_ROOT_CUSTOM_OUT)/common
 
 generated_files := $(call mtk.config.generate-rules)
 .config mediatek-configs: $(MTK_ROOT_GEN_CONFIG)/kconfig $(MTK_ROOT_GEN_CONFIG)
-	@echo "[COPY] $< --> $@"
-	@cp $< $@
-	@echo "[COPY] $< --> .config"
-	@cp $< .config
+	if test -f "$@"; then \
+		echo "[HACK] $@ already exists! Not overwriting"; \
+	else \
+		echo "[COPY] $< --> $@"; \
+		cp $< $@; \
+	fi
+	if test -f ".config"; then \
+		echo "[HACK] .config already exists! Not overwriting"; \
+	else \
+		echo "[COPY] $< --> .config"; \
+		cp $< .config; \
+	fi
 ifeq (mediatek-configs,$(MAKECMDGOALS))
 include/config/auto.conf: ;
 endif
