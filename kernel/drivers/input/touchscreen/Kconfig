@@ -853,7 +853,7 @@ config TOUCHSCREEN_TPS6507X
 
 config TOUCHSCREEN_SWEEP2WAKE
        tristate "Sweep2Wake for touchscreens"
-       default y
+       default n
 
 
 
