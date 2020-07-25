@@ -196,11 +196,11 @@ echo "**** Patching all built modules (.ko) in /build_result/modules/ ****"
 cd ..
 find ./build_result/modules/ -type f -name '*.ko' | xargs -n 1 ${CROSS_COMPILE}strip --strip-unneeded
 
-echo "####                          Finnish                                            ####"
+echo "####                           Finish                                            ####"
 echo ""
 
 echo "####  You can find the zImage in the root folder: /build_result/kernel/          ####"
 echo "####  You can find all kernel modules in the root folder: /build_result/modules/ ####"
 echo ""
-echo "####       Repack the zImage with the stock RamDisk, and your done               ####"
+echo "####      Repack the zImage with the stock RamDisk, and you are done             ####"
 
