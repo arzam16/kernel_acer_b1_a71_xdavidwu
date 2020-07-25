@@ -17,3 +17,7 @@ make
 ## Toolchain
 
 This kernel could be successfully built with GCC 4.6 toolchain from [Google Git](https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.6/).
+
+## Non-free (proprietary) code warning
+
+This repository contains non-free (proprietary) code. You can find the list of non-free components in [non-free.txt](https://github.com/arzam16/kernel_acer_b1_a71_xdavidwu/blob/master/non-free.txt).
