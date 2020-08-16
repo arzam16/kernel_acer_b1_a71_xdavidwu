@@ -16,9 +16,7 @@ After you clone the repository, do:
 
 ```
 cd kernel_acer_b1_a71_xdavidwu/kernel
-export ARCH=arm
 export CROSS_COMPILE=/path/to/your/toolchain/bin/arm-xxx-
-export TARGET_PRODUCT=acer17_tb_wifi_only_jb
 make
 ```
 

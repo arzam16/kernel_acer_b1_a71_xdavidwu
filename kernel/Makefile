@@ -4,6 +4,7 @@ SUBLEVEL = 113
 EXTRAVERSION =
 NAME = Saber-toothed Squirrel
 
+export TARGET_PRODUCT = acer17_tb_wifi_only_jb
 export TARGET_BUILD_VARIANT = user
 
 # *DOCUMENTATION*
