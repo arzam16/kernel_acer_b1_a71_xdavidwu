@@ -23,7 +23,7 @@ make
 ## Creating boot.img
 
 After you build the zImage, you can create the flashable boot.img.
-Please note that *you'll need some ramdisk*, the one from the stock RC05RV05 firmware works great.
+Please note that *you'll need some ramdisk*, the one from the stock RV05RC05 firmware works great.
 You'll also need an `mkimage` program to append MediaTek headers to both kernel and ramdisk.
 `mkbootimg` utility usually could be installed from your OS' package manager.
 
