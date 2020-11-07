@@ -89,8 +89,7 @@ extern int i2c_read_bytes(struct i2c_client *client, u16 addr, u8 *rxbuf, int le
 #define GTP_HAVE_TOUCH_KEY           0
 #define GTP_POWER_CTRL_SLEEP         1
 #define GTP_AUTO_UPDATE              1
-#define GTP_CHANGE_X2Y               1
-//UPPER LINE CHANGED BY xdavidwu
+#define GTP_CHANGE_X2Y               0
 #define GTP_ESD_PROTECT              1
 #define GTP_CREATE_WR_NODE           0
 #define GUP_USE_HEADER_FILE          0
@@ -101,8 +100,8 @@ extern int i2c_read_bytes(struct i2c_client *client, u16 addr, u8 *rxbuf, int le
 #define TPD_CHARGER_DET
 //#define TPD_PROXIMITY
 //#define TPD_HAVE_BUTTON               //report key as coordinate,Vibration feedback
-//#define TPD_WARP_X(donno,x) (600-x)
-//#define TPD_WARP_Y(donno,y) (1024-y)
+//#define TPD_WARP_X
+//#define TPD_WARP_Y
 
 #define GTP_DEBUG_ON          0 //for shipping image
 #define GTP_DEBUG_ARRAY_ON    0
@@ -259,12 +258,14 @@ a sample config, send this config should cause the chip cannot work normally*/
 #define TPD_HAVE_CALIBRATION
 #define TPD_NO_GPIO
 #define TPD_RESET_ISSUE_WORKAROUND
+
 #ifdef TPD_WARP_X
 #undef TPD_WARP_X
 #define TPD_WARP_X(x_max, x) ( x_max - 1 - x )
 #else
 #define TPD_WARP_X(x_max, x) x
 #endif
+
 #ifdef TPD_WARP_Y
 #undef TPD_WARP_Y
 #define TPD_WARP_Y(y_max, y) ( y_max - 1 - y )
@@ -272,13 +273,6 @@ a sample config, send this config should cause the chip cannot work normally*/
 #define TPD_WARP_Y(y_max, y) y
 #endif
 
-//xdavidwu
-#ifdef CONFIG_XDW_TS_FIX_4_2
-#ifdef TPD_WARP_Y
-#undef TPD_WARP_Y
-#endif
-#define TPD_WARP_Y(y_max, y) ( y_max - 1 - y )
-#endif
 //Log define
 #define GTP_INFO(fmt,arg...)           printk("<<-GTP-INFO->> "fmt"\n",##arg)
 #define GTP_ERROR(fmt,arg...)          printk("<<-GTP-ERROR->> "fmt"\n",##arg)
