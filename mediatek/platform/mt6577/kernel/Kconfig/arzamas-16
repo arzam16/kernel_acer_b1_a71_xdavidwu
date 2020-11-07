@@ -1,5 +1,25 @@
 menu "arzamas-16's Kernel Tweaks"
 
+config GT927_FLIP_X
+        bool "Flip X axis in GT927 driver"
+        default n
+        help
+           Enable to flip (mirror) X axis in GT927 driver.
+           Do not turn on if you're building for stock Android ROM
+           (RV04RC04, RV05RC05 and so on)
+           Turn on if you're building for TWRP and custom ROM
+           (Android 4.2+, postmarketOS and so on)
+
+config GT927_FLIP_Y
+        bool "Flip Y axis in GT927 driver"
+        default n
+        help
+           Enable to flip (mirror) Y axis in GT927 driver.
+           Do not turn on if you're building for stock Android ROM
+           (RV04RC04, RV05RC05 and so on)
+           Turn on if you're building for TWRP and custom ROM
+           (Android 4.2+, postmarketOS and so on)
+
 config GT927_SWAP_XY
         bool "Swap X and Y axes in GT927 driver"
         default n

@@ -259,15 +259,13 @@ a sample config, send this config should cause the chip cannot work normally*/
 #define TPD_NO_GPIO
 #define TPD_RESET_ISSUE_WORKAROUND
 
-#ifdef TPD_WARP_X
-#undef TPD_WARP_X
+#ifdef CONFIG_GT927_FLIP_X
 #define TPD_WARP_X(x_max, x) ( x_max - 1 - x )
 #else
 #define TPD_WARP_X(x_max, x) x
 #endif
 
-#ifdef TPD_WARP_Y
-#undef TPD_WARP_Y
+#ifdef CONFIG_GT927_FLIP_Y
 #define TPD_WARP_Y(y_max, y) ( y_max - 1 - y )
 #else
 #define TPD_WARP_Y(y_max, y) y
