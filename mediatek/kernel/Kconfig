@@ -75,7 +75,5 @@ endchoice
 source "../mediatek/platform/mt6577/kernel/Kconfig/Kernel"
 source "../mediatek/platform/mt6577/kernel/Kconfig/Board"
 source "../mediatek/platform/mt6577/kernel/Kconfig/Drivers"
-source "../mediatek/platform/mt6577/kernel/Kconfig/xdavidwu"
-
 
 endif
