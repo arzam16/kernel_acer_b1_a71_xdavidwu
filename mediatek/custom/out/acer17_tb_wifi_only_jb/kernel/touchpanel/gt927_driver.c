@@ -1581,11 +1581,20 @@ static int touch_event_handler(void *unused)
 
                 input_x = TPD_WARP_X(abs_x_max, input_x);
                 input_y = TPD_WARP_Y(abs_y_max, input_y);
+                
+                #ifdef CONFIG_GT927_SWAP_XY
+                tpd_calibrate_driver(&input_y, &input_x);
+                #else
                 tpd_calibrate_driver(&input_x, &input_y);
+                #endif
 
                 GTP_DEBUG("Touch point after calibration: [X:%04d, Y:%04d]", input_x, input_y);
 
+                #ifdef CONFIG_GT927_SWAP_XY
+                tpd_down(input_y, input_x, input_w, id);
+                #else
                 tpd_down(input_x, input_y, input_w, id);
+                #endif
             }
         }
         else if (pre_touch)
