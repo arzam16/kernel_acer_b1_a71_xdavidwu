@@ -49,10 +49,10 @@ struct excel_info PartInfo[PART_NUM]={
 			{"misc",393216,0x2188000, EMMC, 0,USER},
 			{"logo",3145728,0x21e8000, EMMC, 0,USER},
 			{"expdb",2097152,0x24e8000, EMMC, 0,USER},
-			{"android",537919488,0x26e8000, EMMC, 3,USER},
-			{"cache",537919488,0x227e8000, EMMC, 4,USER},
-			{"usrdata",537919488,0x428e8000, EMMC, 5,USER},
-			{"fat",0,0x629e8000, EMMC, 6,USER},
+			{"android",642777088,0x26e8000, EMMC, 3,USER},
+			{"cache",537919488,0x28be8000, EMMC, 4,USER},
+			{"usrdata",1069547520,0x48ce8000, EMMC, 5,USER},
+			{"fat",0,0x888e8000, EMMC, 6,USER},
 			{"bmtpool",22020096,0xFFFF00a8, EMMC, 0,USER},
  };
 EXPORT_SYMBOL(PartInfo);
