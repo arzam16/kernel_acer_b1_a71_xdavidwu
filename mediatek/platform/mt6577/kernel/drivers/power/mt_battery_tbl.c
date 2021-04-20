@@ -951,32 +951,32 @@ kal_bool upmu_is_chr_det(void)
 		if( mt_usb_is_device() )
 		{
 			if (Enable_BATDRV_LOG == 1) {
-				xlog_printk(ANDROID_LOG_INFO, "Power/Battery", "[upmu_is_chr_det] Charger exist and USB is not host\n");
+				xlog_printk(ANDROID_LOG_DEBUG, "Power/Battery", "[upmu_is_chr_det] Charger exist and USB is not host\n");
 			}
 			return KAL_TRUE;
 		}
 		else
 		{
 			if (Enable_BATDRV_LOG == 1) {
-				xlog_printk(ANDROID_LOG_INFO, "Power/Battery", "[upmu_is_chr_det] Charger exist but USB is host\n");
+				xlog_printk(ANDROID_LOG_DEBUG, "Power/Battery", "[upmu_is_chr_det] Charger exist but USB is host\n");
 			}
 			//Monitor NCP1851 boost mode status
 			if(ncp1851_get_otg_en()== 0) //boost mode disabled
 			{
               if (Enable_BATDRV_LOG == 1) {
-                  xlog_printk(ANDROID_LOG_INFO, "Power/Battery", "[upmu_is_chr_det] USB host mode but boost 5V not enabled\n");				  
+                  xlog_printk(ANDROID_LOG_DEBUG, "Power/Battery", "[upmu_is_chr_det] USB host mode but boost 5V not enabled\n");				  
 				  if(ncp1851_get_faultint() == 1)
 				  {
-                      xlog_printk(ANDROID_LOG_INFO, "Power/Battery", "[upmu_is_chr_det] ncp1851 fault int detected!\n");				  				  
+                      xlog_printk(ANDROID_LOG_DEBUG, "Power/Battery", "[upmu_is_chr_det] ncp1851 fault int detected!\n");				  				  
 					  ncp1851_read_register(0x6);
 					  bst_int = ncp1851_reg[0x6];
 					  ncp1851_reg[0x6] = 0;
 					  if(bst_int & (CON6_VBUSILIM_MASK << CON6_VBUSILIM_SHIFT))
-						  xlog_printk(ANDROID_LOG_INFO, "Power/Battery", "[upmu_is_chr_det] ncp1851 boost mode fail due to vbus over current!\n"); 			  
+						  xlog_printk(ANDROID_LOG_DEBUG, "Power/Battery", "[upmu_is_chr_det] ncp1851 boost mode fail due to vbus over current!\n"); 			  
 					  if(bst_int & (CON6_VBUSOV_MASK << CON6_VBUSOV_SHIFT))
-						  xlog_printk(ANDROID_LOG_INFO, "Power/Battery", "[upmu_is_chr_det] ncp1851 boost mode fail due to vbus over voltage!\n"); 			  
+						  xlog_printk(ANDROID_LOG_DEBUG, "Power/Battery", "[upmu_is_chr_det] ncp1851 boost mode fail due to vbus over voltage!\n"); 			  
 					  if(bst_int & (CON6_VBATLO_MASK << CON6_VBATLO_SHIFT))
-						  xlog_printk(ANDROID_LOG_INFO, "Power/Battery", "[upmu_is_chr_det] ncp1851 boost mode fail due to vbat low voltage!\n"); 			  					  
+						  xlog_printk(ANDROID_LOG_DEBUG, "Power/Battery", "[upmu_is_chr_det] ncp1851 boost mode fail due to vbat low voltage!\n"); 			  					  
 				  }				  
               }
 			  //ncp1851_set_otg_en(0x1); //TODO: decide if need auto retry
@@ -1409,9 +1409,9 @@ static int mt6577_battery_get_property(struct power_supply *psy,
 	    val->intval = data->BAT_TECHNOLOGY;
 	    break;
 	case POWER_SUPPLY_PROP_CAPACITY:
-	    printk("[mt6577_battery_get_property] Battery Capacity = %d\n", data->BAT_CAPACITY);
+        xlog_printk(ANDROID_LOG_DEBUG, "Power/Battery", "[mt6577_battery_get_property] Battery Capacity = %d\n", data->BAT_CAPACITY);
 	    if (data->BAT_CAPACITY <= 0) {
-			printk ("[mt6577_battery_get_property] Battery Capacity < 0 (%d)\n", data->BAT_CAPACITY);
+			xlog_printk(ANDROID_LOG_DEBUG, "Power/Battery", "[mt6577_battery_get_property] Battery Capacity < 0 (%d)\n", data->BAT_CAPACITY);
 			data->BAT_CAPACITY = 0;
 	    }
 	    val->intval = data->BAT_CAPACITY;
@@ -3813,12 +3813,12 @@ void mt_battery_notify_check(void)
 	if(g_BN_TestMode == 0x0000)
 	{
 		if (Enable_BATDRV_LOG == 1) {
-			xlog_printk(ANDROID_LOG_INFO, "Power/Battery", "[BATTERY] mt_battery_notify_check\n");
+			xlog_printk(ANDROID_LOG_DEBUG, "Power/Battery", "[BATTERY] mt_battery_notify_check\n");
 		}
 
 #if defined(BATTERY_NOTIFY_CASE_0000)
 		if (Enable_BATDRV_LOG == 1) {
-			xlog_printk(ANDROID_LOG_INFO, "Power/Battery", "[BATTERY] BATTERY_NOTIFY_CASE_0000\n");
+			xlog_printk(ANDROID_LOG_DEBUG, "Power/Battery", "[BATTERY] BATTERY_NOTIFY_CASE_0000\n");
 		}
 #endif
 
@@ -3827,7 +3827,7 @@ void mt_battery_notify_check(void)
 		//if(BMT_status.charger_vol > 3000) //test
 		{
 			g_BatteryNotifyCode |= 0x0001;
-			xlog_printk(ANDROID_LOG_INFO, "Power/Battery", "[BATTERY] BMT_status.charger_vol(%ld) > %d mV\n",
+			xlog_printk(ANDROID_LOG_DEBUG, "Power/Battery", "[BATTERY] BMT_status.charger_vol(%ld) > %d mV\n",
 				BMT_status.charger_vol, V_CHARGER_MAX);
 		}
 		else
@@ -3835,7 +3835,7 @@ void mt_battery_notify_check(void)
 			g_BatteryNotifyCode &= ~(0x0001);
 		}
 		if (Enable_BATDRV_LOG == 1) {
-			xlog_printk(ANDROID_LOG_INFO, "Power/Battery", "[BATTERY] BATTERY_NOTIFY_CASE_0001 (%x)\n",
+			xlog_printk(ANDROID_LOG_DEBUG, "Power/Battery", "[BATTERY] BATTERY_NOTIFY_CASE_0001 (%x)\n",
 				g_BatteryNotifyCode);
 		}
 #endif
@@ -3845,7 +3845,7 @@ void mt_battery_notify_check(void)
               if(BMT_status.temperature >= MAX_CHARGE_TEMPERATURE)
               {
               	g_BatteryNotifyCode |= 0x0002;
-              	xlog_printk(ANDROID_LOG_INFO, "Power/Battery", "[BATTERY] bat_temp(%d) > 50'C\n", BMT_status.temperature);
+              	xlog_printk(ANDROID_LOG_DEBUG, "Power/Battery", "[BATTERY] bat_temp(%d) > 50'C\n", BMT_status.temperature);
               }
               else
               {
@@ -3856,7 +3856,7 @@ void mt_battery_notify_check(void)
 		//if(BMT_status.temperature > 20) //test
 		{
 			g_BatteryNotifyCode |= 0x0002;
-			xlog_printk(ANDROID_LOG_INFO, "Power/Battery", "[BATTERY] bat_temp(%d) > 50'C\n", BMT_status.temperature);
+			xlog_printk(ANDROID_LOG_DEBUG, "Power/Battery", "[BATTERY] bat_temp(%d) > 50'C\n", BMT_status.temperature);
 		}
 		else
 		{
@@ -3864,7 +3864,7 @@ void mt_battery_notify_check(void)
 		}
 #endif
 		if (Enable_BATDRV_LOG == 1) {
-			xlog_printk(ANDROID_LOG_INFO, "Power/Battery", "[BATTERY] BATTERY_NOTIFY_CASE_0002 (%x)\n",
+			xlog_printk(ANDROID_LOG_DEBUG, "Power/Battery", "[BATTERY] BATTERY_NOTIFY_CASE_0002 (%x)\n",
 				g_BatteryNotifyCode);
 		}
 #endif
@@ -3877,14 +3877,14 @@ void mt_battery_notify_check(void)
 		//if(BMT_status.ICharging > 200) //test
 		{
 			g_BatteryNotifyCode |= 0x0004;
-			xlog_printk(ANDROID_LOG_INFO, "Power/Battery", "[BATTERY] I_charging(%ld) > 1000mA\n", BMT_status.ICharging);
+			xlog_printk(ANDROID_LOG_DEBUG, "Power/Battery", "[BATTERY] I_charging(%ld) > 1000mA\n", BMT_status.ICharging);
 		}
 		else
 		{
 			g_BatteryNotifyCode &= ~(0x0004);
 		}
 		if (Enable_BATDRV_LOG == 1) {
-			xlog_printk(ANDROID_LOG_INFO, "Power/Battery", "[BATTERY] BATTERY_NOTIFY_CASE_0003 (%x)\n",
+			xlog_printk(ANDROID_LOG_DEBUG, "Power/Battery", "[BATTERY] BATTERY_NOTIFY_CASE_0003 (%x)\n",
 				g_BatteryNotifyCode);
 		}
 #endif
@@ -3894,14 +3894,14 @@ void mt_battery_notify_check(void)
 		//if(BMT_status.bat_vol > 3800) //test
 		{
 			g_BatteryNotifyCode |= 0x0008;
-			xlog_printk(ANDROID_LOG_INFO, "Power/Battery", "[BATTERY] bat_vlot(%ld) > 4350mV\n", BMT_status.bat_vol);
+			xlog_printk(ANDROID_LOG_DEBUG, "Power/Battery", "[BATTERY] bat_vlot(%ld) > 4350mV\n", BMT_status.bat_vol);
 		}
 		else
 		{
 			g_BatteryNotifyCode &= ~(0x0008);
 		}
 		if (Enable_BATDRV_LOG == 1) {
-			xlog_printk(ANDROID_LOG_INFO, "Power/Battery", "[BATTERY] BATTERY_NOTIFY_CASE_0004 (%x)\n",
+			xlog_printk(ANDROID_LOG_DEBUG, "Power/Battery", "[BATTERY] BATTERY_NOTIFY_CASE_0004 (%x)\n",
 				g_BatteryNotifyCode);
 		}
 #endif
@@ -3911,14 +3911,14 @@ void mt_battery_notify_check(void)
 		//if(BMT_status.total_charging_time >= 60) //test
 		{
 			g_BatteryNotifyCode |= 0x0010;
-			xlog_printk(ANDROID_LOG_INFO, "Power/Battery", "[BATTERY] Charging Over Time\n");
+			xlog_printk(ANDROID_LOG_DEBUG, "Power/Battery", "[BATTERY] Charging Over Time\n");
 		}
 		else
 		{
 			g_BatteryNotifyCode &= ~(0x0010);
 		}
 		if (Enable_BATDRV_LOG == 1) {
-			xlog_printk(ANDROID_LOG_INFO, "Power/Battery", "[BATTERY] BATTERY_NOTIFY_CASE_0005 (%x)\n",
+			xlog_printk(ANDROID_LOG_DEBUG, "Power/Battery", "[BATTERY] BATTERY_NOTIFY_CASE_0005 (%x)\n",
 				g_BatteryNotifyCode);
 		}
 #endif
@@ -4572,7 +4572,7 @@ void BAT_thread_ncp1851(void)
 
     if (Enable_BATDRV_LOG == 1)
     {
-        xlog_printk(ANDROID_LOG_INFO, "Power/Battery", "[BAT_thread_ncp1851] End ....\n");
+        xlog_printk(ANDROID_LOG_DEBUG, "Power/Battery", "[BAT_thread_ncp1851] End ....\n");
     }
 }
 

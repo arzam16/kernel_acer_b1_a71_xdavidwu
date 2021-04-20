@@ -646,14 +646,14 @@ void ncp1851_dump_register(void)
         if((i == 10) || (i == 11) || (i == 12) || (i == 13)) //do not dump interrupt mask bit register
             continue;		
         ncp1851_read_byte(i, &ncp1851_reg[i]);
-        xlog_printk(ANDROID_LOG_INFO, "Power/PMIC", "[ncp1851_dump_register] Reg[0x%X]=0x%X\n", i, ncp1851_reg[i]);
+        xlog_printk(ANDROID_LOG_DEBUG, "Power/PMIC", "[ncp1851_dump_register] Reg[0x%X]=0x%X\n", i, ncp1851_reg[i]);
     }
 }
 
 void ncp1851_read_register(int i)
 {
     ncp1851_read_byte(i, &ncp1851_reg[i]);
-    xlog_printk(ANDROID_LOG_INFO, "Power/PMIC", "[ncp1851_read_register] Reg[0x%X]=0x%X\n", i, ncp1851_reg[i]);
+    xlog_printk(ANDROID_LOG_DEBUG, "Power/PMIC", "[ncp1851_read_register] Reg[0x%X]=0x%X\n", i, ncp1851_reg[i]);
 }
 
 #if 0
